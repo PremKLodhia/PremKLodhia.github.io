@@ -472,6 +472,15 @@
       transition: border-color var(--t), color var(--t), background var(--t), transform var(--t);
     }
     .tech-tag:hover { border-color: rgba(0,229,255,0.3); color: var(--cyan); background: var(--cyan-glow); transform: translateY(-1px); }
+    .p-screenshots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .p-screenshots img {
+      width: 100%; border-radius: 10px; border: 1px solid var(--border);
+      transition: border-color var(--t), transform var(--t), box-shadow var(--t);
+      cursor: zoom-in; display: block;
+    }
+    .p-screenshots img:hover { border-color: rgba(0,229,255,0.35); transform: scale(1.02); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .p-screenshots-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+
     .p-link {
       display: inline-flex; align-items: center; gap: 7px;
       font-family: var(--font-mono); font-size: 12px; color: var(--cyan);
@@ -685,6 +694,7 @@
       .certs-grid { grid-template-columns: 1fr; }
       .hero-stats { grid-template-columns: 1fr; }
       .p-cols { grid-template-columns: 1fr; }
+      .p-screenshots { grid-template-columns: 1fr; }
       .about-highlights { grid-template-columns: 1fr; }
       .section-pad { padding: 80px 0; }
       .hero-btns .btn { flex: 1 1 100%; justify-content: center; }
@@ -880,6 +890,11 @@
             <span class="tech-tag">Docker</span>
             <span class="tech-tag">MITRE ATT&amp;CK</span>
             <span class="tech-tag">Bash</span>
+          </div>
+          <div class="p-screenshots-label">Lab Screenshots</div>
+          <div class="p-screenshots">
+            <img src="assets/bluetrace-events-alerts.png" alt="BlueTrace — Events and alerts view" loading="lazy">
+            <img src="assets/bluetrace-comparison-summary.png" alt="BlueTrace — Comparison summary" loading="lazy">
           </div>
           <a href="https://github.com/PremKLodhia/bluetrace-lab" target="_blank" rel="noopener noreferrer" class="p-link">
             View Repository
