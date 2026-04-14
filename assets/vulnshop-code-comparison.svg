@@ -1,0 +1,83 @@
+<svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #0f1419; }
+      .header { fill: #1a1f2e; }
+      .border { stroke: #2a3142; stroke-width: 1; }
+      .text-header { fill: #e0e7ff; font-family: 'Monaco', monospace; font-size: 14px; font-weight: bold; }
+      .text-secondary { fill: #a0aac0; font-family: 'Monaco', monospace; font-size: 12px; }
+      .text-code { fill: #d4d4d8; font-family: 'Monaco', monospace; font-size: 11px; }
+      .keyword { fill: #c792ea; }
+      .string { fill: #4ec9b0; }
+      .comment { fill: #6a737d; }
+      .danger { fill: #f87171; }
+      .success { fill: #4ade80; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg" width="1200" height="720"/>
+  
+  <!-- Header bar -->
+  <rect class="header" width="1200" height="60"/>
+  <text class="text-header" x="24" y="40">VulnShop &lt;/&gt; Code Comparison</text>
+  <text class="text-secondary" x="1000" y="40">Vulnerable vs Patched</text>
+  
+  <!-- Divider -->
+  <line x1="0" y1="60" x2="1200" y2="60" class="border"/>
+  
+  <!-- Top navigation -->
+  <rect class="header" width="1200" height="40" y="60"/>
+  <text class="text-secondary" x="24" y="90">VULNERABLE BUILD</text>
+  <text class="text-secondary" x="600" y="90">PATCHED BUILD</text>
+  
+  <line x1="0" y1="100" x2="1200" y2="100" class="border"/>
+  
+  <!-- Left panel - Vulnerable -->
+  <rect x="12" y="110" width="580" height="590" rx="8" class="header"/>
+  
+  <!-- Tab indicator -->
+  <rect x="28" y="118" width="120" height="4" class="danger" rx="2"/>
+  <text class="danger" x="28" y="150" font-size="13">Vulnerable</text>
+  
+  <!-- Code content left -->
+  <text class="comment" x="40" y="180">// ❌ Unprotected user lookup</text>
+  <text class="text-code" x="40" y="205"><tspan class="keyword">app</tspan>.<tspan class="keyword">get</tspan>(<tspan class="string">'/user/:id'</tspan>)</text>
+  <text class="text-code" x="40" y="225"><tspan class="keyword">const</tspan> user = db.query(</text>
+  <text class="text-code" x="40" y="245"><tspan class="string">'SELECT * FROM users'</tspan> +</text>
+  <text class="text-code" x="40" y="265"><tspan class="string">' WHERE id = '</tspan> + <tspan class="danger">req.params.id</tspan>)</text>
+  <text class="text-code" x="40" y="290"><tspan class="keyword">res</tspan>.json(user)</text>
+  
+  <line x1="28" y1="320" x2="560" y2="320" class="border"/>
+  
+  <text class="danger" x="28" y="355" font-size="13">Issues</text>
+  <text class="comment" x="40" y="385" font-size="10">• No input validation</text>
+  <text class="comment" x="40" y="405" font-size="10">• SQL injection risk</text>
+  <text class="comment" x="40" y="425" font-size="10">• Direct parameter use</text>
+  <text class="comment" x="40" y="445" font-size="10">• IDOR vulnerability</text>
+  <text class="comment" x="40" y="465" font-size="10">• No user ID verification</text>
+  
+  <!-- Right panel - Patched -->
+  <rect x="608" y="110" width="580" height="590" rx="8" class="header"/>
+  
+  <!-- Tab indicator -->
+  <rect x="624" y="118" width="120" height="4" class="success" rx="2"/>
+  <text class="success" x="624" y="150" font-size="13">Patched</text>
+  
+  <!-- Code content right -->
+  <text class="comment" x="636" y="180">// ✓ Secure data access</text>
+  <text class="text-code" x="636" y="205"><tspan class="keyword">app</tspan>.<tspan class="keyword">get</tspan>(<tspan class="string">'/user/:id'</tspan>)</text>
+  <text class="text-code" x="636" y="225"><tspan class="keyword">const</tspan> stmt = db.prepare(</text>
+  <text class="text-code" x="636" y="245"><tspan class="string">'SELECT * FROM users WHERE id = ?'</tspan>)</text>
+  <text class="text-code" x="636" y="265"><tspan class="keyword">const</tspan> user = stmt.get(<tspan class="danger">req.params.id</tspan>)</text>
+  <text class="text-code" x="636" y="290"><tspan class="keyword">res</tspan>.json(user)</text>
+  
+  <line x1="624" y1="320" x2="1156" y2="320" class="border"/>
+  
+  <text class="success" x="624" y="355" font-size="13">Improvements</text>
+  <text class="comment" x="636" y="385" font-size="10">✓ Prepared statements</text>
+  <text class="comment" x="636" y="405" font-size="10">✓ Parameter binding</text>
+  <text class="comment" x="636" y="425" font-size="10">✓ Input validation layer</text>
+  <text class="comment" x="636" y="445" font-size="10">✓ User authorization check</text>
+  <text class="comment" x="636" y="465" font-size="10">✓ IDOR protected</text>
+</svg>

@@ -1,0 +1,78 @@
+<svg viewBox="0 0 1200 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #0f1419; }
+      .header { fill: #1a1f2e; }
+      .border { stroke: #2a3142; stroke-width: 1; }
+      .text-header { fill: #e0e7ff; font-family: 'Monaco', monospace; font-size: 14px; font-weight: bold; }
+      .text-secondary { fill: #a0aac0; font-family: 'Monaco', monospace; font-size: 12px; }
+      .badge-success { fill: #10b981; }
+      .badge-danger { fill: #ef4444; }
+      .accent { fill: #06b6d4; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect class="bg" width="1200" height="720"/>
+  
+  <!-- Header bar -->
+  <rect class="header" width="1200" height="60"/>
+  <text class="text-header" x="24" y="40">VulnShop &lt;/&gt; Dashboard</text>
+  <text class="text-secondary" x="1000" y="40">Security Lab</text>
+  
+  <!-- Vertical divider -->
+  <line x1="0" y1="60" x2="1200" y2="60" class="border"/>
+  
+  <!-- Left sidebar -->
+  <rect class="header" width="200" height="660" x="0" y="60"/>
+  <text class="text-header" x="24" y="110">Vulnerabilities</text>
+  <text class="text-secondary" x="24" y="140">• SQLi</text>
+  <text class="text-secondary" x="24" y="165">• XSS</text>
+  <text class="text-secondary" x="24" y="190">• IDOR</text>
+  <text class="text-secondary" x="24" y="215">• SSRF</text>
+  <text class="text-secondary" x="24" y="240">• File Upload</text>
+  
+  <!-- Main content area -->
+  <rect class="header" x="220" y="100" width="950" height="200"/>
+  <text class="text-header" x="240" y="130">SQL Injection Test Results</text>
+  
+  <!-- Status badge -->
+  <circle class="badge-danger" cx="240" cy="170" r="6"/>
+  <text class="text-secondary" x="260" y="175">Vulnerable</text>
+  
+  <!-- Code snippet -->
+  <text class="accent" x="240" y="210" font-family="Monaco" font-size="11">SELECT * FROM users WHERE id = ' . $_GET['id'] . '</text>
+  <text class="text-secondary" x="240" y="230" font-family="Monaco" font-size="11">Remediation: Use prepared statements</text>
+  
+  <!-- Metrics grid -->
+  <rect class="header" x="220" y="320" width="450" height="140"/>
+  <text class="text-header" x="240" y="350">Vulnerabilities Found</text>
+  <text class="text-header" x="260" y="390" font-size="32">5</text>
+  <text class="text-secondary" x="240" y="430">Critical: 2 | High: 2 | Medium: 1</text>
+  
+  <!-- Remediation status -->
+  <rect class="header" x="700" y="320" width="470" height="140"/>
+  <text class="text-header" x="720" y="350">Remediation Status</text>
+  <circle class="badge-success" cx="740" cy="390" r="6"/>
+  <text class="text-secondary" x="760" y="395">Vulnerable & Patched builds available</text>
+  <text class="text-secondary" x="720" y="430">Side-by-side comparison enabled</text>
+  
+  <!-- Bottom section -->
+  <rect class="header" x="220" y="480" width="950" height="220"/>
+  <text class="text-header" x="240" y="510">Tech Stack</text>
+  <rect class="accent" x="240" y="530" width="80" height="28" rx="4"/>
+  <text class="text-secondary" x="255" y="550" font-size="11">Node.js</text>
+  
+  <rect class="accent" x="340" y="530" width="80" height="28" rx="4"/>
+  <text class="text-secondary" x="355" y="550" font-size="11">Express</text>
+  
+  <rect class="accent" x="440" y="530" width="80" height="28" rx="4"/>
+  <text class="text-secondary" x="455" y="550" font-size="11">SQLite</text>
+  
+  <rect class="accent" x="540" y="530" width="80" height="28" rx="4"/>
+  <text class="text-secondary" x="555" y="550" font-size="11">Docker</text>
+  
+  <text class="text-secondary" x="240" y="600">OWASP Top 10 exploitation practice</text>
+  <text class="text-secondary" x="240" y="625">Intentional vulnerabilities for learning</text>
+  <text class="text-secondary" x="240" y="650">Local environment testing & remediation</text>
+</svg>
