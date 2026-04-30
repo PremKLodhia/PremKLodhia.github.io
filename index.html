@@ -449,9 +449,12 @@
       gap:1px;
       background:rgba(0,102,255,.06);
     }
+    /* Ensure last row of cells get rounded bottom corners */
+    .soc-stats { border-radius: 0 0 0 23px; }
+    .soc-alerts { border-radius: 0 23px 23px 0; }
     .soc-cell {
       background:rgba(7,12,21,.9);
-      padding:18px 20px;
+      padding:18px 20px 20px;
     }
     .soc-cell-title {
       font-family:var(--FM); font-size:8px; letter-spacing:.2em;
@@ -472,8 +475,8 @@
       display:block;
     }
     /* Alert Feed Cell */
-    .soc-alerts { grid-column:3/4; grid-row:1/3; overflow:hidden; }
-    .alert-feed { max-height:340px; overflow-y:auto; }
+    .soc-alerts { grid-column:3/4; grid-row:1/3; overflow:hidden; padding-bottom:20px; }
+    .alert-feed { max-height:360px; overflow-y:auto; }
     .alert-feed::-webkit-scrollbar { width:2px; }
     .alert-feed::-webkit-scrollbar-thumb { background:rgba(0,212,255,.2); }
     .alert-item {
@@ -502,24 +505,27 @@
       align-self:flex-start; margin-left:14px;
     }
     /* Stats Bar */
-    .soc-stats { grid-column:1/3; grid-row:2; }
+    .soc-stats { grid-column:1/3; grid-row:2; padding-bottom:0; }
     .soc-stats-row {
       display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
     }
     .soc-stat {
-      border-radius:10px; padding:14px;
+      border-radius:10px; padding:16px 14px 14px;
       background:rgba(255,255,255,.02);
       border:1px solid rgba(0,212,255,.07);
+      overflow:hidden;
     }
     .soc-stat-n {
       font-family:var(--F1); font-size:24px; font-weight:700;
       line-height:1;
     }
     .soc-stat-l {
-      font-family:var(--FM); font-size:8px; letter-spacing:.14em;
+      font-family:var(--FM); font-size:7px; letter-spacing:.08em;
       text-transform:uppercase; color:rgba(196,216,224,.38); margin-top:4px;
+      white-space:normal; line-height:1.4;
     }
-    .soc-chart-area { height:40px; position:relative; margin-top:8px; }
+    .soc-chart-area { height:72px; position:relative; margin-top:10px; overflow:visible; }
+    .soc-chart-area canvas { display:block; width:100%; height:100%; }
 
     /* ══════════════════════════════════════════════════════
        PROJECTS
@@ -911,6 +917,7 @@
       .certs-grid { grid-template-columns:1fr; }
       .soc-grid { grid-template-columns:1fr; }
       .soc-map,.soc-alerts,.soc-stats { grid-column:auto; grid-row:auto; }
+      .soc-stats-row { grid-template-columns:repeat(2,1fr); }
       .hero-stats { grid-template-columns:repeat(2,1fr); }
       .tl-head { flex-direction:column; gap:8px; }
       .tl-dates { text-align:left; }
@@ -960,7 +967,7 @@
       <a href="#certifications">Certs</a>
       <a href="#contact">Contact</a>
     </div>
-    <a class="nav-cta" href="Prem_Lodhia_CV_AI_Updated.pdf" download>Download CV</a>
+    <a class="nav-cta" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download>Download CV</a>
     <button class="hamburger" id="ham" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -977,7 +984,7 @@
   <a href="#soc" class="mnav-link">Live SOC</a>
   <a href="#certifications" class="mnav-link">Certs</a>
   <a href="#contact" class="mnav-link">Contact</a>
-  <a href="Prem_Lodhia_CV_AI_Updated.pdf" download style="padding:12px 28px;border-radius:999px;background:var(--green);color:var(--ink);font-family:var(--F1);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;">Download CV</a>
+  <a href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download style="padding:12px 28px;border-radius:999px;background:var(--green);color:var(--ink);font-family:var(--F1);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;">Download CV</a>
 </div>
 
 <!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
@@ -1660,10 +1667,10 @@
           <div class="cl-name">GitHub</div>
           <div class="cl-detail">View repositories and labs</div>
         </a>
-        <a class="cl-card glass" href="Prem_Lodhia_CV_AI_Updated.pdf" download>
+        <a class="cl-card glass" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download>
           <div class="cl-ch">Channel 04</div>
           <div class="cl-name">Download CV</div>
-          <div class="cl-detail">Prem_Lodhia_CV_AI_Updated.pdf</div>
+          <div class="cl-detail">Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf</div>
         </a>
       </div>
     </div>
@@ -1684,7 +1691,7 @@
     <nav class="footer-links">
       <a class="footer-link" href="https://github.com/PremKLodhia" target="_blank">GitHub</a>
       <a class="footer-link" href="https://www.linkedin.com/in/prem-lodhia-29a888382/" target="_blank">LinkedIn</a>
-      <a class="footer-link" href="Prem_Lodhia_CV_AI_Updated.pdf" download>CV</a>
+      <a class="footer-link" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download>CV</a>
     </nav>
   </div>
 </footer>
@@ -2145,38 +2152,101 @@ function setupSocClock() {
 // Mini sparkline chart
 function setupMiniCharts() {
   const configs = [
-    { id:"chartEvents", statId:"stat-events", color:"0,255,110", baseVal:847, variance:80 },
-    { id:"chartAlerts",  statId:"stat-alerts",  color:"255,176,32", baseVal:14, variance:5 },
-    { id:"chartBlocked", statId:"stat-blocked", color:"0,212,255", baseVal:203, variance:30 },
-    { id:"chartFP",      statId:"stat-fp",      color:"155,111,255", baseVal:3, variance:2, suffix:"%" },
+    { id:"chartEvents", statId:"stat-events", color:"0,255,110",   baseVal:847, variance:80 },
+    { id:"chartAlerts",  statId:"stat-alerts",  color:"255,176,32",  baseVal:14,  variance:5 },
+    { id:"chartBlocked", statId:"stat-blocked", color:"0,212,255",   baseVal:203, variance:30 },
+    { id:"chartFP",      statId:"stat-fp",      color:"155,111,255", baseVal:3,   variance:2, suffix:"%" },
   ];
 
   configs.forEach(cfg => {
     const c = document.getElementById(cfg.id);
     if(!c) return;
     const ctx = c.getContext("2d");
-    const history = Array.from({length:20}, () => cfg.baseVal + (Math.random()-.5)*cfg.variance*2);
+    const history = Array.from({length:24}, () => cfg.baseVal + (Math.random()-.5)*cfg.variance*2);
+
+    function resize() {
+      const parent = c.parentElement;
+      c.width  = parent.offsetWidth  || 160;
+      c.height = parent.offsetHeight || 72;
+    }
+
+    function draw() {
+      resize();
+      const W = c.width, H = c.height;
+      ctx.clearRect(0, 0, W, H);
+
+      const min = Math.min(...history);
+      const max = Math.max(...history) + 1;
+      const n   = history.length;
+      const PAD = 4;
+
+      // Map data to coords
+      const pts = history.map((v, i) => [
+        (i / (n - 1)) * W,
+        H - PAD - ((v - min) / (max - min)) * (H - PAD * 2)
+      ]);
+
+      // Gradient fill
+      const g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0,   `rgba(${cfg.color},0.28)`);
+      g.addColorStop(0.6, `rgba(${cfg.color},0.08)`);
+      g.addColorStop(1,   `rgba(${cfg.color},0)`);
+
+      // Draw filled area first
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], H);
+      ctx.lineTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length; i++) {
+        const [x0, y0] = pts[i - 1];
+        const [x1, y1] = pts[i];
+        const cx = (x0 + x1) / 2;
+        ctx.bezierCurveTo(cx, y0, cx, y1, x1, y1);
+      }
+      ctx.lineTo(pts[pts.length - 1][0], H);
+      ctx.closePath();
+      ctx.fillStyle = g;
+      ctx.fill();
+
+      // Draw stroke line
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length; i++) {
+        const [x0, y0] = pts[i - 1];
+        const [x1, y1] = pts[i];
+        const cx = (x0 + x1) / 2;
+        ctx.bezierCurveTo(cx, y0, cx, y1, x1, y1);
+      }
+      ctx.strokeStyle = `rgba(${cfg.color},0.85)`;
+      ctx.lineWidth = 1.8;
+      ctx.lineJoin = "round";
+      ctx.stroke();
+
+      // Draw glow on the last point
+      const [lx, ly] = pts[pts.length - 1];
+      ctx.beginPath();
+      ctx.arc(lx, ly, 3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${cfg.color},1)`;
+      ctx.shadowColor = `rgba(${cfg.color},0.9)`;
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
 
     function update() {
       const newVal = Math.max(0, cfg.baseVal + (Math.random()-.5)*cfg.variance*2);
-      history.push(newVal); if(history.length > 20) history.shift();
+      history.push(newVal);
+      if (history.length > 24) history.shift();
       const statEl = document.getElementById(cfg.statId);
-      if(statEl) statEl.textContent = Math.round(newVal) + (cfg.suffix||"");
-      // Draw sparkline
-      c.width = c.offsetWidth || 100; c.height = c.offsetHeight || 40;
-      ctx.clearRect(0,0,c.width,c.height);
-      const min = Math.min(...history), max = Math.max(...history)+1;
-      const pts = history.map((v,i) => [i/(history.length-1)*c.width, c.height - (v-min)/(max-min)*(c.height-4)-2]);
-      ctx.beginPath(); ctx.moveTo(pts[0][0],pts[0][1]);
-      pts.forEach(p => ctx.lineTo(p[0],p[1]));
-      ctx.strokeStyle = `rgba(${cfg.color},0.7)`; ctx.lineWidth = 1.5; ctx.stroke();
-      ctx.lineTo(c.width,c.height); ctx.lineTo(0,c.height); ctx.closePath();
-      const g = ctx.createLinearGradient(0,0,0,c.height);
-      g.addColorStop(0,`rgba(${cfg.color},0.2)`); g.addColorStop(1,`rgba(${cfg.color},0)`);
-      ctx.fillStyle = g; ctx.fill();
+      if (statEl) statEl.textContent = Math.round(newVal) + (cfg.suffix||"");
+      draw();
     }
-    update();
+
+    // Initial draw after layout
+    setTimeout(() => { draw(); }, 100);
     setInterval(update, 2000 + Math.random()*1000);
+
+    // Redraw on resize
+    window.addEventListener("resize", draw, { passive: true });
   });
 }
 
@@ -2406,6 +2476,17 @@ function setupInteractiveTerm() {
 <span class="io-c">  Alert feed: STREAMING</span>
 <span class="io-c">  Detection metrics: LIVE</span>
 <span class="io-g">  All SOC systems nominal · Threat intelligence: LOADED</span>`;
+    },
+
+    cv: () => {
+      const a = document.createElement("a");
+      a.href = "Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf";
+      a.download = "Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf";
+      a.click();
+      return `<span class="io-g">► Decrypting credential file...</span>
+<span class="io-c">  File: Prem_Lodhia_CV.pdf</span>
+<span class="io-c">  Clearance: PUBLIC</span>
+<span class="io-g">  ✓ Download initiated.</span>`;
     },
 
     whoami: () =>
