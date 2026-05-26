@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uses / Stack — Prem Lodhia</title>
+  <meta name="description" content="Tools, setup, and workflow used by Prem Lodhia for cloud security, detection engineering, AI, and full-stack development." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,600;0,700;1,700&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="blog/core-copy.css" />
+  <link rel="stylesheet" href="blog/blog.css" />
+</head>
+<body class="blog-page">
+  <nav id="nav">
+    <div class="nav-i">
+      <a class="nav-brand" href="index.html#hero">
+        <div class="nav-mark">PL</div>
+        <span>Prem Lodhia</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#about">Profile</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#soc">Live SOC</a>
+        <a href="index.html#certifications">Certs</a>
+        <a href="blog.html">Blog</a>
+        <a href="uses.html" style="color:var(--green)">Uses</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download>Download CV</a>
+      <button class="hamburger" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="mnav" id="mnav">
+    <button class="mnav-close" id="mnavClose">ESC / CLOSE</button>
+    <a href="index.html#about" class="mnav-link">Profile</a>
+    <a href="index.html#experience" class="mnav-link">Experience</a>
+    <a href="index.html#skills" class="mnav-link">Skills</a>
+    <a href="index.html#projects" class="mnav-link">Projects</a>
+    <a href="index.html#soc" class="mnav-link">Live SOC</a>
+    <a href="index.html#certifications" class="mnav-link">Certs</a>
+    <a href="blog.html" class="mnav-link">Blog</a>
+    <a href="uses.html" class="mnav-link" style="color:var(--green)">Uses</a>
+    <a href="index.html#contact" class="mnav-link">Contact</a>
+    <a href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download style="padding:12px 28px;border-radius:999px;background:var(--green);color:var(--ink);font-family:var(--F1);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;">Download CV</a>
+  </div>
+
+  <header class="blog-hero" style="min-height:calc(100vh - 120px);padding-top:120px;">
+    <div class="container">
+      <span class="badge">Uses / Stack</span>
+      <h1 class="sec-title">Tools, Setup, and Workflow</h1>
+      <p class="sec-sub" style="margin: 0 auto; max-width: 720px;">A practical breakdown of the hardware, software, cloud tooling, and security workflow I use for development, detection engineering, and AI research.</p>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 40px 0; max-width: 1080px;">
+    <section class="glass" style="padding:32px; margin-bottom:28px; background:rgba(3,6,11,.88); border:1px solid rgba(0,255,110,.08);">
+      <h2 class="sec-title" style="font-size:28px; margin-bottom:18px;">Desktop & Laptop Setup</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:20px;">
+        <div style="padding:18px; border-radius:18px; background:rgba(255,255,255,.02);">
+          <h3 style="margin-bottom:10px; font-size:16px; letter-spacing:.1em; text-transform:uppercase; color:var(--green);">Primary Machine</h3>
+          <p>"15.6" 2-in-1 convertible with a Super AMOLED 1080p touchscreen, Intel Core i7 (11th Gen) with Intel Iris Xe Graphics, 16GB LPDDR4x RAM, 512GB NVMe SSD, and a 360° hinge for tablet/laptop switching. Runs Windows 11 + Ubuntu dual-boot for cross-platform security testing. MIL-STD-810 military-grade rated. Ships with S Pen.</p>
+          <ul style="margin:12px 0 0 0; padding-left:18px; font-size:13px; color:rgba(196,216,224,.78);">
+            <li>VS Code / JetBrains</li>
+            <li>Docker Desktop & WSL2</li>
+            <li>Wireshark / Splunk / Burp Suite</li>
+            <li>Windows 11 + Ubuntu dual-boot</li>
+            <li>S Pen (note-taking, diagramming)</li>
+            <li>Thunderbolt 4 / USB-C only ports</li>
+          </ul>
+        </div>
+        <div style="padding:18px; border-radius:18px; background:rgba(255,255,255,.02);">
+          <h3 style="margin-bottom:10px; font-size:16px; letter-spacing:.1em; text-transform:uppercase; color:var(--green);">Mobile / Responsive Testing</h3>
+          <p>Browser devtools, responsive layouts, and lightweight fallback views to make the portfolio fluid on both phones and desktop screens.</p>
+          <ul style="margin:12px 0 0 0; padding-left:18px; font-size:13px; color:rgba(196,216,224,.78);">
+            <li>Chrome DevTools device emulation</li>
+            <li>Touch-friendly canvas controls</li>
+            <li>Graceful mobile fallbacks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass" style="padding:32px; margin-bottom:28px; background:rgba(3,6,11,.88); border:1px solid rgba(0,255,110,.08);">
+      <h2 class="sec-title" style="font-size:28px; margin-bottom:18px;">Software Stack</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:20px;">
+        <div style="padding:18px; border-radius:18px; background:rgba(255,255,255,.02);">
+          <h3 style="margin-bottom:10px; font-size:16px; letter-spacing:.1em; text-transform:uppercase; color:var(--cyan);">Development</h3>
+          <p>Python, JavaScript, Node.js, Bash, PowerShell, SQL, HTML/CSS, and Git. Most work is iteration-based: code, test, review, document.</p>
+        </div>
+        <div style="padding:18px; border-radius:18px; background:rgba(255,255,255,.02);">
+          <h3 style="margin-bottom:10px; font-size:16px; letter-spacing:.1em; text-transform:uppercase; color:var(--cyan);">Security Tools</h3>
+          <p>Splunk, Suricata, Wireshark, Docker, Burp Suite, Nmap, and custom detection rule pipelines. I prefer practical labs over theory.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass" style="padding:32px; margin-bottom:28px; background:rgba(3,6,11,.88); border:1px solid rgba(0,255,110,.08);">
+      <h2 class="sec-title" style="font-size:28px; margin-bottom:18px;">Cloud & Platform Workflow</h2>
+      <p style="margin-bottom:18px; color:rgba(196,216,224,.78); font-size:15px;">I use a hybrid workflow where local labs and cloud services complement each other. That means building secure environments locally, then testing against real cloud telemetry and deployment patterns.</p>
+      <ul style="padding-left:18px; font-size:13px; color:rgba(196,216,224,.78); line-height:1.8;">
+        <li><strong>Local lab first:</strong> Docker and VM-based experimentation for BlueTrace, VulnShop, and IoT prototypes.</li>
+        <li><strong>Cloud-aware design:</strong> AWS-style logging, IAM policy hardening, and detection engineering with realistic audit trails.</li>
+        <li><strong>Documentation step:</strong> every lab is captured as a write-up so the process and learnings are reproducible.</li>
+        <li><strong>Security review:</strong> threat modelling, MITRE mapping, and rule tuning are built into the delivery cycle.</li>
+      </ul>
+    </section>
+
+    <section class="glass" style="padding:32px; margin-bottom:28px; background:rgba(3,6,11,.88); border:1px solid rgba(0,255,110,.08);">
+      <h2 class="sec-title" style="font-size:28px; margin-bottom:18px;">Workflow Summary</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:20px;">
+        <div style="padding:18px; border-radius:18px; background:rgba(255,255,255,.02);">
+          <h3 style="margin-bottom:10px; font-size:16px; letter-spacing:.1em; text-transform:uppercase; color:var(--purple);">Plan</h3>
+          <p>Define the threat scenario, pick the lab targets, and choose tooling that matches a real-world security stack.</p>
+        </div>
+        <div style="padding:18px; border-radius:18px; background:rgba(255,255,255,.02);">
+          <h3 style="margin-bottom:10px; font-size:16px; letter-spacing:.1em; text-transform:uppercase; color:var(--purple);">Build</h3>
+          <p>Construct the lab, deploy services, and instrument logs so that detection and analysis can be measured.</p>
+        </div>
+        <div style="padding:18px; border-radius:18px; background:rgba(255,255,255,.02);">
+          <h3 style="margin-bottom:10px; font-size:16px; letter-spacing:.1em; text-transform:uppercase; color:var(--purple);">Test</h3>
+          <p>Run attack flows, validate alerts, capture telemetry, and tune detection logic to reduce false positives.</p>
+        </div>
+        <div style="padding:18px; border-radius:18px; background:rgba(255,255,255,.02);">
+          <h3 style="margin-bottom:10px; font-size:16px; letter-spacing:.1em; text-transform:uppercase; color:var(--purple);">Document</h3>
+          <p>Turn findings into blog posts, lab notes, and reproducible project collateral for future review and recruiter visibility.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-i">
+      <div class="footer-brand">PL</div>
+      <div>
+        <div class="footer-copy">© 2026 Prem Lodhia · Cloud Security Engineer</div>
+        <div class="footer-status"><div class="footer-status-dot"></div>System Online · Security Portal Active</div>
+      </div>
+      <nav class="footer-links">
+        <a class="footer-link" href="https://github.com/PremKLodhia" target="_blank">GitHub</a>
+        <a class="footer-link" href="https://www.linkedin.com/in/prem-lodhia-29a888382/" target="_blank">LinkedIn</a>
+        <a class="footer-link" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download>CV</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="blog/blog.js"></script>
+</body>
+</html>
