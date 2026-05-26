@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log Viewer — Prem Lodhia</title>
+  <meta name="description" content="Technical journals and research logs on Cloud Security, Detection Engineering, AppSec, and AI System Guardrails." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,600;0,700;1,700&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="blog/core-copy.css" />
+  <link rel="stylesheet" href="blog/blog.css" />
+</head>
+<body class="blog-page">
+
+  <!-- ═══════════════════════════════════ BREAKING NEWS BANNER ═══════════════════════════════════ -->
+  <div id="newsBanner">
+    <div class="banner-inner">
+      <div class="banner-badge-wrap">
+        <span class="banner-trophy">🏆</span>
+        <div class="banner-sep"></div>
+        <span class="banner-breaking">Hackathon Winner</span>
+      </div>
+      <div class="banner-ticker-wrap">
+        <div class="banner-ticker">
+          <div class="bt-item">
+            <span class="bt-hl">Innovation Fest 2026 Winner</span>
+            <span class="bt-dim">—</span>
+            <span>KINORA: AI-Powered Elderly Care Ecosystem — Raspberry Pi 5 Hub · Fall Detection · Smart Pendant · Family App</span>
+            <span class="bt-dot"></span>
+          </div>
+          <div class="bt-item">
+            <span class="bt-hl">Team Lead &amp; Security Engineer</span>
+            <span class="bt-dim">·</span>
+            <span>Built and pitched a complete hardware + software product with financials and go-to-market strategy in 24 hours</span>
+            <span class="bt-dot"></span>
+          </div>
+          <div class="bt-item">
+            <span class="bt-hl">Bridge</span>
+            <span class="bt-dim">·</span>
+            <span>Community-driven local guide platform now live — connecting travellers with authentic local experiences</span>
+            <span class="bt-dot"></span>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="bt-item">
+            <span class="bt-hl">Innovation Fest 2026 Winner</span>
+            <span class="bt-dim">—</span>
+            <span>KINORA: AI-Powered Elderly Care Ecosystem — Raspberry Pi 5 Hub · Fall Detection · Smart Pendant · Family App</span>
+            <span class="bt-dot"></span>
+          </div>
+          <div class="bt-item">
+            <span class="bt-hl">Team Lead &amp; Security Engineer</span>
+            <span class="bt-dim">·</span>
+            <span>Built and pitched a complete hardware + software product with financials and go-to-market strategy in 24 hours</span>
+            <span class="bt-dot"></span>
+          </div>
+          <div class="bt-item">
+            <span class="bt-hl">Bridge</span>
+            <span class="bt-dim">·</span>
+            <span>Community-driven local guide platform now live — connecting travellers with authentic local experiences</span>
+            <span class="bt-dot"></span>
+          </div>
+        </div>
+      </div>
+      <button class="banner-close" id="newsBannerClose" title="Dismiss">✕</button>
+    </div>
+  </div>
+
+  <!-- Scroll Progress & Glow Canvas Elements -->
+  <div id="spb"></div>
+  <div id="cg"></div>
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ═══════════════════════════════════ CYBERSEC LOADER ═══════════════════════════════════ -->
+  <div id="loader">
+    <div class="ld-box">
+      <div class="ld-logo">PL</div>
+      <div class="ld-name">Prem Lodhia</div>
+      <div class="ld-sub">Security Log Portal &middot; Research Journals</div>
+      <div class="ld-term" id="ldTerm"></div>
+      <div class="ld-prog"><div class="ld-fill" id="ldFill"></div></div>
+      <div class="ld-stat">
+        <span id="ldPct">0%</span>
+        <span id="ldStage">Initializing...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ NAVBAR ═══════════════════════════════════ -->
+  <nav id="nav">
+    <div class="nav-i">
+      <a class="nav-brand" href="index.html#hero">
+        <div class="nav-mark">PL</div>
+        <span>Prem Lodhia</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#about">Profile</a>
+        <a href="index.html#experience">Experience</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#soc">Live SOC</a>
+        <a href="index.html#certifications">Certs</a>
+        <a href="blog.html" style="color:var(--green)">Blog</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download>Download CV</a>
+      <button class="hamburger" id="ham" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mnav" id="mnav">
+    <button class="mnav-close" id="mnavClose">ESC / CLOSE</button>
+    <a href="index.html#about" class="mnav-link">Profile</a>
+    <a href="index.html#experience" class="mnav-link">Experience</a>
+    <a href="index.html#skills" class="mnav-link">Skills</a>
+    <a href="index.html#projects" class="mnav-link">Projects</a>
+    <a href="index.html#soc" class="mnav-link">Live SOC</a>
+    <a href="index.html#certifications" class="mnav-link">Certs</a>
+    <a href="blog.html" class="mnav-link" style="color:var(--green)">Blog</a>
+    <a href="index.html#contact" class="mnav-link">Contact</a>
+    <a href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download style="padding:12px 28px;border-radius:999px;background:var(--green);color:var(--ink);font-family:var(--F1);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;">Download CV</a>
+  </div>
+
+  <!-- Background Orbs -->
+  <div class="blog-bg-orbs">
+    <div class="blog-orb blog-orb-1"></div>
+    <div class="blog-orb blog-orb-2"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════ MAIN POST CONTENT AREA ═══════════════════════════════════ -->
+  <main class="post-header-sec" id="post-content-root">
+    <!-- Dynamic Content will be injected here by blog.js -->
+  </main>
+
+  <!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════════ -->
+  <footer>
+    <div class="footer-i">
+      <div class="footer-brand">PL</div>
+      <div>
+        <div class="footer-copy">© 2026 Prem Lodhia · Cloud Security Engineer</div>
+        <div class="footer-status"><div class="footer-status-dot"></div>System Online · Security Portal Active</div>
+      </div>
+      <nav class="footer-links">
+        <a class="footer-link" href="https://github.com/PremKLodhia" target="_blank">GitHub</a>
+        <a class="footer-link" href="https://www.linkedin.com/in/prem-lodhia-29a888382/" target="_blank">LinkedIn</a>
+        <a class="footer-link" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download>CV</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════ SCRIPTS ═══════════════════════════════════ -->
+  <!-- Renderers -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  
+  <!-- Prism Language Components for Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  
+  <!-- Diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+
+  <!-- Blog Database & Portal Controller -->
+  <script src="blog/posts.js"></script>
+  <script src="blog/blog.js"></script>
+</body>
+</html>
