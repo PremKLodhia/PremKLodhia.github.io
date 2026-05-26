@@ -369,6 +369,16 @@
     .mnav a:hover { color:var(--green); }
     .mnav-close { position:absolute; top:24px; right:24px; font-family:var(--FM); font-size:11px; color:rgba(196,216,224,.4); letter-spacing:.1em; }
 
+    /* Mobile adjustments */
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      #nav { padding: 10px 16px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 18px; }
+      .hero-right { display: none; }
+    }
+
     /* ══════════════════════════════════════════════════════
        HERO
     ══════════════════════════════════════════════════════ */
@@ -2765,7 +2775,13 @@ function onTap() {
   skipCinematic();
 }
 
-runCinematic();
+// If the cinematic loader markup was removed, skip the cinematic sequence
+// to avoid locking scroll or running timers that expect DOM nodes.
+if (!loaderEl) {
+  initAll();
+} else {
+  runCinematic();
+}
 
 /* ─────────────── INIT ALL ─────────────── */
 function initAll() {
