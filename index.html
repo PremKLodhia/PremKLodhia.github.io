@@ -181,163 +181,52 @@
     @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
     @keyframes orbFloat { 0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(-40px) scale(1.04)}70%{transform:translateY(18px) scale(.97)} }
 
-    /* ══════════════════════════════════════════════════════════════════════════════
-       CINEMATIC LOADER (Fullscreen Boot Sequence)
-       Near-black background #060608, cold white text, cyan scan, red stamp, hard-edged
-    ══════════════════════════════════════════════════════════════════════════════ */
+    /* ══════════════════════════════════════════════════════
+       LOADER
+    ══════════════════════════════════════════════════════ */
     #loader {
-      position: fixed;
-      inset: 0;
-      z-index: 999999;
-      background: radial-gradient(circle at 30% 18%, rgba(0,255,110,0.24), transparent 16%), radial-gradient(circle at 70% 12%, rgba(0,255,120,0.18), transparent 24%), linear-gradient(180deg, #062b0a 0%, #031502 58%, #000b02 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: fixed; inset: 0; z-index: 90000;
+      background: #000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: clamp(20px,5vw,60px);
+      transition: transform 1.1s cubic-bezier(.76,0,.24,1), opacity .4s ease .6s;
       overflow: hidden;
-      -webkit-font-smoothing: antialiased;
-      font-family: "Courier New", monospace;
-      color: #a8ffb0;
-      pointer-events: auto;
     }
     #loader::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(0deg, rgba(0,255,120,0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,120,0.06) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(0,255,120,0.02) 0%, rgba(0,255,120,0.02) 50%, transparent 50%, transparent 100%);
-      background-size: 4px 4px, 4px 4px, 100% 6px;
-      opacity: 0.38;
-      mix-blend-mode: overlay;
-      animation: grain 0.38s steps(2, end) infinite;
+      content:''; position:absolute; inset:0;
+      background: repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,255,110,.008) 3px,rgba(0,255,110,.008) 4px);
+      pointer-events:none;
     }
-    #loader::after {
-      content: '';
+    #loader.out { transform: translateY(-100vh); opacity: 0; pointer-events: none; }
+    #ldCanvas {
       position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: radial-gradient(circle at 50% 15%, rgba(0,255,120,0.12), transparent 18%);
-      opacity: 0.35;
-      mix-blend-mode: screen;
-    }
-    @keyframes grain { 0%{transform: translate(0,0);} 100%{transform: translate(-100%,100%);} }
-    .loader-stage { position: relative; width: 100%; height: 100%; }
-    .stamp {
-      position: absolute;
+      top: 50%;
       left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%) rotate(-3deg) scale(0.68);
-      color: #cc0000;
-      font-size: clamp(42px, 6vw, 92px);
-      font-weight: 900;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      opacity: 0;
-      line-height: 1;
-      white-space: nowrap;
-      mix-blend-mode: normal;
-      text-shadow: 0 0 12px rgba(204,0,0,0.4);
-    }
-    .stamp.show { animation: stampIn 180ms cubic-bezier(0.34,1.56,0.64,1) forwards; }
-    @keyframes stampIn { 0%{opacity:0;transform:translate(-50%,-50%) rotate(-3deg) scale(0.35);} 70%{opacity:1;transform:translate(-50%,-50%) rotate(-3deg) scale(1.12);} 100%{transform:translate(-50%,-50%) rotate(-3deg) scale(1);} }
-    .stamp.redact::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: #060608;
-      transform: translateX(-100%);
-      animation: redact 200ms linear forwards;
-    }
-    @keyframes redact { 0%{transform: translateX(-100%);} 100%{transform: translateX(100%);} }
-    .terminal {
-      position: absolute;
-      top: 12%;
-      left: 6%;
-      right: 6%;
-      max-width: 760px;
-      opacity: 0;
+      transform: translate(-50%, -50%);
+      width: min(500px, 92vw) !important;
+      height: min(500px, 92vw) !important;
+      opacity: 0.28;
       pointer-events: none;
-      transition: opacity 120ms linear;
-      text-shadow: 0 0 12px rgba(0,255,120,0.18);
+      z-index: 0;
     }
-    .terminal.visible { opacity: 1; }
-    .terminal-lines { display: flex; flex-direction: column; gap: 8px; }
-    .terminal-line {
-      opacity: 0;
-      transform: translateY(2px);
-      font-family: "Courier New", monospace;
-      font-size: clamp(13px, 1.8vw, 18px);
-      letter-spacing: 0.08em;
-      white-space: pre;
-      color: #8cff94;
+    .ld-box {
+      width: min(680px,94vw); text-align:center;
+      display:flex; flex-direction:column; align-items:center; position:relative; z-index:1;
     }
-    .cursor-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 18px;
-      opacity: 0;
-      transition: opacity 120ms linear;
+    .ld-box::before,.ld-box::after {
+      content:''; position:absolute; width:22px; height:22px; border-style:solid; border-color:rgba(0,255,110,.18);
     }
-    .terminal.visible .cursor-row { opacity: 1; }
-    .terminal-cursor {
-      width: 10px;
-      height: 22px;
-      background: #8cff94;
-      box-shadow: 0 0 10px rgba(140,255,148,0.7);
-      animation: blink 1s steps(1, start) infinite;
-    }
-    @keyframes blink { 0%,50%{opacity:1;} 51%,100%{opacity:0;} }
-    .laser-line {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 100%;
-      height: 2px;
-      background: #8cff94;
-      box-shadow: 0 0 18px rgba(140,255,148,0.5);
-      opacity: 0;
-      transform: scaleX(0);
-      transform-origin: left center;
-      pointer-events: none;
-    }
-    .laser-line.visible {
-      opacity: 1;
-      animation: laserDraw 140ms linear forwards;
-    }
-    @keyframes laserDraw { 0%{transform: scaleX(0);} 100%{transform: scaleX(1);} }
-    .slice-container {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      pointer-events: none;
-    }
-    .slice {
-      position: relative;
-      background: #060608;
-      transform: translateY(0) rotate(0deg);
-      transition: transform 0.36s ease-in, opacity 0.36s ease-in;
-    }
-    .slice.shatter:nth-child(1) { transform: translate(-130%, -18%) rotate(-4deg); opacity:0; }
-    .slice.shatter:nth-child(2) { transform: translate(112%, 18%) rotate(3deg); opacity:0; }
-    .slice.shatter:nth-child(3) { transform: translate(-118%, 14%) rotate(-3deg); opacity:0; }
-    .slice.shatter:nth-child(4) { transform: translate(105%, -8%) rotate(3deg); opacity:0; }
-    .slice.shatter:nth-child(5) { transform: translate(-125%, 20%) rotate(-5deg); opacity:0; }
-    .slice.shatter:nth-child(6) { transform: translate(108%, -18%) rotate(4deg); opacity:0; }
-    .slice.shatter:nth-child(7) { transform: translate(-98%, -10%) rotate(-2deg); opacity:0; }
-    .slice.shatter:nth-child(8) { transform: translate(110%, 12%) rotate(2deg); opacity:0; }
-    .loader-fade { animation: loaderFade 600ms linear forwards; }
-    @keyframes loaderFade { 0%{opacity:1;} 100%{opacity:0;} }
-    @media (prefers-reduced-motion: reduce) {
-      #loader { animation: none !important; }
-      .stamp, .terminal, .terminal-line, .terminal-cursor, .laser-line, .slice { animation: none !important; transition: none !important; }
-      .laser-line.visible { transform: scaleX(1); opacity: 1; }
-      .terminal.visible { opacity: 1; }
-      .cursor-row { opacity: 1; }
-    }
+    .ld-box::before { top:-12px;left:-12px; border-width:2px 0 0 2px; }
+    .ld-box::after  { bottom:-12px;right:-12px; border-width:0 2px 2px 0; }
+    .ld-logo { font-family:var(--F1); font-size: clamp(72px,20vw,160px); font-weight:700; color: var(--green); line-height:1; letter-spacing:.06em; text-shadow: 0 0 60px rgba(0,255,110,.9), 0 0 180px rgba(0,255,110,.3); }
+    .ld-name { font-family:var(--F1); font-size:clamp(10px,1.8vw,16px); letter-spacing:.5em; text-transform:uppercase; color:rgba(196,216,224,.4); margin:4px 0; }
+    .ld-sub { font-family:var(--FM); font-size:9px; letter-spacing:.28em; color:rgba(0,255,110,.35); text-transform:uppercase; margin-bottom:24px; }
+    .ld-term { width:100%; min-height:130px; text-align:left; padding:14px 18px; border-radius:10px; background:rgba(0,255,110,.02); border:1px solid rgba(0,255,110,.09); font-family:var(--FM); font-size:11px; color:rgba(0,255,110,.65); margin-bottom:16px; overflow:hidden; position:relative; }
+    .ld-term::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,110,.005) 2px,rgba(0,255,110,.005) 4px); pointer-events:none; }
+    .ld-line { display:block; margin-bottom:3px; }
+    .ld-prog { width:100%;height:2px;border-radius:999px;background:rgba(0,255,110,.07);overflow:hidden; }
+    .ld-fill { width:0%;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));box-shadow:0 0 10px var(--green);transition:width .18s ease; }
+    .ld-stat { margin-top:6px; display:flex; justify-content:space-between; font-family:var(--FM); font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:rgba(0,255,110,.35); }
 
     /* ══════════════════════════════════════════════════════
        NAVBAR
@@ -368,16 +257,6 @@
     .mnav a { font-family:var(--F1); font-size:clamp(22px,6vw,36px); text-transform:uppercase; letter-spacing:.06em; color:rgba(196,216,224,.7); transition:color .2s; }
     .mnav a:hover { color:var(--green); }
     .mnav-close { position:absolute; top:24px; right:24px; font-family:var(--FM); font-size:11px; color:rgba(196,216,224,.4); letter-spacing:.1em; }
-
-    /* Mobile adjustments */
-    @media (max-width: 860px) {
-      .nav-links { display: none; }
-      .nav-cta { display: none; }
-      .hamburger { display: flex; }
-      #nav { padding: 10px 16px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 18px; }
-      .hero-right { display: none; }
-    }
 
     /* ══════════════════════════════════════════════════════
        HERO
@@ -471,7 +350,6 @@
     @keyframes winnerGlow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
     .winner-badge { position: absolute; top: 10px; right: 10px; z-index: 10; display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: rgba(255,208,96,.12); border: 1px solid rgba(255,208,96,.35); font-family: var(--FM); font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); backdrop-filter: blur(12px); box-shadow: 0 0 16px rgba(255,208,96,.15); }
     .winner-trophy { font-size: 11px; animation: trophyPulse 2.5s ease-in-out infinite; }
-    .winner-badge.hack { background: rgba(0,212,255,.08); border: 1px solid rgba(0,212,255,.15); color: var(--cyan); box-shadow: 0 0 16px rgba(0,212,255,.06); }
     .innov-tag { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; border-radius: 6px; margin-bottom: 10px; font-family: var(--FM); font-size: 8px; letter-spacing: .14em; text-transform: uppercase; background: rgba(255,208,96,.07); border: 1px solid rgba(255,208,96,.2); color: var(--gold); }
     .innov-tag-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 6px var(--gold); }
     .proj-thumb { height:140px; position:relative; flex-shrink:0; overflow:hidden; }
@@ -534,25 +412,6 @@
     .tag-ai { color:rgba(255,176,32,.8); background:rgba(255,176,32,.05); border:1px solid rgba(255,176,32,.15); }
     .tag-ai:hover { background:rgba(255,176,32,.12); }
     .tag-dev { color:rgba(155,111,255,.85); background:rgba(155,111,255,.05); border:1px solid rgba(155,111,255,.15); }
-
-    /* Responsive tweaks: make project grid and cards mobile-friendly */
-    @media (max-width: 900px) {
-      .proj-grid { grid-template-columns: repeat(2, 1fr); gap:16px; }
-      .proj-card { border-radius:14px; }
-      .proj-thumb { height:150px; }
-      .proj-title { font-size:16px; }
-    }
-    @media (max-width: 520px) {
-      .proj-grid { grid-template-columns: 1fr; gap:14px; }
-      .proj-card { margin: 0; }
-      .proj-thumb { height:120px; }
-      .proj-body { padding:16px; }
-      .proj-title { font-size:14px; }
-      .proj-story { font-size:13px; }
-      .proj-tags { gap:8px; }
-      .proj-link-row { flex-direction:column; align-items:flex-start; }
-      .winner-badge { top:8px; right:8px; font-size:7px; padding:4px 8px; }
-    }
     .tag-dev:hover { background:rgba(155,111,255,.12); }
     .tag-net { color:rgba(255,100,180,.8); background:rgba(255,100,180,.05); border:1px solid rgba(255,100,180,.15); }
     .tag-net:hover { background:rgba(255,100,180,.12); }
@@ -590,12 +449,6 @@
     .tl-node { flex-shrink:0; width:35px; display:flex; flex-direction:column; align-items:center; padding-top:4px; }
     .tl-dot { width:14px;height:14px;border-radius:50%;z-index:1; }
     .tl-dot-g { background:var(--green);box-shadow:0 0 12px var(--green); } .tl-dot-c { background:var(--cyan);box-shadow:0 0 12px var(--cyan); }
-    .tl-dot-p { background:var(--purple);box-shadow:0 0 12px rgba(155,111,255,.9); }
-    .tl-logo { width:40px; height:40px; min-width:40px; border-radius:16px; display:flex;align-items:center;justify-content:center;font-family:var(--F1);font-size:11px;font-weight:800;color:var(--cream);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);box-shadow:0 0 12px rgba(0,0,0,.12); }
-    .tl-co.purple { color:rgba(155,111,255,.65); }
-    .tl-dot-p { background:var(--purple);box-shadow:0 0 12px rgba(155,111,255,.9); }
-    .tl-logo { width:40px; height:40px; min-width:40px; border-radius:16px; display:flex;align-items:center;justify-content:center;font-family:var(--F1);font-size:11px;font-weight:800;color:var(--cream);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);box-shadow:0 0 12px rgba(0,0,0,.12); }
-    .tl-co.purple { color:rgba(155,111,255,.65); }
     .tl-card { flex:1; border-radius:18px; padding:24px 28px; }
     .tl-active { display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;margin-bottom:12px;font-family:var(--FM);font-size:8px;letter-spacing:.14em;text-transform:uppercase; }
     .tl-active.green { color:var(--green);background:rgba(0,255,110,.07);border:1px solid rgba(0,255,110,.18); }
@@ -758,8 +611,6 @@
       width: 100% !important;
       height: 100% !important;
       outline: none;
-      touch-action: none;
-      user-select: none;
     }
     .sg-label {
       position: absolute;
@@ -957,56 +808,12 @@
       .soc-grid { grid-template-columns:1fr; }
       .soc-map,.soc-alerts,.soc-stats { grid-column:auto; grid-row:auto; }
       .soc-stats-row { grid-template-columns:repeat(2,1fr); }
-      .hero-stats { grid-template-columns:1fr; }
-      .hero-left, .hero-grid { width: 100%; }
-      #hero { padding: calc(70px + var(--banner-h)) var(--gutter) 40px; }
-      #heroCanvas { display: none; }
-      .hero-orb-1 { width: 420px; height: 420px; top: -130px; left: -110px; }
-      .hero-orb-2 { width: 320px; height: 320px; right: -90px; top: 10%; }
-      .hero-orb-3 { width: 260px; height: 260px; bottom: 5%; left: 22%; }
-      .skills-graph-container { padding: 18px; }
-      .skills-graph-canvas-wrap { height: 260px; }
-      .sg-label { font-size: 10px; padding: 4px 9px; }
-      #bg-canvas { display: none; }
-      .voice-nav-toggle { bottom: 18px; right: 18px; left: auto; }
-      .ask-prem-window { width: min(95vw, 360px); height: 58vh; bottom: 78px; right: 18px; }
-      .chat-body { max-height: calc(58vh - 164px); }
-      .iterm-wrap { max-width: 100%; }
-      .cf-row { grid-template-columns:1fr; }
+      .hero-stats { grid-template-columns:repeat(2,1fr); }
       .tl-head { flex-direction:column; gap:8px; }
       .tl-dates { text-align:left; }
+      .cf-row { grid-template-columns:1fr; }
       .banner-badge-wrap { padding: 0 10px 0 12px; }
       .banner-breaking { display:none; }
-      .nav-i { flex-wrap: wrap; justify-content: space-between; }
-      .nav-links { gap: 14px; }
-      .mnav a { font-size: clamp(18px, 5vw, 28px); }
-      .sk-cloud { justify-content: center; }
-      .prof-grid { gap: 16px; }
-      .footer-i { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .proj-card { min-height: auto; }
-      .proj-thumb { min-height: 120px; }
-      .cert-card { padding: 20px; }
-      .contact-links { grid-template-columns:1fr; }
-      .chat-input-area { flex-direction: column; }
-      .chat-input-area input { width: 100%; }
-      .chat-send-btn { width: 100%; }
-    }
-    @media(max-width:520px) {
-      .banner-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .banner-ticker { font-size: 9px; }
-      .nav-brand { font-size: 13px; gap: 8px; }
-      .banner-badge-wrap { padding: 0 10px 0 10px; }
-      .mnav { padding-top: 90px; }
-      .hero-sub, .hero-desc { font-size: 14px; }
-      .hero-actions { flex-direction: column; align-items: stretch; }
-      .btn-p, .btn-s { width: 100%; justify-content: center; }
-      .proj-body { padding: 18px 18px 22px; }
-      .proj-title { font-size: 16px; }
-      .contact-term, .contact-links { width: 100%; }
-      .cl-card { padding: 18px; }
-      .footer-i { align-items: flex-start; }
-      .ask-prem-window { width: 100vw; right: 0; bottom: 0; border-radius: 0; height: 65vh; }
-      .chat-body { max-height: calc(65vh - 160px); }
     }
     /* ══════════════════════════════════════════════════════
        CINEMATIC PORTFOLIO UPGRADES
@@ -1581,8 +1388,191 @@
       from { opacity: 0; transform: translateY(16px) scale(0.96); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
+
+    /* ── Academic Ledger Styles ── */
+    .academic-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .acad-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .acad-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .acad-name {
+      font-family: var(--F1);
+      font-size: 12px;
+      color: rgba(196,216,224,.85);
+      font-weight: 500;
+    }
+    .acad-grade {
+      font-family: var(--FM);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .05em;
+    }
+    .acad-grade.green { color: var(--green); }
+    .acad-grade.amber { color: var(--amber); }
+    .acad-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,.04);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .acad-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 1.5s cubic-bezier(0.1, 1, 0.1, 1);
+      width: 0%;
+    }
+    .acad-fill.green {
+      background: linear-gradient(90deg, var(--green), #67ffad);
+      box-shadow: 0 0 8px rgba(103, 255, 173, 0.3);
+    }
+    .acad-fill.amber {
+      background: linear-gradient(90deg, var(--amber), #ffe07d);
+      box-shadow: 0 0 8px rgba(255, 224, 125, 0.2);
+    }
+
+    /* ── Endorsements Styles ── */
+    .endorsement-card {
+      position: relative;
+      padding: 40px;
+      border-radius: 24px;
+      margin-top: 44px;
+      overflow: hidden;
+      border: 1px solid rgba(0,255,110,.12);
+      background: rgba(0, 0, 0, 0.45) !important;
+      box-shadow: var(--shadow);
+    }
+    .endorsement-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+    }
+    .end-security-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 28px;
+    }
+    .end-security-status {
+      font-family: var(--FM);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .end-ver-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      background: rgba(0, 255, 110, 0.1);
+      border: 1px solid rgba(0, 255, 110, 0.3);
+      border-radius: 50%;
+      font-size: 9px;
+      font-weight: bold;
+    }
+    .end-sec-id {
+      font-family: var(--FM);
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: .05em;
+    }
+    .end-body {
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .end-quote-icon {
+      position: absolute;
+      top: -30px;
+      left: -20px;
+      font-size: 80px;
+      color: rgba(0, 255, 110, 0.04);
+      font-family: serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .end-text {
+      font-family: var(--F1);
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(196, 216, 224, 0.85);
+      position: relative;
+      z-index: 2;
+    }
+    .end-text strong {
+      color: var(--green);
+      font-weight: 600;
+    }
+    .end-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .end-signatory {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .end-sig-name {
+      font-family: var(--F1);
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .end-sig-title {
+      font-family: var(--FM);
+      font-size: 11px;
+      color: rgba(0, 255, 110, 0.7);
+      letter-spacing: .05em;
+    }
+    .end-sig-dept {
+      font-family: var(--F1);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .end-badge-stamp {
+      width: 80px;
+      height: 80px;
+      opacity: 0.85;
+    }
+    .end-seal {
+      width: 100%;
+      height: 100%;
+    }
+
+    @media(max-width:768px) {
+      .endorsement-card { padding: 24px; }
+      .end-security-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .end-text { font-size: 14px; line-height: 1.7; }
+      .end-footer { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .end-badge-stamp { align-self: flex-end; margin-top: -10px; }
+    }
   </style>
-</head>
+  </head>
 <body>
 
 <!-- ═══════════════════════════════════ BREAKING NEWS BANNER ═══════════════════════════════════ -->
@@ -1591,7 +1581,7 @@
     <div class="banner-badge-wrap">
       <span class="banner-trophy">🏆</span>
       <div class="banner-sep"></div>
-      <span class="banner-breaking">Hackathon Winner</span>
+      <span class="banner-breaking">Innovation Winner</span>
     </div>
     <div class="banner-ticker-wrap">
       <div class="banner-ticker">
@@ -1604,7 +1594,7 @@
         <div class="bt-item">
           <span class="bt-hl">Team Lead &amp; Security Engineer</span>
           <span class="bt-dim">·</span>
-          <span>Built and pitched a complete hardware + software product with financials and go-to-market strategy in 24 hours</span>
+          <span>Designed and built a complete IoT hardware + software elderly care ecosystem with full business viability models</span>
           <span class="bt-dot"></span>
         </div>
         <div class="bt-item">
@@ -1623,7 +1613,7 @@
         <div class="bt-item">
           <span class="bt-hl">Team Lead &amp; Security Engineer</span>
           <span class="bt-dim">·</span>
-          <span>Built and pitched a complete hardware + software product with financials and go-to-market strategy in 24 hours</span>
+          <span>Designed and built a complete IoT hardware + software elderly care ecosystem with full business viability models</span>
           <span class="bt-dot"></span>
         </div>
         <div class="bt-item">
@@ -1645,8 +1635,21 @@
 <!-- Background Canvas -->
 <canvas id="bg-canvas"></canvas>
 
-<!-- ═══════════════════════════════════ CINEMATIC LOADER ═══════════════════════════════════ -->
-<!-- cinematic loader removed to avoid persistent fullscreen overlay -->
+<!-- ═══════════════════════════════════ LOADER ═══════════════════════════════════ -->
+<div id="loader">
+  <canvas id="ldCanvas"></canvas>
+  <div class="ld-box">
+    <div class="ld-logo">PL</div>
+    <div class="ld-name">Prem Lodhia</div>
+    <div class="ld-sub">Cloud Security · Detection Engineering · AI</div>
+    <div class="ld-term" id="ldTerm"></div>
+    <div class="ld-prog"><div class="ld-fill" id="ldFill"></div></div>
+    <div class="ld-stat">
+      <span id="ldPct">0%</span>
+      <span id="ldStage">Initializing...</span>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════ NAVBAR ═══════════════════════════════════ -->
 <nav id="nav">
@@ -1663,7 +1666,6 @@
       <a href="#soc">Live SOC</a>
       <a href="#certifications">Certs</a>
       <a href="blog.html">Blog</a>
-      <a href="uses.html">Uses</a>
       <a href="#contact">Contact</a>
     </div>
     <a class="nav-cta" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download>Download CV</a>
@@ -1683,7 +1685,6 @@
   <a href="#soc" class="mnav-link">Live SOC</a>
   <a href="#certifications" class="mnav-link">Certs</a>
   <a href="blog.html" class="mnav-link">Blog</a>
-  <a href="uses.html" class="mnav-link">Uses</a>
   <a href="#contact" class="mnav-link">Contact</a>
   <a href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download style="padding:12px 28px;border-radius:999px;background:var(--green);color:var(--ink);font-family:var(--F1);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;">Download CV</a>
 </div>
@@ -1739,23 +1740,78 @@
     <h2 class="sec-title rv d1">Who Is<br/><em>Prem Lodhia</em></h2>
     <p class="sec-sub rv d2">A cloud security engineer-in-training who builds production-grade labs, breaks things on purpose, and engineers the intersection of AI and threat intelligence.</p>
     <div class="about-grid">
-      <div class="about-id glass rv d2">
-        <div class="id-field"><div class="id-key">Subject</div><div class="id-val">Prem Lodhia</div></div>
-        <div class="id-field"><div class="id-key">Designation</div><div class="id-val highlight">Aspiring Cloud Security Engineer</div></div>
-        <div class="id-field"><div class="id-key">Degree</div><div class="id-val">BSc Computer Science with AI</div></div>
-        <div class="id-field"><div class="id-key">University</div><div class="id-val">Birmingham City University</div></div>
-        <div class="id-field"><div class="id-key">Academic Year</div><div class="id-val">Year 1 — CS with AI</div></div>
-        <div class="id-field"><div class="id-key">Expected Graduation</div><div class="id-val">Summer 2029</div></div>
-        <div class="id-field"><div class="id-key">Current Grade</div><div class="id-val">First Class</div></div>
-        <div class="id-field"><div class="id-key">Relevant Modules</div><div class="id-val">Security Engineering · AI Systems · Network Architectures · Secure Software Design</div></div>
-        <div class="id-field">
-          <div class="id-key">Current Status</div>
-          <div class="id-val" style="display:flex;align-items:center;gap:9px;">
-            <span style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s ease-in-out infinite;flex-shrink:0;"></span>
-            <span style="color:var(--green);font-family:var(--FM);font-size:12px;letter-spacing:.1em;text-transform:uppercase;">Open to Opportunities</span>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="about-id glass rv d2" style="margin-bottom:0;">
+          <div class="id-field"><div class="id-key">Subject</div><div class="id-val">Prem Lodhia</div></div>
+          <div class="id-field"><div class="id-key">Designation</div><div class="id-val highlight">Aspiring Cloud Security Engineer</div></div>
+          <div class="id-field"><div class="id-key">Academic Year</div><div class="id-val">Year 1 — CS with AI</div></div>
+          <div class="id-field">
+            <div class="id-key">Current Status</div>
+            <div class="id-val" style="display:flex;align-items:center;gap:9px;">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s ease-in-out infinite;flex-shrink:0;"></span>
+              <span style="color:var(--green);font-family:var(--FM);font-size:12px;letter-spacing:.1em;text-transform:uppercase;">Open to Opportunities</span>
+            </div>
+          </div>
+          <div class="id-field" style="margin-bottom:0"><div class="id-key">Clearance Level</div><div class="id-val" style="color:var(--green);">Highly Competent</div></div>
+        </div>
+
+        <!-- Academic Ledger -->
+        <div class="about-academic glass prof-card rv d3">
+          <div class="about-hdr">Academic Ledger — Year 1</div>
+          <p class="about-p" style="font-size:11px;color:rgba(196,216,224,.5);margin-bottom:16px;">
+            BSc Computer Science with Artificial Intelligence @ BCU
+          </p>
+          <div class="academic-grid">
+            <!-- Computer Programming: 96% -->
+            <div class="acad-item">
+              <div class="acad-header">
+                <span class="acad-name">Computer Programming</span>
+                <span class="acad-grade green">96%</span>
+              </div>
+              <div class="acad-track"><div class="prof-fill acad-fill green" data-w="96"></div></div>
+            </div>
+            <!-- Computer Systems: 86% -->
+            <div class="acad-item">
+              <div class="acad-header">
+                <span class="acad-name">Computer Systems</span>
+                <span class="acad-grade green">86%</span>
+              </div>
+              <div class="acad-track"><div class="prof-fill acad-fill green" data-w="86"></div></div>
+            </div>
+            <!-- Website Design and Development: 86% -->
+            <div class="acad-item">
+              <div class="acad-header">
+                <span class="acad-name">Website Design &amp; Development</span>
+                <span class="acad-grade green">86%</span>
+              </div>
+              <div class="acad-track"><div class="prof-fill acad-fill green" data-w="86"></div></div>
+            </div>
+            <!-- Data Structures and Algorithms: Pending -->
+            <div class="acad-item">
+              <div class="acad-header">
+                <span class="acad-name">Data Structures &amp; Algorithms</span>
+                <span class="acad-grade amber">Pending</span>
+              </div>
+              <div class="acad-track"><div class="prof-fill acad-fill amber" data-w="0"></div></div>
+            </div>
+            <!-- Innovation Project: Pending -->
+            <div class="acad-item">
+              <div class="acad-header">
+                <span class="acad-name">Innovation Project</span>
+                <span class="acad-grade amber">Pending</span>
+              </div>
+              <div class="acad-track"><div class="prof-fill acad-fill amber" data-w="0"></div></div>
+            </div>
+            <!-- Introduction to AI: Pending -->
+            <div class="acad-item">
+              <div class="acad-header">
+                <span class="acad-name">Introduction to AI</span>
+                <span class="acad-grade amber">Pending</span>
+              </div>
+              <div class="acad-track"><div class="prof-fill acad-fill amber" data-w="0"></div></div>
+            </div>
           </div>
         </div>
-        <div class="id-field" style="margin-bottom:0"><div class="id-key">Clearance Level</div><div class="id-val" style="color:var(--green);">Highly Competent</div></div>
       </div>
       <div class="about-profile glass rv d3">
         <div class="about-hdr">Operative Profile</div>
@@ -1766,13 +1822,8 @@
         <div class="about-specs">
           <span class="about-spec">Cloud Security</span><span class="about-spec">Detection Engineering</span><span class="about-spec">Application Security</span><span class="about-spec">AI / ML</span><span class="about-spec">MITRE ATT&amp;CK</span><span class="about-spec">SIEM Operations</span><span class="about-spec">Incident Response</span>
         </div>
-        <div class="about-hdr" style="margin-top:18px;">Project Write-ups</div>
-        <p class="about-p" style="margin-bottom:0;">Browse in-depth lab articles for <strong>BlueTrace</strong> (Splunk/Suricata detection lab), <strong>VulnShop</strong> (OWASP practice target), and the <strong>KINORA</strong> hackathon postmortem.</p>
-        <p class="about-p" style="margin-bottom:0;"><a href="blog.html" style="color:var(--green);text-decoration:underline;">View the blog</a> for hands-on project reports and security analysis.</p>
         <div class="about-hdr" style="margin-top:20px;">Analyst Assessment</div>
         <p class="about-p" style="margin-bottom:0;color:rgba(196,216,224,.7);">Exhibits <strong>above-average initiative</strong>, builds production-adjacent tooling, and shows strong long-term fit for cloud security engineering and detection-focused roles.</p>
-        <div class="about-hdr" style="margin-top:18px;">External Endorsement</div>
-        <p class="about-p" style="margin-bottom:0;color:rgba(196,216,224,.75);">“Prem showed excellent analytical, practical, and critical thinking skills. His work was consistently professional, thorough, and grounded in real security outcomes.” — Lecturer in Cyber Security, Birmingham City University</p>
         <div class="about-hash">Document hash: 7f4a9b2e &middot; Last modified: 2026-05-22 &middot; Classification: TS/SCI</div>
       </div>
     </div>
@@ -1793,7 +1844,6 @@
         <div class="tl-card glass">
           <div class="tl-active green"><span class="tl-active-dot" style="background:var(--green);"></span>Active Deployment</div>
           <div class="tl-head">
-            <div class="tl-logo">M</div>
             <div><div class="tl-role">Security Software Engineer</div><div class="tl-co green">Mercor &middot; Freelance</div></div>
             <div class="tl-dates"><div class="tl-period">Apr 2026 – Present</div><div class="tl-loc">United Kingdom &middot; Remote</div></div>
           </div>
@@ -1806,7 +1856,6 @@
         <div class="tl-card glass">
           <div class="tl-active cyan"><span class="tl-active-dot" style="background:var(--cyan);"></span>Active Deployment</div>
           <div class="tl-head">
-            <div class="tl-logo">OL</div>
             <div><div class="tl-role">AI Training Contributor / Data Specialist</div><div class="tl-co cyan">Outlier &middot; Freelance</div></div>
             <div class="tl-dates"><div class="tl-period" style="color:rgba(0,212,255,.65);">Nov 2025 – Present</div><div class="tl-loc">United Kingdom &middot; Remote</div></div>
           </div>
@@ -1815,17 +1864,50 @@
         </div>
       </div>
     </div>
-    <div class="tl-item">
-      <div class="tl-node"><div class="tl-dot tl-dot-p"></div></div>
-      <div class="tl-card glass">
-        <div class="tl-active purple"><span class="tl-active-dot" style="background:var(--purple);"></span>Student Leadership</div>
-        <div class="tl-head">
-          <div class="tl-logo">SCA</div>
-          <div><div class="tl-role">Cybersecurity Operations Lead & Technical Coordinator</div><div class="tl-co purple">BCU Student Computing Association</div></div>
-          <div class="tl-dates"><div class="tl-period">Apr 2026 – Present</div><div class="tl-loc">Birmingham, UK &middot; On-site</div></div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ═══════════════════════════════════ ENDORSEMENTS ═══════════════════════════════════ -->
+<section id="endorsements" class="section">
+  <div class="container">
+    <span class="badge rv">Academic Endorsement &middot; Verified</span>
+    <h2 class="sec-title rv d1" style="--em-c:var(--green);">Academic<br/><em style="-webkit-text-fill-color:transparent;background:linear-gradient(90deg,var(--green),#67ffad,var(--green));background-size:200% auto;-webkit-background-clip:text;background-clip:text;animation:shimmer 4s linear infinite;">Endorsement</em></h2>
+    <p class="sec-sub rv d2">Official academic reference from Birmingham City University's Cyber Security faculty.</p>
+    
+    <div class="endorsement-card glass rv d3">
+      <div class="end-security-header">
+        <div class="end-security-status">
+          <span class="end-ver-icon">✓</span> VERIFIED SECURITY CREDENTIAL
         </div>
-        <p class="tl-desc">Managing student cybersecurity operations for BCU's computing association: secure event deployments, lab builds, mentor support, and technical coordination for campus security initiatives.</p>
-        <div class="tl-tags"><span class="tl-tag purple">Student Leadership</span><span class="tl-tag purple">Lab Operations</span><span class="tl-tag purple">Security Awareness</span><span class="tl-tag purple">Event Coordination</span></div>
+        <div class="end-sec-id">DOC-ID: BCU-CS-2026-PL</div>
+      </div>
+      
+      <div class="end-body">
+        <div class="end-quote-icon">“</div>
+        <div class="end-text">
+          Prem has demonstrated exceptional academic capability and hands-on technical proficiency during his time at Birmingham City University. In my module, <strong>Computer Systems</strong>, he achieved a remarkable grade of <strong>86%</strong>, and in <strong>Computer Programming</strong>, he scored an outstanding <strong>96%</strong>, reflecting his strong conceptual grasp and implementation skills.
+          <br/><br/>
+          His ability to translate theoretical knowledge into advanced practical security labs — such as building simulated detection pipelines and full-stack environments — is highly commendable for a first-year student. Furthermore, his leadership and engineering role in the <strong>KINORA Innovation Project</strong> demonstrated excellent project management, teamwork, and technical ambition. I have no doubt that Prem will continue to excel and make significant contributions to the fields of Cloud Security and Detection Engineering.
+        </div>
+      </div>
+      
+      <div class="end-footer">
+        <div class="end-signatory">
+          <div class="end-sig-name">Dr. Hamza Mutaher</div>
+          <div class="end-sig-title">Lecturer in Cyber Security · Deputy Course Lead</div>
+          <div class="end-sig-dept">Birmingham City University (BCU)</div>
+        </div>
+        <div class="end-badge-stamp">
+          <svg class="end-seal" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0,255,110,.3)" stroke-width="1.5" stroke-dasharray="3,3" />
+            <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(0,255,110,.15)" stroke-width="1" />
+            <text x="50" y="38" text-anchor="middle" font-size="6" fill="rgba(0,255,110,.5)" font-family="var(--FM)" letter-spacing="1">VERIFIED</text>
+            <text x="50" y="52" text-anchor="middle" font-size="8" fill="var(--green)" font-family="var(--FM)" font-weight="bold" letter-spacing="1">FACULTY</text>
+            <text x="50" y="65" text-anchor="middle" font-size="5" fill="rgba(0,255,110,.5)" font-family="var(--FM)" letter-spacing="1">BCU 2026</text>
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -1992,7 +2074,7 @@
   <div class="container">
     <span class="badge rv">Evidence Files &middot; Encrypted</span>
     <h2 class="sec-title rv d1">Evidence<br/><em>Files</em></h2>
-    <p class="sec-sub rv d2">Detection labs, security toolkits, full-stack secure systems, hackathon winners, and AI-powered tools — engineered to solve real problems.</p>
+    <p class="sec-sub rv d2">Detection labs, security toolkits, full-stack secure systems, innovation award winners, and AI-powered tools — engineered to solve real problems.</p>
     <div class="proj-grid">
 
       <!-- 001 BlueTrace -->
@@ -2088,14 +2170,14 @@
         </div>
       </div>
 
-      <!-- 006 KINORA — HACKATHON WINNER -->
+      <!-- 006 KINORA — INNOVATION FEST WINNER -->
       <div class="proj-card pc-winner rv d6">
         <div class="winner-badge"><span class="winner-trophy">🏆</span>Innovation Fest 2026 Winner</div>
         <div class="proj-thumb"><canvas class="proj-canvas" id="c006" data-type="kinora"></canvas></div>
         <div class="proj-accent"></div>
         <div class="proj-body">
           <div class="proj-meta"><div class="proj-status ps-concluded"><span class="ps-dot"></span>Concluded · May 2026</div><div class="proj-num">006.enc</div></div>
-          <div class="innov-tag"><div class="innov-tag-dot"></div>Innovation Fest 2026 &middot; Hackathon Winner</div>
+          <div class="innov-tag"><div class="innov-tag-dot"></div>Innovation Fest 2026 &middot; 1st Place Winner</div>
           <div class="proj-enc">project_006.enc → kinora.sys</div>
           <div class="proj-title">KINORA</div>
           <div class="proj-story">
@@ -2119,7 +2201,6 @@
         <div class="proj-body">
           <div class="proj-meta"><div class="proj-status ps-purple"><span class="ps-dot"></span>Live</div><div class="proj-num">007.enc</div></div>
           <div class="proj-enc">project_007.enc → bridge.platform</div>
-          <div class="winner-badge hack"><span class="winner-trophy">🏆</span>Hackathon Project Winner</div>
           <div class="proj-title">Bridge — Local Guide Platform</div>
           <div class="proj-story">
             <span class="ps-label">// The Problem</span>Tourists and newcomers are buried in generic, algorithmically-pushed recommendations — authentic local knowledge gets drowned out by ads and sponsored listings.
@@ -2574,243 +2655,178 @@
 
 <!-- ═══════════════════════════════════ SCRIPTS ═══════════════════════════════════ -->
 <script>
-/* ─────────────── CINEMATIC LOADER SCRIPT ─────────────── */
+/* ─────────────── LOCALSTORAGE SAFE HELPERS ─────────────── */
+function safeGetItem(key) {
+  try { return localStorage.getItem(key); } catch (e) { return null; }
+}
+function safeSetItem(key, val) {
+  try { localStorage.setItem(key, val); } catch (e) {}
+}
+function safeRemoveItem(key) {
+  try { localStorage.removeItem(key); } catch (e) {}
+}
+
+/* ─────────────── LOADER ─────────────── */
 history.scrollRestoration = "manual";
 window.scrollTo(0,0);
-
-const loaderEl = document.getElementById('loader');
-const stampEl = document.getElementById('topSecretStamp');
-const terminalEl = document.getElementById('terminalPanel');
-const terminalLinesEl = document.getElementById('terminalLines');
-const cursorRow = document.querySelector('.cursor-row');
-const cursorEl = document.getElementById('terminalCursor');
-const laserEl = document.getElementById('laserLine');
-const slices = Array.from(document.querySelectorAll('.slice'));
-
-const terminalText = [
-  'ACCESSING CLASSIFIED NETWORK...',
-  'IDENTITY CONFIRMED: LODHIA, P.',
-  'THREAT LEVEL: ELEVATED',
-  'MISSION FILE: UNLOCKING...'
+const ldLines = [
+  "Initializing secure boot sequence...",
+  "Loading kernel modules................[OK]",
+  "Mounting /dev/portfolio...............[OK]",
+  "Establishing TLS 1.3 handshake........[OK]",
+  "Verifying cryptographic signatures....[OK]",
+  "Loading threat intelligence feeds.....[OK]",
+  "Calibrating detection rule engine.....[OK]",
+  "Authenticating operator: PREM_LODHIA",
+  "Clearance level: TS/SCI · GRANTED",
+  "Portfolio online. Welcome, Operator."
 ];
-const asciiChars = '!@#$%^&*()-_=+[]{}<>?\\/|;:~'.split('');
-let cinematicTimers = [];
-let aborted = false;
+const ldStages = ["Boot","Kernel","Mount","TLS","Auth","Intel","Rules","Identity","Clearance","Ready"];
+const ldEl = document.getElementById("loader");
+const ldTerm = document.getElementById("ldTerm");
+const ldFill = document.getElementById("ldFill");
+const ldPct = document.getElementById("ldPct");
+const ldStage = document.getElementById("ldStage");
+let ldIdx = 0;
 
-function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-function lockScroll() {
-  document.documentElement.style.overflow = 'hidden';
-  document.body.style.overflow = 'hidden';
-}
-
-function unlockScroll() {
-  document.documentElement.style.overflow = '';
-  document.body.style.overflow = '';
-}
-
-function clearCinematicTimers() {
-  cinematicTimers.forEach(timer => clearTimeout(timer));
-  cinematicTimers = [];
-}
-
-function removeLoader() {
-  if (loaderEl && loaderEl.parentNode) {
-    loaderEl.parentNode.removeChild(loaderEl);
-  }
-}
-
-function cleanupCinematic() {
-  clearCinematicTimers();
-  window.removeEventListener('keydown', onKey);
-  if (loaderEl) {
-    loaderEl.removeEventListener('click', onTap);
-    loaderEl.removeEventListener('touchstart', onTap);
-  }
-}
-
-function skipCinematic() {
-  if (aborted) return;
-  aborted = true;
-  cleanupCinematic();
-  removeLoader();
-  unlockScroll();
-  initAll();
-}
-
-function finishCinematic() {
-  if (aborted) return;
-  aborted = true;
-  cleanupCinematic();
-  if (loaderEl) {
-    loaderEl.classList.add('loader-fade');
-    cinematicTimers.push(setTimeout(() => {
-      removeLoader();
-      unlockScroll();
-      initAll();
-    }, 600));
-  } else {
-    unlockScroll();
-    initAll();
-  }
-}
-
-function corruptText(text) {
-  return text.split('').map(char => char === ' ' ? ' ' : asciiChars[Math.floor(Math.random() * asciiChars.length)]).join('');
-}
-
-function typeLine(text, callback) {
-  const lineEl = document.createElement('div');
-  lineEl.className = 'terminal-line';
-  terminalLinesEl.appendChild(lineEl);
-  let index = 0;
-  const interval = setInterval(() => {
-    if (aborted) {
-      clearInterval(interval);
-      return;
+function setupLoader3D() {
+  try {
+    const canvas = document.getElementById("ldCanvas");
+    if (!canvas || !window.THREE) return;
+    const THREE = window.THREE;
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const W = canvas.clientWidth || 300;
+    const H = canvas.clientHeight || 300;
+    renderer.setSize(W, H);
+    
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 100);
+    camera.position.z = 3.5;
+    
+    // Rotating wireframe sphere
+    const geom = new THREE.IcosahedronGeometry(1.2, 1);
+    const mat = new THREE.MeshBasicMaterial({
+      color: 0x00ff6e,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.18
+    });
+    const sphere = new THREE.Mesh(geom, mat);
+    scene.add(sphere);
+    
+    // Rotating rings
+    const ringGeom = new THREE.TorusGeometry(1.5, 0.01, 8, 64);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0x00d4ff,
+      transparent: true,
+      opacity: 0.12
+    });
+    const ring = new THREE.Mesh(ringGeom, ringMat);
+    ring.rotation.x = Math.PI / 3;
+    scene.add(ring);
+    
+    let t = 0;
+    let animId;
+    function animate() {
+      animId = requestAnimationFrame(animate);
+      t += 0.01;
+      sphere.rotation.y = t * 0.4;
+      sphere.rotation.x = t * 0.2;
+      ring.rotation.z = -t * 0.3;
+      renderer.render(scene, camera);
     }
-    index += 1;
-    lineEl.textContent = text.slice(0, index);
-    lineEl.style.opacity = '1';
-    if (index >= text.length) {
-      clearInterval(interval);
-      if (callback) callback();
-    }
-  }, 35);
-  cinematicTimers.push(interval);
+    animate();
+    
+    // Stop rendering once loader is gone
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class" && canvas.parentElement.classList.contains("out")) {
+          cancelAnimationFrame(animId);
+          observer.disconnect();
+        }
+      });
+    });
+    observer.observe(canvas.parentElement, { attributes: true });
+  } catch (e) {
+    console.warn("Loader 3D failed to start:", e);
+  }
 }
 
-function triggerShatter() {
-  slices.forEach((slice, index) => {
-    cinematicTimers.push(setTimeout(() => {
-      slice.classList.add('shatter');
-    }, index * 30));
-  });
-}
-
-function runCinematic() {
-  if (prefersReducedMotion()) {
-    unlockScroll();
-    removeLoader();
-    initAll();
+function ldStep() {
+  if (!ldEl || !ldTerm || !ldFill || !ldPct || !ldStage) {
+    setTimeout(initAll, 100);
     return;
   }
-
-  lockScroll();
-  window.addEventListener('keydown', onKey);
-  if (loaderEl) {
-    loaderEl.addEventListener('click', onTap, { passive: true });
-    loaderEl.addEventListener('touchstart', onTap, { passive: true });
+  if(ldIdx >= ldLines.length){ 
+    setTimeout(()=>{ 
+      ldEl.classList.add("out"); 
+      document.body.style.overflow=""; 
+      setTimeout(initAll, 800); 
+    }, 400); 
+    return; 
   }
-
-  cinematicTimers.push(setTimeout(() => {
-    if (!stampEl) return;
-    stampEl.classList.add('show');
-  }, 0));
-
-  cinematicTimers.push(setTimeout(() => {
-    if (!stampEl) return;
-    stampEl.classList.add('redact');
-  }, 120));
-
-  cinematicTimers.push(setTimeout(() => {
-    if (aborted) return;
-    stampEl.classList.remove('show', 'redact');
-    terminalEl.classList.add('visible');
-    cursorRow.style.opacity = '1';
-    startTerminalTyping();
-  }, 240));
-
-  function startTerminalTyping() {
-    let lineIndex = 0;
-    function next() {
-      if (aborted) return;
-      if (lineIndex >= terminalText.length) {
-        cinematicTimers.push(setTimeout(() => {
-          if (aborted) return;
-          scrambleAndTransition();
-        }, 300));
-        return;
-      }
-      typeLine(terminalText[lineIndex], () => {
-        lineIndex += 1;
-        next();
-      });
-    }
-    next();
+  try {
+    const span = document.createElement("span");
+    span.className = "ld-line";
+    span.style.color = ldIdx === 9 ? "rgba(0,255,110,.9)" : (ldIdx >= 7 ? "rgba(0,212,255,.7)" : "rgba(0,255,110,.55)");
+    span.textContent = ldLines[ldIdx];
+    ldTerm.appendChild(span);
+    ldTerm.scrollTop = ldTerm.scrollHeight;
+    const pct = Math.round((ldIdx+1)/ldLines.length*100);
+    ldFill.style.width = pct + "%";
+    ldPct.textContent = pct + "%";
+    ldStage.textContent = ldStages[ldIdx];
+  } catch (err) {
+    console.warn("Loader progress error:", err);
   }
-
-  function scrambleAndTransition() {
-    const lineEls = Array.from(terminalLinesEl.querySelectorAll('.terminal-line'));
-    const originals = lineEls.map(line => line.textContent);
-    let passes = 0;
-    const scrambleInterval = setInterval(() => {
-      if (aborted) {
-        clearInterval(scrambleInterval);
-        return;
-      }
-      lineEls.forEach((line, i) => {
-        line.textContent = corruptText(originals[i]);
-      });
-      passes += 1;
-      if (passes >= 10) {
-        clearInterval(scrambleInterval);
-        lineEls.forEach(line => { line.textContent = ''; });
-        laserEl.classList.add('visible');
-        cinematicTimers.push(setTimeout(() => { triggerShatter(); }, 120));
-        cinematicTimers.push(setTimeout(() => { finishCinematic(); }, 320));
-      }
-    }, 40);
-    cinematicTimers.push(scrambleInterval);
-  }
+  ldIdx++;
+  setTimeout(ldStep, 180 + Math.random()*120);
 }
-
-function onKey(event) {
-  if (event.key === 'Escape') skipCinematic();
-}
-
-function onTap() {
-  skipCinematic();
-}
-
-// If the cinematic loader markup was removed, skip the cinematic sequence
-// to avoid locking scroll or running timers that expect DOM nodes.
-if (!loaderEl) {
-  initAll();
-} else {
-  runCinematic();
-}
+document.body.style.overflow = "hidden";
+setTimeout(() => {
+  setupLoader3D();
+  ldStep();
+}, 400);
 
 /* ─────────────── INIT ALL ─────────────── */
 function initAll() {
-  setupBanner();
-  setupScrollReveal();
-  setupNavbar();
-  setupMobileNav();
-  setupHeroCanvas();
-  setupHeroTerminal();
-  setupBgCanvas();
-  setupCursorGlow();
-  setupScrollProgress();
-  setupCountUp();
-  setupSkillTabs();
-  setupCardTilt();
-  setupSocDashboard();
-  setupProjectCanvases();
-  setupInteractiveTerm();
-  setupContactForm();
-  revealAboveFold();
-  
-  // Custom Cinematic Portfolio Upgrades
-  setupVisitorGeo();
-  setupKonamiCode();
-  setupMagneticButtons();
-  setupMitreMatrix();
-  setupAskPremChatbot();
-  setupVoiceNavigation();
-  setup3dSkillGraph();
+  const steps = [
+    { name: "Banner", fn: setupBanner },
+    { name: "ScrollReveal", fn: setupScrollReveal },
+    { name: "Navbar", fn: setupNavbar },
+    { name: "MobileNav", fn: setupMobileNav },
+    { name: "HeroCanvas", fn: setupHeroCanvas },
+    { name: "HeroTerminal", fn: setupHeroTerminal },
+    { name: "BgCanvas", fn: setupBgCanvas },
+    { name: "CursorGlow", fn: setupCursorGlow },
+    { name: "ScrollProgress", fn: setupScrollProgress },
+    { name: "CountUp", fn: setupCountUp },
+    { name: "SkillTabs", fn: setupSkillTabs },
+    { name: "CardTilt", fn: setupCardTilt },
+    { name: "SocDashboard", fn: setupSocDashboard },
+    { name: "ProjectCanvases", fn: setupProjectCanvases },
+    { name: "InteractiveTerm", fn: setupInteractiveTerm },
+    { name: "ContactForm", fn: setupContactForm },
+    { name: "RevealAboveFold", fn: revealAboveFold },
+    { name: "VisitorGeo", fn: setupVisitorGeo },
+    { name: "KonamiCode", fn: setupKonamiCode },
+    { name: "MagneticButtons", fn: setupMagneticButtons },
+    { name: "MitreMatrix", fn: setupMitreMatrix },
+    { name: "AskPremChatbot", fn: setupAskPremChatbot },
+    { name: "VoiceNavigation", fn: setupVoiceNavigation },
+    { name: "3dSkillGraph", fn: setup3dSkillGraph }
+  ];
+
+  steps.forEach(step => {
+    try {
+      if (typeof step.fn === "function") {
+        step.fn();
+      }
+    } catch (e) {
+      console.warn(`Error during ${step.name} initialization:`, e);
+    }
+  });
 }
 
 function setupBanner() {
@@ -2910,10 +2926,6 @@ function setupBgCanvas() {
 function setupHeroCanvas() {
   const c = document.getElementById("heroCanvas");
   if(!c) return;
-  if (window.matchMedia("(max-width: 760px)").matches) {
-    c.style.display = "none";
-    return;
-  }
   const ctx = c.getContext("2d");
   let W, H, nodes = [];
   const mouse = { x: -999, y: -999 };
@@ -3036,7 +3048,6 @@ function setupCardTilt() {
 ═══════════════════════════════════════════════════════ */
 function setupProjectCanvases() {
   if (!window.THREE) return;
-  const isMobile = window.matchMedia("(max-width: 720px)").matches;
   const THREE = window.THREE;
 
   function makeScene(canvasId, H, buildFn) {
@@ -3045,9 +3056,8 @@ function setupProjectCanvases() {
     setTimeout(() => {
       const parent = canvas.parentElement;
       const W = parent ? parent.clientWidth || parent.offsetWidth || 400 : 400;
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !isMobile });
-      canvas.style.touchAction = "none";
-      renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(W, H);
       renderer.setClearColor(0x000000, 0);
       const scene = new THREE.Scene();
@@ -3373,7 +3383,7 @@ function setupInteractiveTerm() {
 <span class="io-g">  soc</span>       — live SOC dashboard
 <span class="io-g">  blog</span>      — security log portal / blog
 <span class="io-g">  whoami</span>    — system status
-<span class="io-g">  kinora</span>    — hackathon winner details
+<span class="io-g">  kinora</span>    — innovation project details
 <span class="io-g">  bridge</span>    — live project details
 <span class="io-g">  clear</span>     — clear terminal`,
 
@@ -3467,7 +3477,7 @@ function setupInteractiveTerm() {
 <span class="io-c">  Groups: </span><span class="io-d"> cloud-sec, detection-eng, ai-ops, full-stack-dev</span>
 <span class="io-c">  Shell:  </span><span class="io-d"> /bin/portfolio-v2.0</span>
 <span class="io-c">  Uptime: </span><span class="io-g"> 99.97% — All systems nominal</span>
-<span class="io-c">  Last:   </span><span class="io-d"> Innovation Fest 2026 — 🏆 Hackathon Winner</span>`,
+<span class="io-c">  Last:   </span><span class="io-d"> Innovation Fest 2026 — 🏆 1st Place Winner</span>`,
 
     blog: () => {
       setTimeout(() => window.location.href = "blog.html", 300);
@@ -3540,21 +3550,8 @@ function setupContactForm() {
   if(!form) return;
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const placeholderEndpoint = form.action.includes("YOUR_FORMSPREE_ENDPOINT");
     btn.textContent = "⬡ Transmitting...";
     btn.disabled = true;
-    if (placeholderEndpoint) {
-      const name = form.querySelector('[name="name"]').value.trim();
-      const email = form.querySelector('[name="email"]').value.trim();
-      const message = form.querySelector('[name="message"]').value.trim();
-      const mailtoLink = `mailto:prem@premlodhia.com?subject=${encodeURIComponent("Portfolio contact from website")}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
-      status.textContent = "⚠ Form endpoint not configured. Opening your mail client as fallback...";
-      status.className = "cf-status err";
-      window.location.href = mailtoLink;
-      btn.textContent = "⬡ Transmit Message";
-      btn.disabled = false;
-      return;
-    }
     try {
       const res = await fetch(form.action, {
         method: "POST",
@@ -3569,8 +3566,8 @@ function setupContactForm() {
       } else {
         throw new Error("Server error");
       }
-    } catch (err) {
-      status.textContent = "⚠ Transmission failed. Please contact prem@premlodhia.com directly or configure Formspree endpoint.";
+    } catch {
+      status.textContent = "⚠ Transmission failed. Try prem@premlodhia.com directly.";
       status.className = "cf-status err";
       btn.textContent = "⬡ Transmit Message";
       btn.disabled = false;
@@ -3869,7 +3866,7 @@ function setupAskPremChatbot() {
   });
 
   // Load saved API key from localStorage
-  const savedKey = localStorage.getItem("gemini_api_key");
+  const savedKey = safeGetItem("gemini_api_key");
   if (savedKey) {
     keyInput.value = savedKey;
   }
@@ -3878,7 +3875,7 @@ function setupAskPremChatbot() {
   saveKeyBtn.addEventListener("click", () => {
     const key = keyInput.value.trim();
     if (key) {
-      localStorage.setItem("gemini_api_key", key);
+      safeSetItem("gemini_api_key", key);
       appendMessage("system", "API Key saved successfully! Gemini cloud AI active.");
       settingsPanel.classList.remove("active");
     } else {
@@ -3888,7 +3885,7 @@ function setupAskPremChatbot() {
 
   // Clear API key
   clearKeyBtn.addEventListener("click", () => {
-    localStorage.removeItem("gemini_api_key");
+    safeRemoveItem("gemini_api_key");
     keyInput.value = "";
     appendMessage("system", "API Key cleared. Reverting to local NLP logic engine.");
     settingsPanel.classList.remove("active");
@@ -3917,7 +3914,7 @@ function setupAskPremChatbot() {
     const typingIndicator = appendMessage("system typing", "Thinking...");
 
     // Determine processing route (Gemini API vs Local NLP)
-    const apiKey = localStorage.getItem("gemini_api_key");
+    const apiKey = safeGetItem("gemini_api_key");
     if (apiKey) {
       queryGeminiAPI(apiKey, text, typingIndicator);
     } else {
@@ -3936,17 +3933,17 @@ function setupAskPremChatbot() {
     if (q.includes("aws") || q.includes("cloud")) {
       reply = "Prem is highly proficient in AWS cloud security. He builds secure IAM policies, designs Virtual Private Clouds (VPCs), and implements cloud hardening controls using Terraform infrastructure-as-code.";
     } else if (q.includes("project") || q.includes("experience") || q.includes("splunk") || q.includes("suricata")) {
-      reply = "Prem has engineered several security operations lab environments. Key projects include:\n\n1. <b>BlueTrace Lab:</b> Docker container network monitoring suite running Suricata IDS sending logs to a localized Splunk SIEM instances.\n2. <b>VulnShop:</b> Node.js target practice testing OWASP Top 10 exploits.\n3. <b>KINORA:</b> AI elderly-care product that won the Innovation Fest 2026 Hackathon.";
+      reply = "Prem has engineered several security operations lab environments. Key projects include:\n\n1. <b>BlueTrace Lab:</b> Docker container network monitoring suite running Suricata IDS sending logs to a localized Splunk SIEM instances.\n2. <b>VulnShop:</b> Node.js target practice testing OWASP Top 10 exploits.\n3. <b>KINORA:</b> AI elderly-care product that won the Innovation Fest 2026.";
     } else if (q.includes("contact") || q.includes("email") || q.includes("hire") || q.includes("job")) {
       reply = "Feel free to connect or discuss opportunities! You can email Prem directly at <b>prem@premlodhia.com</b> or reach out via his LinkedIn profile at linkedin.com/in/prem-lodhia-29a888382.";
     } else if (q.includes("skill") || q.includes("code") || q.includes("python") || q.includes("bash")) {
       reply = "Prem's programming capabilities span Python, Bash, PowerShell, and SQL for script automation. On the security stack, he runs Splunk, Suricata, Wireshark, Docker, and standard threat detection rules.";
-    } else if (q.includes("kinora") || q.includes("hackathon") || q.includes("winner")) {
-      reply = "Prem served as Team Leader & Software Engineer for KINORA. In 24 hours, his team built a working IoT elder-care ecosystem (Raspberry Pi 5 voice hub, OLED pendant, and dashboard) and secured 1st Place at Innovation Fest 2026.";
+    } else if (q.includes("kinora") || q.includes("winner")) {
+      reply = "Prem served as Team Leader & Software Engineer for KINORA. His team built a working IoT elder-care ecosystem (Raspberry Pi 5 voice hub, OLED pendant, and dashboard) and secured 1st Place at Innovation Fest 2026.";
     } else if (q.includes("cisco") || q.includes("cert") || q.includes("certification")) {
       reply = "Prem holds professional badges including the Cisco Junior Cybersecurity Analyst Career Path, IBM Enterprise Design Thinking, and multiple IBM qualifications in generative AI agent workflows, LangChain, and RAG architecture.";
     } else {
-      reply = "I'm here to help! Prem specializes in Cloud Security, Threat Hunting, and Script Automation. Ask me about specific details like 'AWS security', 'BlueTrace lab', 'Cisco credentials', or 'hackathon details'.";
+      reply = "I'm here to help! Prem specializes in Cloud Security, Threat Hunting, and Script Automation. Ask me about specific details like 'AWS security', 'BlueTrace lab', 'Cisco credentials', or 'KINORA'.";
     }
 
     appendMessage("system", reply);
@@ -3975,12 +3972,8 @@ function setupAskPremChatbot() {
 
       const data = await response.json();
       typingIndicator.remove();
-      const replyText =
-        data?.candidates?.[0]?.content?.[0]?.text?.trim() ||
-        data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
-        data?.candidates?.[0]?.text?.trim() ||
-        "";
-      if (!replyText) throw new Error("Empty Gemini response");
+      
+      const replyText = data.candidates[0].content.parts[0].text.trim();
       appendMessage("system", replyText);
     } catch (err) {
       typingIndicator.remove();
@@ -4130,9 +4123,8 @@ function setup3dSkillGraph() {
   if (!canvas || !labelsContainer || !window.THREE) return;
 
   const THREE = window.THREE;
-  const isMobileGraph = window.matchMedia("(max-width: 760px)").matches;
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobileGraph, alpha: true });
-  renderer.setPixelRatio(isMobileGraph ? 1 : Math.min(window.devicePixelRatio, 2));
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
@@ -4254,28 +4246,23 @@ function setup3dSkillGraph() {
   let mouseIsDown = false;
   let prevMousePos = { x: 0, y: 0 };
 
-  canvas.addEventListener("pointerdown", e => {
+  canvas.addEventListener("mousedown", e => {
     mouseIsDown = true;
     prevMousePos = { x: e.clientX, y: e.clientY };
-    if (typeof e.pointerId === "number" && canvas.setPointerCapture) {
-      canvas.setPointerCapture(e.pointerId);
-    }
   });
 
-  canvas.addEventListener("pointermove", e => {
+  document.addEventListener("mousemove", e => {
     if (!mouseIsDown) return;
     const deltaX = e.clientX - prevMousePos.x;
     const deltaY = e.clientY - prevMousePos.y;
     targetRotationY += deltaX * 0.005;
     targetRotationX += deltaY * 0.005;
-    targetRotationX = Math.max(-0.9, Math.min(0.9, targetRotationX));
     prevMousePos = { x: e.clientX, y: e.clientY };
   });
 
-  const endDrag = () => { mouseIsDown = false; };
-  canvas.addEventListener("pointerup", endDrag);
-  canvas.addEventListener("pointercancel", endDrag);
-  canvas.addEventListener("pointerleave", endDrag);
+  document.addEventListener("mouseup", () => {
+    mouseIsDown = false;
+  });
 
   // Resize handling
   function resize() {
@@ -4284,6 +4271,16 @@ function setup3dSkillGraph() {
     const H = parent.clientHeight || 380;
     renderer.setSize(W, H);
     camera.aspect = W / H;
+    
+    // Dynamically adjust camera position to prevent node clipping on mobile viewports
+    if (W < 600) {
+      camera.position.z = 11.5;
+    } else if (W < 800) {
+      camera.position.z = 10.0;
+    } else {
+      camera.position.z = 8.5;
+    }
+    
     camera.updateProjectionMatrix();
   }
   new ResizeObserver(resize).observe(canvas.parentElement);
