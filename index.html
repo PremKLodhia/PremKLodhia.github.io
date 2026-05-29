@@ -242,7 +242,8 @@
     #nav.scrolled { padding: 9px var(--gutter); background: rgba(3,6,11,.95); }
     .nav-i { max-width:var(--max); margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; }
     .nav-brand { display:flex;align-items:center;gap:10px; font-family:var(--F1);font-weight:700;text-transform:uppercase;letter-spacing:.04em; font-size:15px; }
-    .nav-mark { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; background: rgba(0,255,110,.08); border:1px solid rgba(0,255,110,.2); font-family:var(--F1); font-size:12px; font-weight:700; color:var(--green); text-shadow: 0 0 12px var(--green); }
+    .nav-mark { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; background: rgba(0,255,110,.08); border:1px solid rgba(0,255,110,.2); font-family:var(--F1); font-size:12px; font-weight:700; color:var(--green); text-shadow: 0 0 12px var(--green); overflow:hidden; }
+    .nav-mark img { width:100%; height:100%; object-fit:cover; object-position:22% center; display:block; }
     .nav-links { display:flex; align-items:center; gap:28px; font-family:var(--FM); font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
     .nav-links a { color:rgba(196,216,224,.6); transition:color .25s; position:relative; }
     .nav-links a::after { content:''; position:absolute; bottom:-2px;left:0; width:0; height:1px; background:var(--green); box-shadow:0 0 6px var(--green); transition:width .3s ease; }
@@ -270,6 +271,10 @@
     .hero-grid { position:relative; z-index:2; max-width:var(--max); margin:0 auto; width:100%; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
     .hero-pill { display:inline-flex; align-items:center; gap:10px; padding:6px 14px 6px 10px; border-radius:999px; margin-bottom:24px; font-family:var(--FM); font-size:10px; color:rgba(0,255,110,.8); }
     .hero-pill-dot { width:8px;height:8px;border-radius:50%; background:var(--green);box-shadow:0 0 10px var(--green); animation: pulse 2s ease-in-out infinite; }
+    .hero-avatar-top { width:96px; height:96px; border-radius:50%; overflow:hidden; border:2px solid rgba(0,255,110,.45); box-shadow:0 0 18px rgba(0,255,110,.18); margin-bottom:24px; display:flex; align-items:center; justify-content:center; background: rgba(255,255,255,.04); }
+    .hero-avatar-top img { width:100%; height:100%; object-fit:cover; object-position:22% center; display:block; }
+    .about-avatar-circle { width:96px; height:96px; border-radius:50%; overflow:hidden; border:2px solid rgba(0,255,110,.45); box-shadow:0 0 15px rgba(0,255,110,.28); flex-shrink:0; }
+    .about-avatar-circle img { width:100%; height:100%; object-fit:cover; object-position:22% center; display:block; }
     .hero-title { font-family:var(--F1); font-size:clamp(38px,6vw,76px); line-height:.95; text-transform:uppercase; margin-bottom:20px; letter-spacing:-.01em; animation: heroFlicker 10s ease-in-out infinite; }
     .hero-title .hi { display:block; background:linear-gradient(90deg,var(--green),#a0ffe0 35%,var(--cyan) 65%,#50ffaa); background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmer 3s linear infinite; }
     @keyframes heroFlicker { 0%,97%,100%{opacity:1}98%{opacity:.88} }
@@ -1389,6 +1394,11 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    @keyframes avatarScan {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
     /* ── Academic Ledger Styles ── */
     .academic-grid {
       display: flex;
@@ -1655,7 +1665,7 @@
 <nav id="nav">
   <div class="nav-i">
     <a class="nav-brand" href="#hero">
-      <div class="nav-mark">PL</div>
+      <div class="nav-mark"><img src="assets/profile.png" alt="Prem Lodhia" /></div>
       <span>Prem Lodhia</span>
     </a>
     <div class="nav-links">
@@ -1668,7 +1678,7 @@
       <a href="blog.html">Blog</a>
       <a href="#contact">Contact</a>
     </div>
-    <a class="nav-cta" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download>Download CV</a>
+    <a class="nav-cta" style="background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.08); color:rgba(196,216,224,.35); cursor:not-allowed; pointer-events:none;" title="New CV building in progress">New CV in Progress</a>
     <button class="hamburger" id="ham" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -1686,7 +1696,7 @@
   <a href="#certifications" class="mnav-link">Certs</a>
   <a href="blog.html" class="mnav-link">Blog</a>
   <a href="#contact" class="mnav-link">Contact</a>
-  <a href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download style="padding:12px 28px;border-radius:999px;background:var(--green);color:var(--ink);font-family:var(--F1);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;">Download CV</a>
+  <a style="padding:12px 28px;border-radius:999px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:rgba(196,216,224,.35);font-family:var(--F1);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;cursor:not-allowed;pointer-events:none;" title="New CV building in progress">New CV in Progress</a>
 </div>
 
 <!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
@@ -1697,6 +1707,9 @@
   <div class="hero-orb hero-orb-3"></div>
   <div class="hero-grid">
     <div class="hero-left">
+      <div class="hero-avatar-top glass">
+        <img src="assets/profile.png" alt="Prem Lodhia" />
+      </div>
       <div class="hero-pill glass">
         <div class="hero-pill-dot"></div>
         Open to Opportunities &middot; 2026
@@ -1714,7 +1727,7 @@
         <div class="hstat glass"><div class="hstat-n" data-count="40" data-suffix="+">40+</div><div class="hstat-l">Technical Skills</div></div>
         <div class="hstat glass"><div class="hstat-n" data-count="7" data-suffix="">7</div><div class="hstat-l">Active Projects</div></div>
         <div class="hstat glass"><div class="hstat-n" data-count="9" data-suffix="">9</div><div class="hstat-l">Certifications</div></div>
-        <div class="hstat glass"><div class="hstat-n" data-count="1" data-suffix="">1</div><div class="hstat-l">Year of Study</div></div>
+        <div class="hstat glass"><div class="hstat-n" data-count="2" data-suffix="">2</div><div class="hstat-l">Year of Study</div></div>
       </div>
     </div>
     <div class="hero-right">
@@ -1741,10 +1754,24 @@
     <p class="sec-sub rv d2">A cloud security engineer-in-training who builds production-grade labs, breaks things on purpose, and engineers the intersection of AI and threat intelligence.</p>
     <div class="about-grid">
       <div style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Dossier Photo Container -->
+        <div class="about-avatar-container glass rv d2" style="display:flex;align-items:center;gap:20px;padding:20px;border-radius:20px;position:relative;overflow:hidden;">
+          <div class="about-avatar-circle">
+            <img src="assets/profile.png" alt="Prem Lodhia" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="font-family:var(--FM);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,255,110,.45);">OPERATIVE DOSSIER</div>
+            <div style="font-family:var(--F1);font-size:20px;font-weight:700;color:#fff;line-height:1.2;">Prem Lodhia</div>
+            <div style="font-family:var(--FM);font-size:10px;color:var(--green);">ID: PL-001 // SEC_OP</div>
+          </div>
+          <!-- Scanline indicator -->
+          <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,transparent,rgba(0,255,110,.05) 50%,transparent 100%);pointer-events:none;animation:avatarScan 3s linear infinite;"></div>
+        </div>
+
         <div class="about-id glass rv d2" style="margin-bottom:0;">
           <div class="id-field"><div class="id-key">Subject</div><div class="id-val">Prem Lodhia</div></div>
-          <div class="id-field"><div class="id-key">Designation</div><div class="id-val highlight">Aspiring Cloud Security Engineer</div></div>
-          <div class="id-field"><div class="id-key">Academic Year</div><div class="id-val">Year 1 — CS with AI</div></div>
+          <div class="id-field"><div class="id-key">Designation</div><div class="id-val highlight">Cloud Security &amp; Security Software Eng</div></div>
+          <div class="id-field"><div class="id-key">Academic Year</div><div class="id-val">Year 2 — CS with AI</div></div>
           <div class="id-field">
             <div class="id-key">Current Status</div>
             <div class="id-val" style="display:flex;align-items:center;gap:9px;">
@@ -1815,7 +1842,7 @@
       </div>
       <div class="about-profile glass rv d3">
         <div class="about-hdr">Operative Profile</div>
-        <p class="about-p">Prem is a <strong>cloud security specialist-in-training</strong> with growing experience across cloud security, application security, detection engineering, and AI-assisted workflows.</p>
+        <p class="about-p">Prem is a <strong>Cloud Security &amp; Security Software Engineer</strong> with growing experience across cloud infrastructure security, application security, detection engineering, and AI-assisted workflows. He also possesses a strong passion and active interests in <strong>iOS Software Engineering</strong>, developing secure mobile applications.</p>
         <p class="about-p">The approach is methodical and adversarial: <strong>build environments, break them deliberately, document every finding, and improve resilience through hands-on iteration.</strong> Not just learning theory — shipping working systems.</p>
         <p class="about-p">From simulating brute-force attacks and mapping detections to MITRE ATT&amp;CK, to building full-stack secure platforms with RBAC and audit trails — every project is engineered to solve a real security problem.</p>
         <div class="about-hdr" style="margin-top:20px;">Known Specialisations</div>
@@ -1842,13 +1869,13 @@
       <div class="tl-item">
         <div class="tl-node"><div class="tl-dot tl-dot-g"></div></div>
         <div class="tl-card glass">
-          <div class="tl-active green"><span class="tl-active-dot" style="background:var(--green);"></span>Active Deployment</div>
+          <div class="tl-active green"><span class="tl-active-dot" style="background:var(--green);"></span>Active Operations</div>
           <div class="tl-head">
-            <div><div class="tl-role">Security Software Engineer</div><div class="tl-co green">Mercor &middot; Freelance</div></div>
-            <div class="tl-dates"><div class="tl-period">Apr 2026 – Present</div><div class="tl-loc">United Kingdom &middot; Remote</div></div>
+            <div><div class="tl-role">Technical Coordinator &middot; Cyber Ops Lead</div><div class="tl-co green">Student Computing Association (SCA)</div></div>
+            <div class="tl-dates"><div class="tl-period">Apr 2026 – Present</div><div class="tl-loc">Birmingham City University &middot; UK</div></div>
           </div>
-          <p class="tl-desc">Designing and developing secure software solutions that safeguard core platform functionality. Performing security assessments, implementing secure coding practices, monitoring vulnerabilities, and supporting incident response across remote production environments.</p>
-          <div class="tl-tags"><span class="tl-tag green">Secure Coding</span><span class="tl-tag green">Security Assessments</span><span class="tl-tag green">Vulnerability Monitoring</span><span class="tl-tag green">Incident Response</span><span class="tl-tag green">Compliance</span></div>
+          <p class="tl-desc">Executing and structuring weekly cybersecurity sessions and technical workflows within the Cybersecurity division. Coordinating team projects by breaking milestones into tasks, managing GitHub repositories and documentation boards, supporting team members through technical roadblocks, and serving as the operational bridge between the committee and division leadership to deliver consistent session results.</p>
+          <div class="tl-tags"><span class="tl-tag green">Cybersecurity Ops</span><span class="tl-tag green">Technical Coordination</span><span class="tl-tag green">GitHub &amp; Version Control</span><span class="tl-tag green">Team Leadership</span><span class="tl-tag green">Project Execution</span></div>
         </div>
       </div>
       <div class="tl-item">
@@ -1873,40 +1900,89 @@
 <section id="endorsements" class="section">
   <div class="container">
     <span class="badge rv">Academic Endorsement &middot; Verified</span>
-    <h2 class="sec-title rv d1" style="--em-c:var(--green);">Academic<br/><em style="-webkit-text-fill-color:transparent;background:linear-gradient(90deg,var(--green),#67ffad,var(--green));background-size:200% auto;-webkit-background-clip:text;background-clip:text;animation:shimmer 4s linear infinite;">Endorsement</em></h2>
-    <p class="sec-sub rv d2">Official academic reference from Birmingham City University's Cyber Security faculty.</p>
+    <h2 class="sec-title rv d1" style="--em-c:var(--green);">Academic<br/><em style="-webkit-text-fill-color:transparent;background:linear-gradient(90deg,var(--green),#67ffad,var(--green));background-size:200% auto;-webkit-background-clip:text;background-clip:text;animation:shimmer 4s linear infinite;">Endorsements</em></h2>
+    <p class="sec-sub rv d2">Official academic reference credentials and peer recommendations from Birmingham City University's computing faculty.</p>
     
-    <div class="endorsement-card glass rv d3">
-      <div class="end-security-header">
-        <div class="end-security-status">
-          <span class="end-ver-icon">✓</span> VERIFIED SECURITY CREDENTIAL
+    <div style="display:flex; flex-direction:column; gap:30px; margin-top:44px;">
+      <!-- Endorsement 1: Dr. Hamza Mutaher -->
+      <div class="endorsement-card glass rv d3" style="margin-top:0;">
+        <div class="end-security-header">
+          <div class="end-security-status">
+            <span class="end-ver-icon">✓</span> VERIFIED FACULTY CREDENTIAL
+          </div>
+          <div class="end-sec-id">DOC-ID: BCU-CS-2026-PL</div>
         </div>
-        <div class="end-sec-id">DOC-ID: BCU-CS-2026-PL</div>
+        
+        <div class="end-body">
+          <div class="end-quote-icon">“</div>
+          <div class="end-text">
+            I am writing this letter of recommendation for Prem Kantilal Lodhia, who was a student in my <strong>Computer Systems</strong> module at Birmingham City University. As a lecturer, I have known Prem since September 2025, and I have had the pleasure of teaching him, where he proved to be an exceptional learner and an asset to our classes.
+            <br/><br/>
+            In the classrooms and labs, I found Prem to be a diligent and motivated student. He always showed enthusiasm for learning, participated actively in class discussions, and asked thought provoking questions. Additionally, he demonstrated excellent analytical, practical, and critical thinking skills, allowing him to quickly understand complex computing concepts and apply them effectively. Prem showed excellent performance when working individually and in groups, often taking a leadership role, and proved his ability to adapt to any learning and working environment.
+            <br/><br/>
+            Furthermore, Prem was consistently punctual and professional in all his interactions. He regularly submitted assignments on time, and his work was always of exceptional quality. In addition, he was proactive in seeking feedback on his work, which helped him continually improve his skills.
+            <br/><br/>
+            Prem's ability to adapt to new challenges, combined with his thoughtful approach to both technical and conceptual work, assures me that he will excel in his academic and career pursuits. His drive to expand his skillset beyond traditional boundaries demonstrates a forward thinking mindset and an eagerness to embrace innovation, both of which are key traits of a successful undergraduate student. I have no doubt that Prem will contribute meaningfully to any academic or industrial environment opportunities. I fully support his application and am confident that he will thrive in his professional and academic journey.
+          </div>
+        </div>
+        
+        <div class="end-footer" style="margin-bottom: 20px;">
+          <div class="end-signatory">
+            <div class="end-sig-name">Dr. Hamza Mutaher (Ph.D, FHEA)</div>
+            <div class="end-sig-title">Lecturer in Cyber Security &middot; Deputy Course Lead</div>
+            <div class="end-sig-dept">School of Computing, Engineering and Built Environment &middot; BCU</div>
+          </div>
+          <div class="end-badge-stamp">
+            <svg class="end-seal" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0,255,110,.3)" stroke-width="1.5" stroke-dasharray="3,3" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(0,255,110,.15)" stroke-width="1" />
+              <text x="50" y="38" text-anchor="middle" font-size="6" fill="rgba(0,255,110,.5)" font-family="var(--FM)" letter-spacing="1">VERIFIED</text>
+              <text x="50" y="52" text-anchor="middle" font-size="8" fill="var(--green)" font-family="var(--FM)" font-weight="bold" letter-spacing="1">FACULTY</text>
+              <text x="50" y="65" text-anchor="middle" font-size="5" fill="rgba(0,255,110,.5)" font-family="var(--FM)" letter-spacing="1">BCU 2026</text>
+            </svg>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255,255,255,.05); padding-top: 20px; display: flex;">
+          <a href="assets/Prem_Kantilal_Lodhia_RL_1.pdf" target="_blank" class="ct-verify-btn btn-g" style="display: inline-flex; align-items: center; gap: 7px; padding: 10px 22px; border-radius: 8px; font-family: var(--FM); font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--green); background: rgba(0, 255, 110, 0.08); border: 1px solid rgba(0, 255, 110, 0.25); transition: all 0.25s;">
+            Verify Reference Letter (PDF) ↗
+          </a>
+        </div>
       </div>
-      
-      <div class="end-body">
-        <div class="end-quote-icon">“</div>
-        <div class="end-text">
-          Prem has demonstrated exceptional academic capability and hands-on technical proficiency during his time at Birmingham City University. In my module, <strong>Computer Systems</strong>, he achieved a remarkable grade of <strong>86%</strong>, and in <strong>Computer Programming</strong>, he scored an outstanding <strong>96%</strong>, reflecting his strong conceptual grasp and implementation skills.
-          <br/><br/>
-          His ability to translate theoretical knowledge into advanced practical security labs — such as building simulated detection pipelines and full-stack environments — is highly commendable for a first-year student. Furthermore, his leadership and engineering role in the <strong>KINORA Innovation Project</strong> demonstrated excellent project management, teamwork, and technical ambition. I have no doubt that Prem will continue to excel and make significant contributions to the fields of Cloud Security and Detection Engineering.
+
+      <!-- Endorsement 2: Assoc Prof. Ogerta Elezaj -->
+      <div class="endorsement-card glass rv d4" style="margin-top:0; border-color: rgba(0, 212, 255, 0.15);">
+        <div class="end-security-header">
+          <div class="end-security-status" style="color: var(--cyan);">
+            <span class="end-ver-icon" style="background: rgba(0, 212, 255, 0.1); border-color: rgba(0, 212, 255, 0.3);">✓</span> VERIFIED ACADEMIC ENDORSEMENT
+          </div>
+          <div class="end-sec-id">DOC-ID: BCU-AI-2026-PL</div>
         </div>
-      </div>
-      
-      <div class="end-footer">
-        <div class="end-signatory">
-          <div class="end-sig-name">Dr. Hamza Mutaher</div>
-          <div class="end-sig-title">Lecturer in Cyber Security · Deputy Course Lead</div>
-          <div class="end-sig-dept">Birmingham City University (BCU)</div>
+        
+        <div class="end-body">
+          <div class="end-quote-icon" style="color: rgba(0, 212, 255, 0.045);">“</div>
+          <div class="end-text">
+            I had the pleasure of teaching Prem in <strong>Computer Programming</strong>, where he consistently demonstrated strong technical ability, dedication, and enthusiasm for learning. He showed excellent problem-solving skills, quickly grasped programming concepts, and applied them effectively in practical tasks.
+            <br/><br/>
+            Prem was highly engaged throughout the course, produced work of a high standard, and approached challenges with a positive and professional attitude. I highly recommend Prem for his future endeavours.
+          </div>
         </div>
-        <div class="end-badge-stamp">
-          <svg class="end-seal" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0,255,110,.3)" stroke-width="1.5" stroke-dasharray="3,3" />
-            <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(0,255,110,.15)" stroke-width="1" />
-            <text x="50" y="38" text-anchor="middle" font-size="6" fill="rgba(0,255,110,.5)" font-family="var(--FM)" letter-spacing="1">VERIFIED</text>
-            <text x="50" y="52" text-anchor="middle" font-size="8" fill="var(--green)" font-family="var(--FM)" font-weight="bold" letter-spacing="1">FACULTY</text>
-            <text x="50" y="65" text-anchor="middle" font-size="5" fill="rgba(0,255,110,.5)" font-family="var(--FM)" letter-spacing="1">BCU 2026</text>
-          </svg>
+        
+        <div class="end-footer">
+          <div class="end-signatory">
+            <div class="end-sig-name">Associate Professor Ogerta Elezaj</div>
+            <div class="end-sig-title" style="color: var(--cyan);">Associate Professor in AI &middot; Turing Fellow</div>
+            <div class="end-sig-dept">Independent Scientific Advisor (ISA) at BridgeAI &middot; BCU</div>
+          </div>
+          <div class="end-badge-stamp">
+            <svg class="end-seal" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0,212,255,.3)" stroke-width="1.5" stroke-dasharray="3,3" />
+              <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(0,212,255,.15)" stroke-width="1" />
+              <text x="50" y="38" text-anchor="middle" font-size="6" fill="rgba(0,212,255,.5)" font-family="var(--FM)" letter-spacing="1">VERIFIED</text>
+              <text x="50" y="52" text-anchor="middle" font-size="8" fill="var(--cyan)" font-family="var(--FM)" font-weight="bold" letter-spacing="1">TURING</text>
+              <text x="50" y="65" text-anchor="middle" font-size="5" fill="rgba(0,212,255,.5)" font-family="var(--FM)" letter-spacing="1">FELLOW</text>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -2542,7 +2618,7 @@
         <a class="cl-card glass" href="mailto:prem@premlodhia.com"><div class="cl-ch">Channel 01</div><div class="cl-name">Email</div><div class="cl-detail">prem@premlodhia.com</div></a>
         <a class="cl-card glass" href="https://www.linkedin.com/in/prem-lodhia-29a888382/" target="_blank"><div class="cl-ch">Channel 02</div><div class="cl-name">LinkedIn</div><div class="cl-detail">Connect professionally</div></a>
         <a class="cl-card glass" href="https://github.com/PremKLodhia" target="_blank"><div class="cl-ch">Channel 03</div><div class="cl-name">GitHub</div><div class="cl-detail">View repositories and labs</div></a>
-        <a class="cl-card glass" href="Prem_Lodhia_CV_AI_Updated-6 (1) copy.pdf" download><div class="cl-ch">Channel 04</div><div class="cl-name">Download CV</div><div class="cl-detail">Latest version · PDF</div></a>
+        <a class="cl-card glass" style="border-color:rgba(255,255,255,.05); opacity:0.5; cursor:not-allowed; pointer-events:none;" title="New CV building in progress"><div class="cl-ch">Channel 04</div><div class="cl-name" style="color:rgba(196,216,224,.4);">New CV in Progress</div><div class="cl-detail">Building... &middot; PDF</div></a>
       </div>
     </div>
   </div>
@@ -3443,8 +3519,8 @@ function setupInteractiveTerm() {
       setTimeout(() => document.querySelector("#about").scrollIntoView({behavior:"smooth"}), 300);
       return `<span class="io-g">► Loading operative file...</span>
 <span class="io-c">  Name:        </span><span class="io-d"> Prem Lodhia</span>
-<span class="io-c">  Role:        </span><span class="io-d"> Aspiring Cloud Security Engineer</span>
-<span class="io-c">  Year:        </span><span class="io-d"> 1 — CS with AI</span>
+<span class="io-c">  Role:        </span><span class="io-d"> Cloud Security &amp; Security Software Eng</span>
+<span class="io-c">  Year:        </span><span class="io-d"> 2 — CS with AI</span>
 <span class="io-c">  Status:      </span><span class="io-g"> Open to Opportunities</span>
 <span class="io-c">  Clearance:   </span><span class="io-g"> Highly Competent · TS/SCI</span>
 <span class="io-c">  Specialisms: </span><span class="io-d"> Cloud Security · Detection Eng · AppSec · AI/ML</span>`;
@@ -3474,7 +3550,7 @@ function setupInteractiveTerm() {
 
     whoami: () => `<span class="io-g">prem@sec — Operator authenticated</span>
 <span class="io-c">  UID:    </span><span class="io-d"> prem-lodhia-001</span>
-<span class="io-c">  Groups: </span><span class="io-d"> cloud-sec, detection-eng, ai-ops, full-stack-dev</span>
+<span class="io-c">  Groups: </span><span class="io-d"> cloud-sec, detection-eng, ai-ops, full-stack-dev, ios-dev</span>
 <span class="io-c">  Shell:  </span><span class="io-d"> /bin/portfolio-v2.0</span>
 <span class="io-c">  Uptime: </span><span class="io-g"> 99.97% — All systems nominal</span>
 <span class="io-c">  Last:   </span><span class="io-d"> Innovation Fest 2026 — 🏆 1st Place Winner</span>`,
