@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prem Lodhia — System Upgrade</title>
+  
+  <!-- Google Fonts for Apple-tier Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Backgrounds & Core Colors */
+      --bg-void: #000000;
+      --bg-deep: #080A0F;
+      --accent-cyan: #00D4FF;
+      --accent-gold: #FFD60A;
+      --accent-green: #34C759;
+      
+      /* Typography Scale */
+      --type-hero: clamp(2.5rem, 6vw, 4.5rem);
+      --type-h2: clamp(1.25rem, 2.5vw, 2rem);
+      --type-body: clamp(0.95rem, 1.5vw, 1.1rem);
+      --type-mono: clamp(0.8rem, 1vw, 0.95rem);
+
+      /* Motion Easing */
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100svh;
+      background-color: var(--bg-void);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* ==========================================================================
+       CINEMATIC PHASES (TIMING ORCHESTRATION)
+       ========================================================================== */
+
+    /* Phase 1: The Boot (Initial State) */
+    .intro-container {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      background: var(--bg-void);
+      transition: opacity 1s var(--ease-smooth);
+    }
+
+    .boot-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--type-mono);
+      color: var(--accent-cyan);
+      letter-spacing: 0.2em;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeInOut 2s ease-in-out forwards;
+    }
+
+    .boot-line {
+      width: 0px;
+      height: 1px;
+      background: white;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+      animation: expandLine 1.5s 0.3s var(--ease-smooth) forwards;
+    }
+
+    /* Phase 2: The Ignition (Triggered by JS) */
+    .phase-ignition .boot-line {
+      animation: implodeToDot 0.5s var(--ease-smooth) forwards;
+    }
+
+    .ignited-dot {
+      width: 0px;
+      height: 0px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      position: absolute;
+      box-shadow: 0 0 0px var(--accent-cyan);
+      opacity: 0;
+    }
+
+    .phase-ignition .ignited-dot {
+      opacity: 1;
+      animation: dotPulse 1.2s var(--ease-spring) forwards;
+    }
+
+    /* Phase 3: The Exploding Aurora Canvas */
+    .aurora-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0;
+      background: radial-gradient(circle at 50% 50%, var(--bg-deep) 0%, var(--bg-void) 100%);
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .phase-refraction .aurora-canvas {
+      opacity: 1;
+    }
+
+    .aurora-blur {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      mix-blend-mode: screen;
+      opacity: 0.4;
+      animation: drift 25s infinite alternate ease-in-out;
+    }
+
+    .blob-1 { background: #0A0E1A; top: -10%; left: -10%; }
+    .blob-2 { background: #1A1040; bottom: -10%; right: -10%; animation-delay: -5s; }
+    .blob-3 { background: #0D2640; top: 40%; left: 30%; animation-delay: -10s; }
+
+    /* Phase 4: The Main Reveal */
+    .main-viewport {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 1.5s var(--ease-smooth), transform 1.5s var(--ease-spring);
+    }
+
+    .phase-reveal .main-viewport {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ==========================================================================
+       LIQUID GLASS ARCHITECTURE
+       ========================================================================== */
+
+    .glass-card {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(28px) saturate(190%) brightness(110%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%) brightness(110%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px;
+      padding: 48px;
+      box-shadow: 
+        0 24px 60px rgba(0, 0, 0, 0.50),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Optical Specular Glare Highlight Overlay */
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 45%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
+      pointer-events: none;
+    }
+
+    /* Awards Floating Badge */
+    .winner-badge {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 214, 10, 0.08);
+      border: 1px solid rgba(255, 214, 10, 0.25);
+      padding: 8px 16px;
+      border-radius: 100px;
+      color: var(--accent-gold);
+      font-size: var(--type-mono);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green);
+      animation: alertPulse 1.5s infinite ease-in-out;
+    }
+
+    /* Content Typography styles */
+    .hero-title {
+      font-size: var(--type-hero);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: white;
+    }
+
+    .hero-title span {
+      color: transparent;
+      background: linear-gradient(90deg, #fff, rgba(255,255,255,0.4));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: var(--type-h2);
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: -0.02em;
+    }
+
+    .meta-layout {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 24px;
+      margin-top: 12px;
+    }
+
+    .meta-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: var(--type-mono);
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .meta-tag span {
+      color: var(--accent-cyan);
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: var(--type-mono);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ==========================================================================
+       KEYFRAME ANIMATIONS
+       ========================================================================== */
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(5px); filter: blur(2px); }
+      20%, 80% { opacity: 1; transform: translateY(0); filter: blur(0); }
+      100% { opacity: 0; }
+    }
+    @keyframes expandLine {
+      0% { width: 0; }
+      100% { width: 240px; }
+    }
+    @keyframes implodeToDot {
+      0% { width: 240px; height: 1px; }
+      40% { width: 4px; height: 1px; }
+      100% { width: 4px; height: 4px; border-radius: 50%; background: var(--accent-cyan); }
+    }
+    @keyframes dotPulse {
+      0% { transform: scale(1); box-shadow: 0 0 0px var(--accent-cyan); }
+      50% { transform: scale(4); box-shadow: 0 0 25px var(--accent-cyan); }
+      100% { transform: scale(0); opacity: 0; }
+    }
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(100px, 80px) scale(1.2) rotate(180deg); }
+      100% { transform: translate(-40px, 40px) scale(0.9) rotate(360deg); }
+    }
+    @keyframes alertPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; box-shadow: 0 0 14px var(--accent-green); }
+    }
+
+    /* ==========================================================================
+       MOBILE OPTIMIZATION BREAKPOINT (STRICT COHESION)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      /* Performance Guard: Drop heavy filter processing sizes on mobile to secure high FPS rendering */
+      .glass-card {
+        backdrop-filter: blur(12px) saturate(160%) brightness(105%);
+        -webkit-backdrop-filter: blur(12px) saturate(160%) brightness(105%);
+        padding: 32px 24px;
+        gap: 20px;
+        border-radius: 24px;
+      }
+      .aurora-blur {
+        width: 300px;
+        height: 300px;
+        filter: blur(70px);
+      }
+      .meta-layout {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      @keyframes expandLine {
+        0% { width: 0; }
+        100% { width: 160px; }
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Invisible SVG filter structural layer bank for authentic liquid glass maps -->
+  <svg style="position:absolute; width:0; height:0; overflow:hidden;" aria-hidden="true">
+    <defs>
+      <filter id="liquid-glass-filter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Cinematic Core Sequence Container -->
+  <div class="intro-container" id="introContainer">
+    <div class="boot-text">SECURE BOOT ENVIRONMENT</div>
+    <div class="boot-line" id="bootLine"></div>
+    <div class="ignited-dot"></div>
+  </div>
+
+  <!-- Background Refraction Ambient Canvas Layer -->
+  <div class="aurora-canvas">
+    <div class="aurora-blur blob-1"></div>
+    <div class="aurora-blur blob-2"></div>
+    <div class="aurora-blur blob-3"></div>
+  </div>
+
+  <!-- Main Viewport Interface Presentation Layer -->
+  <main class="main-viewport">
+    <div class="glass-card">
+      
+      <!-- Innovation Fest Winner Token -->
+      <div class="winner-badge">
+        <span>🏆</span> Innovation Fest 1st Place Winner
+      </div>
+      
+      <div class="card-body">
+        <h1 class="hero-title">PREM LODHIA<br><span>THE NEW STANDARD.</span></h1>
+        <p class="hero-subtitle">Cloud Security & Detection Engineering</p>
+      </div>
+
+      <!-- Infrastructure Metrics Overlay Footer -->
+      <div class="meta-layout">
+        <div class="meta-tag">[ ENGINE: <span>UPGRADE_2026</span> ]</div>
+        <div class="status-pill">
+          <div class="pulse-dot"></div>
+          STATUS: CLASSIFIED
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Orchestration Script Block (Timing Pipeline) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const body = document.body;
+      const introContainer = document.getElementById('introContainer');
+
+      // Phase 2 Initialization: Trigger the Implosion Hook
+      setTimeout(() => {
+        body.classList.add('phase-ignition');
+      }, 1800);
+
+      // Phase 3 Initialization: Ignite Ambient Canvas Overlay
+      setTimeout(() => {
+        body.classList.add('phase-refraction');
+        introContainer.style.opacity = '0';
+      }, 3000);
+
+      // Phase 4 Initialization: Terminate Intro Shell & Lift Main Frame UI
+      setTimeout(() => {
+        introContainer.style.display = 'none';
+        body.classList.add('phase-reveal');
+      }, 4000);
+    });
+  </script>
+</body>
+</html>
