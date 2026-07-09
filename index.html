@@ -36,6 +36,8 @@
 </script>
 
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
+
   
   // Contact Form Submission Handler (Formspree fallback to mailto)
   const contactForm = document.querySelector('.contact-form');
@@ -90,6 +92,8 @@
       a.addEventListener('click', () => mnavDiv.classList.remove('open'));
     });
   }
+
+  });
 </script>
 
   <!-- Google Fonts: Playfair Display (Serif), Inter (Sans-serif), JetBrains Mono (Monospace) -->
