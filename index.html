@@ -75,6 +75,18 @@
     el.classList.add('reveal');
     revealObserver.observe(el);
   });
+
+  // Mobile Menu Toggle
+  const hamBtn = document.getElementById('ham');
+  const mnavDiv = document.getElementById('mnav');
+  const closeBtn = document.getElementById('mnavClose');
+  if (hamBtn && mnavDiv && closeBtn) {
+    hamBtn.addEventListener('click', () => mnavDiv.classList.add('open'));
+    closeBtn.addEventListener('click', () => mnavDiv.classList.remove('open'));
+    mnavDiv.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mnavDiv.classList.remove('open'));
+    });
+  }
 </script>
 
   <!-- Google Fonts: Playfair Display (Serif), Inter (Sans-serif), JetBrains Mono (Monospace) -->
@@ -1344,6 +1356,81 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* --- HAMBURGER & MOBILE MENU --- */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 10001;
+    }
+    .hamburger span {
+      width: 20px;
+      height: 1.5px;
+      border-radius: 2px;
+      background: var(--text-secondary);
+      transition: all 0.3s;
+    }
+    .mnav {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(251, 251, 250, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mnav.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mnav a {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: clamp(22px, 6vw, 32px);
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mnav a:hover {
+      color: var(--accent-red);
+    }
+    .mnav-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .mnav-close:hover {
+      color: var(--accent-red);
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-container .btn-outline {
+        display: none;
+      }
+    }
 </style>
 </head>
 <body>
@@ -1368,10 +1455,22 @@
         <a href="#business">Business</a>
         <a href="uses.html">Uses</a>
         <a href="#contact">Contact</a>
-      </div>
+      </div>\n      <button class="hamburger" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
       <span class="btn-outline" style="border-color: var(--border); color: var(--text-secondary); cursor: default;">New CV in progress</span>
     </div>
   </nav>
+  <div class="mnav" id="mnav">
+    <button class="mnav-close" id="mnavClose">ESC / CLOSE</button>
+    <a href="#about" class="mnav-link">Profile</a>
+    <a href="#philosophy" class="mnav-link">Philosophy</a>
+    <a href="#experience" class="mnav-link">Experience</a>
+    <a href="#skills" class="mnav-link">Skills</a>
+    <a href="#projects" class="mnav-link">Projects</a>
+    <a href="#certifications" class="mnav-link">Certs</a>
+    <a href="#business" class="mnav-link">Business</a>
+    <a href="uses.html" class="mnav-link">Uses</a>
+    <a href="#contact" class="mnav-link">Contact</a>
+  </div>
 
   <!-- HERO SECTION -->
   <header id="hero">
