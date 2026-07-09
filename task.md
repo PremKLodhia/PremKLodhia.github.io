@@ -1,12 +1,42 @@
-# Revisions Checklist
+- [x] Modify CSS styles in `index.html`
+  - [x] Add project image container and zoom rules
+  - [x] Add skills card content and image wrapper rules
+  - [x] Adjust `#nav` and `#nav.scrolled` to `position: absolute;`
+- [x] Modify CSS styles in `blog/core-copy.css`
+  - [x] Adjust `#nav` to `position: absolute;`
+- [x] Modify HTML in `index.html` for Projects Section
+  - [x] Update KINORA card (featured) with image, remove repository link
+  - [x] Update c001 (Cyber Security Toolkit) card with image and repository link
+  - [x] Update c002 (Hospital Management System) card with image and repository link
+  - [x] Update c003 (AI Cybersecurity Interview) card (change title from Agentic Security Assistant, add image, remove repository link)
+  - [x] Remove c004 (Encrypted Project Files) card
+  - [x] Add c005 (Bridge (Local Guide)) card with image and repository link
+  - [x] Add c006 (vulnshop-lab) card with image and repository link
+  - [x] Add c007 (bluetrace-lab) card with image and repository link
+- [x] Modify HTML in `index.html` for Skills Section
+  - [x] Add skills-img-wrap for Security and wrap content in skills-card-content
+  - [x] Add skills-img-wrap for Cloud & Infra and wrap content in skills-card-content
+  - [x] Add skills-img-wrap for AI / ML and wrap content in skills-card-content
+  - [x] Add skills-img-wrap for Engineering and wrap content in skills-card-content
+- [x] Verify HTML Syntax
+  - [x] Run validation script
+- [x] Update Cybersecurity Loader to Cinematic Loader
+  - [x] Replace old HTML markup in `index.html` with vignette, grain, radar rings, SVG monogram drawing, and progress bar
+  - [x] Refactor Javascript logic in `index.html` to implement time-based progress bar animation with organic jitter
+  - [x] Adjust cinematic durations to be longer (7.0 seconds total, 6.2 seconds fade) for readability
+  - [x] Validate HTML tag balance and syntax
+- [x] Refactor LinkedIn section into Split layout
+  - [x] Design custom native HTML/CSS glassmorphic LinkedIn card on the left
+  - [x] Add professional "Who am I?" biography block with traits list on the right
+  - [x] Ensure entire custom badge is anchor-wrapped and fully clickable
+  - [x] Remove obsolete third-party platform.linkedin.com script and click-handling code
+  - [x] Resolve click/scroll bug by configuring `pointer-events: none` on inner card and `pointer-events: auto` on parent anchor
+  - [x] Clean up multiple duplicate copies of console modal and backdrop logic from the end of `index.html` (saving ~20KB file size)
+  - [x] Refactor biographical text on the right side of the split section to resolve overlap with the "About" section by incorporating hobbies (cricket, fitness), interests (iOS development, Swift, daily tech news, software auditing), and career goals (Cloud Security / Security Software Engineer)
+  - [x] Validate HTML syntax and tag balance
+- [x] Integrate Cyber Interview AI business page directly into `index.html` as `#business` section
+- [x] Remove standalone `business.html`
+- [x] Update subpage links in `uses.html`, `blog.html`, and `post.html` to point to `index.html#business`
+- [x] Add verification links to Google Cybersecurity, IBM Cybersecurity Analyst, and Meta iOS Developer certification cards.
+- [x] Manual check confirmation
 
-- [x] Copy assets (profile image from brain folder, Dr. Hamza Mutaher's reference PDF from Downloads) to `assets/`
-- [x] Update academic classification (Year 2), career designations, and iOS software engineering interests
-- [x] Replace Mercor role with Student Computing Association (SCA) Cybersecurity Coordinator role in Experience timeline
-- [x] Integrate circular profile picture into the dossiers layout inside `#about`
-- [x] Upgrade Endorsement cards (transcribe Dr. Hamza's detailed letter, link verification PDF, add Associate Prof. Ogerta Elezaj card)
-- [x] Temporarily disable Download CV buttons in header and mobile menus ("New CV in Progress")
-- [x] Significantly expand technical blog posts in `blog/posts.js`
-- [x] Sync all updated files to Desktop folder and verify script execution
-- [x] Center the profile picture within the circular avatar frame (object-position: 22% center)
-- [x] Replace the nav-mark text 'PL' with the circular profile picture on all pages (index.html, blog.html, post.html, uses.html)
