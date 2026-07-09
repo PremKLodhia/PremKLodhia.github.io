@@ -50,6 +50,25 @@
       }
     });
   }
+
+  // Scroll Reveal Observer
+  const revealElements = document.querySelectorAll('section, .project-card, .cert-category-card, .experience-entry');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target); // Animate once
+      }
+    });
+  }, {
+    threshold: 0.05,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  revealElements.forEach(el => {
+    el.classList.add('reveal');
+    revealObserver.observe(el);
+  });
 </script>
 
   <!-- Google Fonts: Playfair Display (Serif), Inter (Sans-serif), JetBrains Mono (Monospace) -->
@@ -1305,6 +1324,19 @@
       .certs-category-grid {
         grid-template-columns: 1fr;
       }
+    }
+
+    /* --- SCROLL REVEAL ANIMATIONS --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 </style>
 </head>
