@@ -51,18 +51,24 @@
     });
   }
 
-  // Scroll Reveal Observer
-  const revealElements = document.querySelectorAll('section, .project-card, .cert-category-card, .experience-entry');
+  // Refined Scroll Reveal Observer
+  // We target child blocks (headers, cards, entries) for smooth staggered entry
+  const revealElements = document.querySelectorAll(
+    'section .badge, section .sec-title, .project-card, .cert-category-card, .experience-entry, .biz-cta-card, .biz-sub-grid > div, .contact-grid > div'
+  );
+  
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
-        observer.unobserve(entry.target); // Animate once
+      } else {
+        // Toggle off when scrolled out of view to re-trigger the animation next time they scroll down!
+        entry.target.classList.remove('active');
       }
     });
   }, {
-    threshold: 0.05,
-    rootMargin: '0px 0px -60px 0px'
+    threshold: 0.02, // Triggers immediately as soon as a tiny sliver enters the viewport
+    rootMargin: '0px 0px -40px 0px' // Triggers just as it starts rising above the bottom edge
   });
 
   revealElements.forEach(el => {
