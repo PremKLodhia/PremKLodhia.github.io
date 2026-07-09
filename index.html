@@ -33,7 +33,24 @@
       "https://github.com/PremKLodhia"
     ]
   }
-  </script>
+  
+  // Contact Form Submission Handler (Formspree fallback to mailto)
+  const contactForm = document.querySelector('.contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      const action = this.getAttribute('action');
+      if (action.includes('xvonzgkb')) {
+        // If it's the placeholder ID, fallback to mailto so it works instantly!
+        e.preventDefault();
+        const name = document.getElementById('name_field').value;
+        const email = document.getElementById('email_field').value;
+        const msg = document.getElementById('msg_field').value;
+        const mailtoUrl = `mailto:prem@premlodhia.com?subject=Portfolio Message from ${encodeURIComponent(name)}&body=Sender: ${encodeURIComponent(name)} <${encodeURIComponent(email)}>%0D%0A%0D%0A${encodeURIComponent(msg)}`;
+        window.location.href = mailtoUrl;
+      }
+    });
+  }
+</script>
 
   <!-- Google Fonts: Playfair Display (Serif), Inter (Sans-serif), JetBrains Mono (Monospace) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
