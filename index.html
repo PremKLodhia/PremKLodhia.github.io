@@ -1463,7 +1463,7 @@
         <a href="#projects">Projects</a>
         <a href="#certifications">Certs</a>
         <a href="#business">Business</a>
-        <a href="uses.html">Uses</a>
+        <a href="#uses">Uses</a>
         <a href="#contact">Contact</a>
       </div>
       <span class="btn-outline" style="border-color: var(--border); color: var(--text-secondary); cursor: default;">New CV in progress</span>
@@ -1479,7 +1479,7 @@
     <a href="#projects" class="mnav-link">Projects</a>
     <a href="#certifications" class="mnav-link">Certs</a>
     <a href="#business" class="mnav-link">Business</a>
-    <a href="uses.html" class="mnav-link">Uses</a>
+    <a href="#uses" class="mnav-link">Uses</a>
     <a href="#contact" class="mnav-link">Contact</a>
   </div>
 
@@ -2575,7 +2575,111 @@
   </section>
 
   <!-- CONTACT SECTION -->
-  <section id="contact">
+    <!-- USES SECTION -->
+  <section id="uses">
+    <div class="container">
+      <div class="badge">&#10687; Environment &amp; Gear</div>
+      <h2 class="sec-title">Uses</h2>
+      
+      <div class="certs-category-grid" style="margin-top: 40px;">
+        
+        <!-- Setup & Hardware -->
+        <div class="cert-category-card">
+          <h3>Desktop &amp; Laptop Setup</h3>
+          <div class="cert-list">
+            <div class="cert-item">
+              <div class="cert-item-header">
+                <span class="cert-name-link" style="cursor: default; font-family: var(--font-mono); font-size: 13px; text-transform: uppercase;">Primary Machine</span>
+              </div>
+              <p style="font-size: 13px; line-height: 1.6; margin-top: 6px;">
+                "15.6" 2-in-1 convertible with a Super AMOLED 1080p touchscreen, Intel Core i7 (11th Gen) with Intel Iris Xe Graphics, 16GB LPDDR4x RAM, 512GB NVMe SSD, and a 360&deg; hinge for tablet/laptop switching. Runs Windows 11 + Ubuntu dual-boot for cross-platform security testing. MIL-STD-810 military-grade rated.
+              </p>
+              <ul class="experience-check-list" style="margin-top: 10px; font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);">
+                <li>VS Code &bull; JetBrains</li>
+                <li>Docker Desktop &bull; WSL2</li>
+                <li>Wireshark &bull; Splunk &bull; Burp Suite</li>
+                <li>S Pen for architectural diagramming</li>
+              </ul>
+            </div>
+            
+            <div class="cert-item" style="margin-top: 10px; border-top: 1px solid var(--border); padding-top: 20px;">
+              <div class="cert-item-header">
+                <span class="cert-name-link" style="cursor: default; font-family: var(--font-mono); font-size: 13px; text-transform: uppercase;">Mobile &amp; Responsive Testing</span>
+              </div>
+              <p style="font-size: 13px; line-height: 1.6; margin-top: 6px;">
+                Browser developer tooling, custom responsive layouts, and lightweight device emulation targets to ensure fluid accessibility across viewports.
+              </p>
+              <ul class="experience-check-list" style="margin-top: 10px; font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);">
+                <li>Chrome DevTools device emulation</li>
+                <li>Touch-friendly viewport controls</li>
+                <li>Graceful mobile layout fallbacks</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Software Stack -->
+        <div class="cert-category-card">
+          <h3>Software Stack</h3>
+          <div class="cert-list">
+            <div class="cert-item">
+              <div class="cert-item-header">
+                <span class="cert-name-link" style="cursor: default; font-family: var(--font-mono); font-size: 13px; text-transform: uppercase;">Development Suite</span>
+              </div>
+              <p style="font-size: 13px; line-height: 1.6; margin-top: 6px;">
+                Python, JavaScript, Node.js, Bash, PowerShell, SQL, HTML/CSS, and Git. Focused on rapid local iteration cycles: code, test, verify, and document.
+              </p>
+            </div>
+            
+            <div class="cert-item" style="margin-top: 10px; border-top: 1px solid var(--border); padding-top: 20px;">
+              <div class="cert-item-header">
+                <span class="cert-name-link" style="cursor: default; font-family: var(--font-mono); font-size: 13px; text-transform: uppercase;">Defensive &amp; Audit Tools</span>
+              </div>
+              <p style="font-size: 13px; line-height: 1.6; margin-top: 6px;">
+                Splunk SIEM, Suricata IDS, Wireshark packet capture, Docker containers, Burp Suite, Nmap scanner, and custom detection rule pipelines.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cloud & Platform Workflow -->
+        <div class="cert-category-card">
+          <h3>Cloud &amp; Platform Workflow</h3>
+          <div class="cert-list">
+            <div class="cert-item">
+              <p style="font-size: 13px; line-height: 1.6;">
+                I use a hybrid environment where local sandboxes and cloud resources complement each other. This entails building safe configurations locally before executing against enterprise-grade telemetry and cloud deployment baselines.
+              </p>
+              <ul class="experience-check-list" style="margin-top: 16px; font-size: 13px; line-height: 1.7;">
+                <li><strong>Local lab first:</strong> Docker and VM-based sandbox testing for BlueTrace, VulnShop, and software prototypes.</li>
+                <li><strong>Cloud-aware design:</strong> AWS-style centralized logging, IAM policy audits, and detection engineering with realistic trails.</li>
+                <li><strong>Documented processes:</strong> Every lab run is captured as a clear write-up to ensure findings are reproducible.</li>
+                <li><strong>Continuous review:</strong> Threat modelling, MITRE mapping, and detection rule tuning are integrated into every run.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workflow Methodology -->
+        <div class="cert-category-card">
+          <h3>Workflow Methodology</h3>
+          <div class="cert-list">
+            <div class="cert-item">
+              <ul class="experience-check-list" style="font-size: 13px; line-height: 1.7;">
+                <li><strong>Plan:</strong> Define the threat scenario, pick the target nodes, and select tools that match active real-world security stacks.</li>
+                <li><strong>Build:</strong> Construct the lab target, deploy dependencies, and instrument logs so that alerts and data flows can be audited.</li>
+                <li><strong>Test:</strong> Execute attack vectors, validate alerts telemetry, analyze logs, and tune rules to minimize false positives.</li>
+                <li><strong>Document:</strong> Package findings into detailed write-ups, README guides, and project repositories for verification.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<section id="contact">
     <div class="container contact-grid">
       <div class="contact-info">
         <div>
