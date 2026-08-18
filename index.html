@@ -1610,6 +1610,90 @@
       <h2 class="sec-title">Featured Projects</h2>
       
       <div class="projects-grid">
+
+        <!-- Featured Project: Network Detection & Response (NDR) Platform -->
+        <article class="project-card" id="project-ndr">
+          <div class="proj-img-wrap">
+            <img src="assets/project-ndr.jpg" alt="Network Detection & Response Platform" class="proj-img">
+          </div>
+          <div class="proj-card-content">
+            <div>
+              <div class="proj-meta" style="color: var(--accent-cyan, #38bdf8); font-weight: 700;">★ FEATURED PROJECT &middot; DUAL-PATH DETECTION &middot; FAIL-SECURE</div>
+              <h3>Network Detection & Response (NDR) Platform</h3>
+              <p>Enterprise SOC network detection and containment platform. Ingests raw packet telemetry, executes dual-path classification (Suricata ET signature rules + XGBoost classifier + PyTorch benign autoencoders), and enforces automated firewall quarantine (OPNsense REST API & iptables) under a strict fail-secure guarantee.</p>
+              
+              <!-- Empirical Metrics Grid -->
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; background: rgba(15, 23, 42, 0.6); padding: 12px; border-radius: 8px; border: 1px solid var(--border, #334155); font-family: var(--font-mono, monospace); text-align: center;">
+                <div>
+                  <div style="font-size: 16px; font-weight: 800; color: #38bdf8;">99.98%</div>
+                  <div style="font-size: 10px; color: var(--text-secondary, #94a3b8); text-transform: uppercase;">Precision</div>
+                </div>
+                <div>
+                  <div style="font-size: 16px; font-weight: 800; color: #34d399;">0.04%</div>
+                  <div style="font-size: 10px; color: var(--text-secondary, #94a3b8); text-transform: uppercase;">False Positives</div>
+                </div>
+                <div>
+                  <div style="font-size: 16px; font-weight: 800; color: #a855f7;">100k+</div>
+                  <div style="font-size: 10px; color: var(--text-secondary, #94a3b8); text-transform: uppercase;">Real Flows</div>
+                </div>
+              </div>
+
+              <!-- MITRE Mapping Table -->
+              <h4 style="font-family: var(--font-mono, monospace); font-size: 11px; text-transform: uppercase; color: var(--accent-cyan, #38bdf8); margin: 15px 0 8px;">MITRE ATT&CK Matrix Mapping</h4>
+              <table class="mitre-table" style="width: 100%; border-collapse: collapse; margin-bottom: 16px; font-family: var(--font-mono, monospace); font-size: 11px; text-align: left;">
+                <thead>
+                  <tr style="border-bottom: 1px solid var(--border, #334155); color: var(--text-secondary, #94a3b8);">
+                    <th style="padding: 4px 8px;">Technique</th>
+                    <th style="padding: 4px 8px;">ID</th>
+                    <th style="padding: 4px 8px;">Detection Engine</th>
+                    <th style="padding: 4px 8px;">Containment Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding: 4px 8px; color: #38bdf8;">Network Service Discovery</td>
+                    <td style="padding: 4px 8px;">T1046</td>
+                    <td style="padding: 4px 8px;">Suricata SID 3000001</td>
+                    <td style="padding: 4px 8px; color: #f87171;">BLOCK_AND_ISOLATE</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 4px 8px; color: #38bdf8;">Web Protocol C2 Beacon</td>
+                    <td style="padding: 4px 8px;">T1071.001</td>
+                    <td style="padding: 4px 8px;">XGBoost Classifier</td>
+                    <td style="padding: 4px 8px; color: #a855f7;">QUARANTINE_VLAN 99</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 4px 8px; color: #38bdf8;">DNS Exfiltration Tunnel</td>
+                    <td style="padding: 4px 8px;">T1071.004</td>
+                    <td style="padding: 4px 8px;">Shannon Subdomain Entropy</td>
+                    <td style="padding: 4px 8px; color: #f87171;">BLOCK_AND_ISOLATE</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 4px 8px; color: #38bdf8;">Zero-Day Protocol Tunnel</td>
+                    <td style="padding: 4px 8px;">T1572</td>
+                    <td style="padding: 4px 8px;">PyTorch Autoencoder MSE</td>
+                    <td style="padding: 4px 8px; color: #f87171;">BLOCK_AND_ISOLATE</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="proj-tags">
+                <span>NDR</span>
+                <span>Suricata IDS</span>
+                <span>XGBoost</span>
+                <span>PyTorch Autoencoder</span>
+                <span>OPNsense API</span>
+                <span>MITRE ATT&CK</span>
+                <span>Fail-Secure</span>
+              </div>
+            </div>
+            <div class="proj-actions" style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+              <a href="https://github.com/PremKLodhia/ndr-platform" target="_blank" rel="noopener noreferrer" class="btn-outline" style="border-color: #38bdf8; color: #38bdf8; font-weight: 600;">Code & Architecture &rarr;</a>
+              <a href="assets/NDR_Platform_Whitepaper.pdf" target="_blank" rel="noopener noreferrer" class="btn-outline">Technical Whitepaper (PDF) &rarr;</a>
+            </div>
+          </div>
+        </article>
+
         
         <!-- Project 1: KINORA -->
         <article class="project-card" id="c001_project">
@@ -1865,10 +1949,10 @@
             <div>
               <div class="experience-role-pill">Cybersecurity Summer Intern</div>
               <h3 class="experience-company">Birmingham City University</h3>
-              <div class="experience-meta">July 2026 &#8211; Present &middot; Birmingham, UK</div>
+              <div class="experience-meta">July 2026 &#8211; August 2026 &middot; Birmingham, UK</div>
             </div>
             <div>
-              <span class="experience-status-pill">Current</span>
+              <span class="experience-status-pill">Completed</span>
             </div>
           </div>
           <p class="experience-desc">
@@ -2217,12 +2301,23 @@
             
             <div class="cert-item">
               <div class="cert-item-header">
-                <span class="cert-name-link" style="cursor: default;">Google Cybersecurity Professional Certificate</span>
-                <span class="cert-status-badge progress">In Progress</span>
+                <a href="https://coursera.org/share/88984d34613b8c9282df3326cf8e435b" target="_blank" rel="noopener noreferrer" class="cert-name-link">Google Cybersecurity Professional Certificate</a>
+                <span class="cert-status-badge earned">Earned</span>
               </div>
               <div class="cert-meta-row">
                 <span>Google &bull; Coursera</span>
-                <span>Expected 2026</span>
+                <span>Earned 2026</span>
+              </div>
+            </div>
+
+            <div class="cert-item">
+              <div class="cert-item-header">
+                <a href="https://www.credly.com/badges/8542b4b4-ca78-4327-ac8d-3d1644c7802d/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-name-link">Ethical Hacking</a>
+                <span class="cert-status-badge earned">Earned</span>
+              </div>
+              <div class="cert-meta-row">
+                <span>Credly</span>
+                <span>Earned 2026</span>
               </div>
             </div>
 
