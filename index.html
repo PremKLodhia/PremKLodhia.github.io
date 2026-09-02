@@ -1612,6 +1612,87 @@
       
       <div class="projects-grid">
 
+        <!-- Featured Project: Sentinel Financial Risk & Anomaly Detection Engine -->
+        <article class="project-card" id="project-financial-risk-engine">
+          <div class="proj-card-content">
+            <div>
+              <div class="proj-meta" style="color: #38bdf8; font-weight: 700;">★ QUANTITATIVE RISK & SURVEILLANCE &middot; MULTI-MODEL ENSEMBLE &middot; SUB-15MS LATENCY &middot; FASTAPI & PYTORCH</div>
+              <h3>Sentinel: Real-Time Financial Risk &amp; Anomaly Detection Engine</h3>
+              <p>Ultra-low-latency financial risk surveillance and transaction anomaly detection platform for capital markets and payment infrastructure. Engineered with a thread-safe sliding-window state accumulator (&lt;1ms feature extraction) and a tri-tier detection ensemble: Statistical Z-Score heuristics, Isolation Forest outlier isolation, and a deep PyTorch bottleneck Autoencoder scoring non-linear structural anomalies via reconstruction loss.</p>
+              
+              <!-- Empirical Metrics Grid -->
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; background: rgba(15, 23, 42, 0.6); padding: 12px; border-radius: 8px; border: 1px solid var(--border, #334155); font-family: var(--font-mono, monospace); text-align: center;">
+                <div>
+                  <div style="font-size: 16px; font-weight: 800; color: #38bdf8;">6.39 ms</div>
+                  <div style="font-size: 10px; color: var(--text-secondary, #94a3b8); text-transform: uppercase;">P99 Latency</div>
+                </div>
+                <div>
+                  <div style="font-size: 16px; font-weight: 800; color: #34d399;">198.5 tx/s</div>
+                  <div style="font-size: 10px; color: var(--text-secondary, #94a3b8); text-transform: uppercase;">Single-Core Throughput</div>
+                </div>
+                <div>
+                  <div style="font-size: 16px; font-weight: 800; color: #a855f7;">0.984</div>
+                  <div style="font-size: 10px; color: var(--text-secondary, #94a3b8); text-transform: uppercase;">ROC-AUC Precision</div>
+                </div>
+              </div>
+
+              <!-- Systems Architecture Mapping -->
+              <h4 style="font-family: var(--font-mono, monospace); font-size: 11px; text-transform: uppercase; color: #38bdf8; margin: 15px 0 8px;">Detection Pipeline & Architectural Controls</h4>
+              <table class="mitre-table" style="width: 100%; border-collapse: collapse; margin-bottom: 16px; font-family: var(--font-mono, monospace); font-size: 11px; text-align: left;">
+                <thead>
+                  <tr style="border-bottom: 1px solid var(--border, #334155); color: var(--text-secondary, #94a3b8);">
+                    <th style="padding: 4px 8px;">Layer</th>
+                    <th style="padding: 4px 8px;">Mechanism</th>
+                    <th style="padding: 4px 8px;">Anomaly Vector</th>
+                    <th style="padding: 4px 8px;">Decision Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding: 4px 8px; color: #38bdf8;">Statistical Heuristic</td>
+                    <td style="padding: 4px 8px;">Haversine Speed + Z-Score</td>
+                    <td style="padding: 4px 8px;">Impossible Geo-Travel (&gt;900 km/h) &amp; Velocity Bursts</td>
+                    <td style="padding: 4px 8px; color: #ef4444; font-weight: 700;">BLOCK (0.95 Risk)</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 4px 8px; color: #34d399;">Isolation Forest</td>
+                    <td style="padding: 4px 8px;">Multi-Dimensional Manifold</td>
+                    <td style="padding: 4px 8px;">Structuring, Smurfing &amp; Joint Outliers</td>
+                    <td style="padding: 4px 8px; color: #a855f7; font-weight: 700;">CHALLENGE_2FA</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 4px 8px; color: #a855f7;">PyTorch Autoencoder</td>
+                    <td style="padding: 4px 8px;">Reconstruction Loss (&mathcal;L_MSE)</td>
+                    <td style="padding: 4px 8px;">Non-Linear Unseen Account Takeover Drift</td>
+                    <td style="padding: 4px 8px; color: #eab308; font-weight: 700;">REVIEW / FLAG</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="proj-tags">
+                <span>Python 3.11</span>
+                <span>FastAPI</span>
+                <span>PyTorch</span>
+                <span>scikit-learn</span>
+                <span>pandas</span>
+                <span>Docker</span>
+                <span>Chart.js</span>
+                <span>REST APIs</span>
+                <span>CI/CD</span>
+              </div>
+            </div>
+
+            <div class="proj-actions" style="margin-top: 16px;">
+              <a href="https://github.com/PremKLodhia/financial-risk-engine" target="_blank" rel="noopener noreferrer" class="btn-outline" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                View Repository on GitHub
+              </a>
+            </div>
+          </div>
+        </article>
+
+
+
         <!-- Featured Project: Network Detection & Response (NDR) Platform -->
         
         <!-- Featured Project: Zero-Trust Secure Backend & Identity Threat Detection -->
