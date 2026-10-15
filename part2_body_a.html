@@ -1,0 +1,230 @@
+  </style>
+  </head>
+<body>
+
+<!-- ═══════════════════════════════════ BREAKING NEWS BANNER ═══════════════════════════════════ -->
+<div id="newsBanner">
+  <div class="banner-inner">
+    <div class="banner-badge-wrap">
+      <span class="banner-trophy">🏆</span>
+      <div class="banner-sep"></div>
+      <span class="banner-breaking">Innovation Winner</span>
+    </div>
+    <div class="banner-ticker-wrap">
+      <div class="banner-ticker">
+        <div class="bt-item"><span class="bt-hl">Innovation Fest 2026 Winner</span><span class="bt-dim">—</span><span>KINORA: AI-Powered Elderly Care Ecosystem — Raspberry Pi 5 Hub · Fall Detection · Smart Pendant · Family App</span><span class="bt-dot"></span></div>
+        <div class="bt-item"><span class="bt-hl">Team Lead &amp; Security Engineer</span><span class="bt-dim">·</span><span>Designed and built a complete IoT hardware + software elderly care ecosystem with full business viability models</span><span class="bt-dot"></span></div>
+        <div class="bt-item"><span class="bt-hl">Bridge</span><span class="bt-dim">·</span><span>Community-driven local guide platform now live — connecting travellers with authentic local experiences</span><span class="bt-dot"></span></div>
+        <div class="bt-item"><span class="bt-hl">Innovation Fest 2026 Winner</span><span class="bt-dim">—</span><span>KINORA: AI-Powered Elderly Care Ecosystem — Raspberry Pi 5 Hub · Fall Detection · Smart Pendant · Family App</span><span class="bt-dot"></span></div>
+        <div class="bt-item"><span class="bt-hl">Team Lead &amp; Security Engineer</span><span class="bt-dim">·</span><span>Designed and built a complete IoT hardware + software elderly care ecosystem with full business viability models</span><span class="bt-dot"></span></div>
+        <div class="bt-item"><span class="bt-hl">Bridge</span><span class="bt-dim">·</span><span>Community-driven local guide platform now live — connecting travellers with authentic local experiences</span><span class="bt-dot"></span></div>
+      </div>
+    </div>
+    <button class="banner-close" id="newsBannerClose" title="Dismiss">✕</button>
+  </div>
+</div>
+
+<!-- Scroll Progress -->
+<div id="spb"></div>
+<!-- Cursor Glow -->
+<div id="cg"></div>
+<!-- Background Canvas -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- ═══════════════════════════════════ LOADER ═══════════════════════════════════ -->
+<div id="loader">
+  <canvas id="ldCanvas"></canvas>
+  <div class="ld-box">
+    <div class="ld-logo">PL</div>
+    <div class="ld-name">Prem Lodhia</div>
+    <div class="ld-sub">Cloud Security · Detection Engineering · AI</div>
+    <div class="ld-term" id="ldTerm"></div>
+    <div class="ld-prog"><div class="ld-fill" id="ldFill"></div></div>
+    <div class="ld-stat">
+      <span id="ldPct">0%</span>
+      <span id="ldStage">Initializing...</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════ NAVBAR ═══════════════════════════════════ -->
+<nav id="nav">
+  <div class="nav-i">
+    <a class="nav-brand" href="#">
+      <div class="nav-mark"><img src="assets/profile.png" alt="Prem Lodhia" /></div>
+      <span>Prem Lodhia</span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">Profile</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#soc">Live SOC</a>
+      <a href="#certifications">Certs</a>
+      <a href="blog.html">Blog</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta btn-glass btn-glass-sm disabled" title="New CV building in progress">New CV in Progress</a>
+    <button class="hamburger" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mnav" id="mnav">
+  <button class="mnav-close" id="mnavClose">ESC / CLOSE</button>
+  <a href="#about" class="mnav-link">Profile</a>
+  <a href="#experience" class="mnav-link">Experience</a>
+  <a href="#skills" class="mnav-link">Skills</a>
+  <a href="#projects" class="mnav-link">Projects</a>
+  <a href="#soc" class="mnav-link">Live SOC</a>
+  <a href="#certifications" class="mnav-link">Certs</a>
+  <a href="blog.html" class="mnav-link">Blog</a>
+  <a href="#contact" class="mnav-link">Contact</a>
+  <a class="btn-glass disabled" title="New CV building in progress">New CV in Progress</a>
+</div>
+
+<!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
+<section id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-pill glass-active">
+        <div class="hero-pill-dot"></div>
+        Open to Opportunities &middot; 2026
+      </div>
+      <h1 class="hero-title">
+        I Build Secure<br/>Systems That<br/><span class="hi">Detect Attacks</span><br/>Before They<br/>Happen.
+      </h1>
+      <div class="hero-sub">Cloud Security &middot; AppSec &middot; Detection Engineering &middot; AI</div>
+      <div class="hero-actions">
+        <a class="btn-glass btn-glass-primary" href="#projects">View Projects</a>
+        <a class="btn-glass" href="#contact">Contact Me</a>
+        <a class="btn-glass" href="#soc" style="border-color:rgba(0,102,255,0.3);color:rgba(0,102,255,0.9);">Live SOC Demo ↗</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat glass-base"><div class="hstat-n" data-count="40" data-suffix="+">40+</div><div class="hstat-l">Technical Skills</div></div>
+        <div class="hstat glass-base"><div class="hstat-n" data-count="7" data-suffix="">7</div><div class="hstat-l">Active Projects</div></div>
+        <div class="hstat glass-base"><div class="hstat-n" data-count="9" data-suffix="">9</div><div class="hstat-l">Certifications</div></div>
+        <div class="hstat glass-base"><div class="hstat-n" data-count="2" data-suffix="">2</div><div class="hstat-l">Year of Study</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-portrait">
+        <img src="assets/profile.png" alt="Prem Lodhia" />
+      </div>
+      <div class="innovation-badge">🏆 Innovation Fest 2026 Winner &middot; KINORA</div>
+      <div class="threat-term">
+        <div class="term-bar">
+          <div class="tdot" style="background:#ff5f57;"></div>
+          <div class="tdot" style="background:#febc2e;"></div>
+          <div class="tdot" style="background:#28c840;"></div>
+          <div class="term-title">threat-monitor@prem-sec:~$</div>
+        </div>
+        <div class="term-body" id="heroTerm"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ ABOUT ═══════════════════════════════════ -->
+<section id="about" class="section">
+  <div class="container">
+    <span class="badge observe-me">Operative File &middot; TS/SCI</span>
+    <h2 class="sec-title observe-me">Who Is<br/><em>Prem Lodhia</em></h2>
+    <p class="sec-sub observe-me">A cloud security engineer-in-training who builds production-grade labs, breaks things on purpose, and engineers the intersection of AI and threat intelligence.</p>
+    <div class="about-grid">
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Dossier Photo Container -->
+        <div class="about-avatar-container glass-premium-refract observe-me" style="display:flex;align-items:center;gap:20px;padding:20px;border-radius:20px;position:relative;overflow:hidden;">
+          <div class="about-avatar-circle">
+            <img src="assets/profile.png" alt="Prem Lodhia" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="font-family:var(--FM);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,212,255,.45);">OPERATIVE DOSSIER</div>
+            <div style="font-family:var(--F1);font-size:20px;font-weight:700;color:#fff;line-height:1.2;">Prem Lodhia</div>
+            <div style="font-family:var(--FM);font-size:10px;color:var(--accent-green);">ID: PL-001 // SEC_OP</div>
+          </div>
+          <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,transparent,rgba(0,212,255,.05) 50%,transparent 100%);pointer-events:none;animation:avatarScan 3s linear infinite;"></div>
+        </div>
+
+        <div class="about-id glass-base observe-me" style="margin-bottom:0;">
+          <div class="id-field"><div class="id-key">Subject</div><div class="id-val">Prem Lodhia</div></div>
+          <div class="id-field"><div class="id-key">Designation</div><div class="id-val highlight">Cloud Security &amp; Security Software Eng</div></div>
+          <div class="id-field"><div class="id-key">Academic Year</div><div class="id-val">Year 2 — CS with AI</div></div>
+          <div class="id-field">
+            <div class="id-key">Current Status</div>
+            <div class="id-val" style="display:flex;align-items:center;gap:9px;">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);box-shadow:0 0 10px var(--accent-green);animation:pulse 2s ease-in-out infinite;flex-shrink:0;"></span>
+              <span style="color:var(--accent-green);font-family:var(--FM);font-size:12px;letter-spacing:.1em;text-transform:uppercase;">Open to Opportunities</span>
+            </div>
+          </div>
+          <div class="id-field" style="margin-bottom:0"><div class="id-key">Clearance Level</div><div class="id-val" style="color:var(--accent-green);">Highly Competent</div></div>
+        </div>
+
+        <!-- Academic Ledger -->
+        <div class="about-academic glass-base prof-card observe-me">
+          <div class="about-hdr">Academic Ledger — Year 1</div>
+          <p class="about-p" style="font-size:11px;color:var(--text-tertiary);margin-bottom:16px;">BSc Computer Science with Artificial Intelligence @ BCU</p>
+          <div class="academic-grid">
+            <div class="acad-item"><div class="acad-header"><span class="acad-name">Computer Programming</span><span class="acad-grade green">96%</span></div><div class="acad-track"><div class="prof-fill acad-fill green" data-w="96"></div></div></div>
+            <div class="acad-item"><div class="acad-header"><span class="acad-name">Computer Systems</span><span class="acad-grade green">86%</span></div><div class="acad-track"><div class="prof-fill acad-fill green" data-w="86"></div></div></div>
+            <div class="acad-item"><div class="acad-header"><span class="acad-name">Website Design &amp; Development</span><span class="acad-grade green">86%</span></div><div class="acad-track"><div class="prof-fill acad-fill green" data-w="86"></div></div></div>
+            <div class="acad-item"><div class="acad-header"><span class="acad-name">Data Structures &amp; Algorithms</span><span class="acad-grade amber">Pending</span></div><div class="acad-track"><div class="prof-fill acad-fill amber" data-w="0"></div></div></div>
+            <div class="acad-item"><div class="acad-header"><span class="acad-name">Innovation Project</span><span class="acad-grade amber">Pending</span></div><div class="acad-track"><div class="prof-fill acad-fill amber" data-w="0"></div></div></div>
+            <div class="acad-item"><div class="acad-header"><span class="acad-name">Introduction to AI</span><span class="acad-grade amber">Pending</span></div><div class="acad-track"><div class="prof-fill acad-fill amber" data-w="0"></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-profile glass-base observe-me">
+        <div class="about-hdr">Operative Profile</div>
+        <p class="about-p">Prem is a <strong>Cloud Security &amp; Security Software Engineer</strong> with growing experience across cloud infrastructure security, application security, detection engineering, and AI-assisted workflows. He also possesses a strong passion and active interests in <strong>iOS Software Engineering</strong>, developing secure mobile applications.</p>
+        <p class="about-p">The approach is methodical and adversarial: <strong>build environments, break them deliberately, document every finding, and improve resilience through hands-on iteration.</strong> Not just learning theory — shipping working systems.</p>
+        <p class="about-p">From simulating brute-force attacks and mapping detections to MITRE ATT&amp;CK, to building full-stack secure platforms with RBAC and audit trails — every project is engineered to solve a real security problem.</p>
+        <div class="about-hdr" style="margin-top:20px;">Known Specialisations</div>
+        <div class="about-specs">
+          <span class="about-spec">Cloud Security</span><span class="about-spec">Detection Engineering</span><span class="about-spec">Application Security</span><span class="about-spec">AI / ML</span><span class="about-spec">MITRE ATT&amp;CK</span><span class="about-spec">SIEM Operations</span><span class="about-spec">Incident Response</span>
+        </div>
+        <div class="about-hdr" style="margin-top:20px;">Analyst Assessment</div>
+        <p class="about-p" style="margin-bottom:0;color:var(--text-secondary);">Exhibits <strong>above-average initiative</strong>, builds production-adjacent tooling, and shows strong long-term fit for cloud security engineering and detection-focused roles.</p>
+        <div class="about-hash">Document hash: 7f4a9b2e &middot; Last modified: 2026-05-22 &middot; Classification: TS/SCI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ EXPERIENCE ═══════════════════════════════════ -->
+<section id="experience" class="section">
+  <div class="container">
+    <span class="badge observe-me">Operational History &middot; Verified</span>
+    <h2 class="sec-title observe-me">Field<br/><em>Operations</em></h2>
+    <p class="sec-sub observe-me">Active engagements and freelance deployments across security engineering and AI research domains.</p>
+    <div class="timeline observe-me">
+      <div class="tl-item">
+        <div class="tl-node"><div class="tl-dot tl-dot-g"></div></div>
+        <div class="tl-card glass-base">
+          <div class="tl-active green"><span class="tl-active-dot" style="background:var(--accent-green);"></span>Active Operations</div>
+          <div class="tl-head">
+            <div><div class="tl-role">Technical Coordinator · Cyber Ops Lead</div><div class="tl-co green">Student Computing Association (SCA)</div></div>
+            <div class="tl-dates"><div class="tl-period">Apr 2026 – Present</div><div class="tl-loc">Birmingham City University · UK</div></div>
+          </div>
+          <p class="tl-desc">Executing and structuring weekly cybersecurity sessions and technical workflows within the Cybersecurity division. Coordinating team projects by breaking milestones into tasks, managing GitHub repositories and documentation boards, supporting team members through technical roadblocks, and serving as the operational bridge between the committee and division leadership to deliver consistent session results.</p>
+          <div class="tl-tags"><span class="tl-tag green">Cybersecurity Ops</span><span class="tl-tag green">Technical Coordination</span><span class="tl-tag green">GitHub &amp; Version Control</span><span class="tl-tag green">Team Leadership</span><span class="tl-tag green">Project Execution</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-node"><div class="tl-dot tl-dot-c"></div></div>
+        <div class="tl-card glass-base">
+          <div class="tl-active cyan"><span class="tl-active-dot" style="background:var(--accent-cyan);"></span>Active Deployment</div>
+          <div class="tl-head">
+            <div><div class="tl-role">AI Training Contributor / Data Specialist</div><div class="tl-co cyan">Outlier · Freelance</div></div>
+            <div class="tl-dates"><div class="tl-period" style="color:rgba(0,212,255,.65);">Nov 2025 – Present</div><div class="tl-loc">United Kingdom · Remote</div></div>
+          </div>
+          <p class="tl-desc">Contributing to advanced Generative AI systems by evaluating response quality, accuracy, reasoning, and safety. Providing structured expert feedback that improves model behavior and technical reliability — with a focus on risk and accuracy relevant to cybersecurity.</p>
+          <div class="tl-tags"><span class="tl-tag cyan">Generative AI</span><span class="tl-tag cyan">Critical Thinking</span><span class="tl-tag cyan">Model Training</span><span class="tl-tag cyan">Prompt Patterns</span><span class="tl-tag cyan">AI Literacy</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
