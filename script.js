@@ -65,6 +65,7 @@
     hamburger.classList.add('open');
     hamburger.setAttribute('aria-expanded', 'true');
     mobileMenu.classList.add('open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
 
@@ -73,11 +74,13 @@
     hamburger.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
     mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
   if (hamburger) {
-    hamburger.addEventListener('click', () => {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isOpen = hamburger.classList.contains('open');
       if (isOpen) {
         closeMobileMenu();
@@ -94,7 +97,7 @@
   });
 
   // --------------------------------------------------------------------------
-  // Standard Scroll Reveal Observer (Transform + Opacity, 15% visibility)
+  // Standard Scroll Reveal Observer (Transform + Opacity, High-Reliability Mobile Support)
   // --------------------------------------------------------------------------
   const revealElements = document.querySelectorAll('.reveal-on-scroll');
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -105,11 +108,25 @@
       }
     });
   }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.04,
+    rootMargin: '0px 0px 60px 0px'
   });
 
   revealElements.forEach(el => revealObserver.observe(el));
+
+  // Trigger reveals for elements already in or near viewport on initial load
+  function triggerInitialReveals() {
+    const vh = window.innerHeight;
+    revealElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < vh + 80) {
+        el.classList.add('revealed');
+        revealObserver.unobserve(el);
+      }
+    });
+  }
+  triggerInitialReveals();
+  window.addEventListener('load', triggerInitialReveals);
 
   // --------------------------------------------------------------------------
   // Stat Counter Animation (1.2s ease-out, numeric part only, run once)
@@ -120,10 +137,10 @@
       if (entry.isIntersecting) {
         const el = entry.target;
         animateNumber(el);
-        observer.unobserve(el);
+        statObserver.unobserve(el);
       }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.1 });
 
   statNumbers.forEach(el => statObserver.observe(el));
 
@@ -226,7 +243,7 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.05, rootMargin: '40px' });
 
   svgDrawPaths.forEach(path => {
     const length = path.getTotalLength ? path.getTotalLength() : 300;

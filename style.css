@@ -307,7 +307,7 @@ h1, h2, h3, h4 {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid transparent;
-  z-index: 1000;
+  z-index: 1100;
   transition: background-color var(--duration-ui) var(--ease-ui), border-color var(--duration-ui) var(--ease-ui);
 }
 
@@ -400,54 +400,62 @@ h1, h2, h3, h4 {
 /* Mobile Hamburger */
 .nav-hamburger {
   display: none;
-  background: none;
+  background: transparent;
   border: none;
   width: 44px;
   height: 44px;
-  padding: 10px;
+  padding: 12px 10px;
   cursor: pointer;
-  z-index: 1100;
+  z-index: 1200;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .nav-hamburger span {
   display: block;
-  width: 18px;
+  width: 20px;
   height: 1.5px;
   background-color: var(--text);
-  margin: 4px auto;
-  transition: transform var(--duration-ui) var(--ease-ui), opacity var(--duration-ui) var(--ease-ui);
+  border-radius: 1px;
+  margin: 4.5px auto;
+  transition: transform 300ms var(--ease-ui), opacity 200ms var(--ease-ui), background-color 200ms var(--ease-ui);
+  transform-origin: center;
 }
 
 .nav-hamburger.open span:nth-child(1) {
-  transform: translateY(5.5px) rotate(45deg);
+  transform: translateY(6px) rotate(45deg);
 }
 .nav-hamburger.open span:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 .nav-hamburger.open span:nth-child(3) {
-  transform: translateY(-5.5px) rotate(-45deg);
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 /* Mobile Menu Fullscreen Overlay */
 .mobile-menu-overlay {
-  display: none;
   position: fixed;
   inset: 0;
+  width: 100%;
+  height: 100svh;
   background: rgba(255, 255, 255, 0.96);
-  -webkit-backdrop-filter: blur(28px);
-  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  backdrop-filter: saturate(180%) blur(24px);
   z-index: 1050;
-  padding: 80px 24px 40px;
+  padding: calc(48px + clamp(24px, 5vh, 40px)) clamp(24px, 6vw, 36px) clamp(28px, 5vh, 40px);
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity var(--duration-ui) var(--ease-ui);
+  transition: opacity 300ms var(--ease-ui), visibility 300ms var(--ease-ui);
 }
 
 .mobile-menu-overlay.open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
 }
 
@@ -455,18 +463,24 @@ h1, h2, h3, h4 {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(14px, 3vh, 22px);
 }
 
 .mobile-menu-links a {
-  font-size: 32px;
+  font-size: clamp(26px, 7vw, 34px);
   font-weight: 600;
   color: var(--text);
   text-decoration: none;
   letter-spacing: -0.03em;
   opacity: 0;
   transform: translateY(16px);
-  transition: transform var(--duration-ui) var(--ease-out), opacity var(--duration-ui) var(--ease-out);
+  transition: transform var(--duration-ui) var(--ease-out), opacity var(--duration-ui) var(--ease-out), color 150ms ease;
+  display: inline-block;
+}
+
+.mobile-menu-links a:hover,
+.mobile-menu-links a:active {
+  color: var(--accent);
 }
 
 .mobile-menu-overlay.open .mobile-menu-links a {
@@ -474,13 +488,25 @@ h1, h2, h3, h4 {
   transform: translateY(0);
 }
 
-/* Stagger mobile links */
-.mobile-menu-overlay.open .mobile-menu-links li:nth-child(1) a { transition-delay: 50ms; }
-.mobile-menu-overlay.open .mobile-menu-links li:nth-child(2) a { transition-delay: 100ms; }
-.mobile-menu-overlay.open .mobile-menu-links li:nth-child(3) a { transition-delay: 150ms; }
-.mobile-menu-overlay.open .mobile-menu-links li:nth-child(4) a { transition-delay: 200ms; }
-.mobile-menu-overlay.open .mobile-menu-links li:nth-child(5) a { transition-delay: 250ms; }
-.mobile-menu-overlay.open .mobile-menu-links li:nth-child(6) a { transition-delay: 300ms; }
+/* Stagger mobile links (7 items) */
+.mobile-menu-overlay.open .mobile-menu-links li:nth-child(1) a { transition-delay: 40ms; }
+.mobile-menu-overlay.open .mobile-menu-links li:nth-child(2) a { transition-delay: 80ms; }
+.mobile-menu-overlay.open .mobile-menu-links li:nth-child(3) a { transition-delay: 120ms; }
+.mobile-menu-overlay.open .mobile-menu-links li:nth-child(4) a { transition-delay: 160ms; }
+.mobile-menu-overlay.open .mobile-menu-links li:nth-child(5) a { transition-delay: 200ms; }
+.mobile-menu-overlay.open .mobile-menu-links li:nth-child(6) a { transition-delay: 240ms; }
+.mobile-menu-overlay.open .mobile-menu-links li:nth-child(7) a { transition-delay: 280ms; }
+
+.mobile-menu-overlay .btn-primary {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: transform var(--duration-ui) var(--ease-out), opacity var(--duration-ui) var(--ease-out);
+}
+.mobile-menu-overlay.open .btn-primary {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 320ms;
+}
 
 /* --------------------------------------------------------------------------
    7. Hero Section (100svh + Pure CSS Drifting Orb)
@@ -1830,21 +1856,36 @@ html.js .reveal-on-scroll.no-blur {
 @media (max-width: 1023px) {
   .highlights-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
-  .chapter-inner {
-    grid-template-columns: 1fr;
+  .chapter-inner,
+  .chapter-inner.reverse {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    height: auto;
   }
-  .chapter-inner.reverse .chapter-content {
-    order: 2;
-  }
+  .chapter-visual,
   .chapter-inner.reverse .chapter-visual {
     order: 1;
+    width: 100%;
+    height: auto;
+    min-height: 280px;
+    aspect-ratio: 16 / 10;
+    padding: 16px;
   }
-  .chapter-visual {
-    height: 320px;
+  .chapter-content,
+  .chapter-inner.reverse .chapter-content {
+    order: 2;
+    padding: clamp(28px, 4vw, 44px);
+    gap: 20px;
   }
   .skills-grid {
     grid-template-columns: 1fr;
+  }
+  .competitions-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
   .credentials-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1865,6 +1906,19 @@ html.js .reveal-on-scroll.no-blur {
 }
 
 @media (max-width: 767px) {
+  /* Performance & Animation on mobile: clean transforms, no heavy blur */
+  html.js .reveal-on-scroll {
+    filter: none !important;
+    transform: translateY(16px);
+    transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+  }
+  html.js .reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    filter: none !important;
+  }
+
+  /* Navigation */
   .nav-links-desktop,
   .nav-actions {
     display: none;
@@ -1872,25 +1926,185 @@ html.js .reveal-on-scroll.no-blur {
   .nav-hamburger {
     display: block;
   }
-  .mobile-menu-overlay {
-    display: none;
+
+  /* Selected Work Chapters: High-Impact Visuals */
+  .work-stack-container {
+    gap: 28px;
   }
-  .mobile-menu-overlay.open {
+  .work-chapter {
+    border-radius: 24px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  }
+  .chapter-inner,
+  .chapter-inner.reverse {
     display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    height: auto;
   }
-  .credentials-grid {
-    grid-template-columns: 1fr;
+  .chapter-visual,
+  .chapter-inner.reverse .chapter-visual {
+    order: 1;
+    width: 100%;
+    height: auto;
+    min-height: 220px;
+    aspect-ratio: 16 / 10;
+    padding: 10px;
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .rail-card {
-    flex: 0 0 78vw;
+  .work-chapter:nth-child(even) .chapter-visual {
+    background: #141416;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .chapter-visual picture {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .chapter-img {
+    border-radius: 16px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+  }
+  .chapter-content,
+  .chapter-inner.reverse .chapter-content {
+    order: 2;
+    padding: 24px 18px 28px;
+    gap: 16px;
+  }
+  .chapter-title {
+    font-size: 26px;
+  }
+  .chapter-desc {
+    font-size: 15.5px;
+    line-height: 1.45;
   }
   .chapter-metrics {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 14px 0;
+  }
+  .metric-val {
+    font-size: 17px;
+  }
+  .metric-lbl {
+    font-size: 11px;
+  }
+
+  /* Horizontal Rail Cards (More Work) */
+  .rail-card {
+    flex: 0 0 86vw;
+    max-width: 330px;
+    border-radius: 22px;
+  }
+  .rail-card-media {
+    aspect-ratio: 16 / 10;
+  }
+  .rail-card-body {
+    padding: 20px 18px 22px;
     gap: 12px;
   }
+  .rail-card-title {
+    font-size: 18px;
+  }
+  .rail-card-desc {
+    font-size: 13.5px;
+  }
+
+  /* Competitions & Hackathons Section */
+  .competition-card {
+    border-radius: 24px;
+  }
+  .competition-media {
+    height: 310px;
+  }
+  .competition-media.contain-bg {
+    height: 200px;
+  }
+  .competition-body {
+    padding: 22px 18px 22px;
+  }
+  .competition-title {
+    font-size: 19px;
+  }
+  .competition-desc {
+    font-size: 14px;
+  }
+
+  /* Highlights Grid */
+  .highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .highlight-tile {
+    padding: 18px 14px;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    border-radius: 20px;
+  }
+  .highlight-num {
+    font-size: 30px;
+    line-height: 1;
+  }
+  .highlight-label {
+    font-size: 13.5px;
+    line-height: 1.25;
+  }
+  .highlight-caption {
+    font-size: 11.5px;
+    line-height: 1.35;
+  }
+
+  /* Credentials */
+  .credentials-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .cred-card {
+    padding: 20px 18px;
+    border-radius: 20px;
+  }
+
+  /* Experience Timeline */
   .timeline-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 8px;
+  }
+  .timeline-meta {
+    text-align: left;
+  }
+  .timeline-panel {
+    padding: 20px 18px;
+    border-radius: 22px;
+  }
+
+  /* Principles & Endorsements */
+  .principle-tile {
+    padding: 24px 18px 22px;
+    border-radius: 22px;
+  }
+  .endorsement-card {
+    padding: 24px 18px 22px;
+    border-radius: 22px;
+  }
+
+  /* Contact & Form */
+  .floating-form {
+    padding: 22px 18px 24px;
+    border-radius: 24px;
+  }
+  .form-input,
+  .form-textarea {
+    font-size: 16px; /* Prevents auto-zoom on iOS Safari */
+    padding: 12px 14px;
   }
 }
