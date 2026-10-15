@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://premlodhia.com/sitemap.xml

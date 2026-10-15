@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 260" class="arch-diagram-svg" fill="none">
+  <defs>
+    <style>
+      .node-box { fill: #ffffff; stroke: rgba(0, 0, 0, 0.12); stroke-width: 1.5; rx: 16px; }
+      .node-box-accent { fill: #f0f7ff; stroke: #0071e3; stroke-width: 1.5; rx: 16px; }
+      .node-text-title { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, sans-serif; font-size: 13px; font-weight: 600; fill: #1d1d1f; }
+      .node-text-sub { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, sans-serif; font-size: 11px; font-weight: 400; fill: #6e6e73; }
+      .connector-line { stroke: rgba(0, 0, 0, 0.18); stroke-width: 1.5; stroke-linecap: round; }
+      .connector-active { stroke: #0071e3; stroke-width: 1.5; stroke-linecap: round; }
+      @media (prefers-color-scheme: dark) {
+        .node-box { fill: #1d1d1f; stroke: rgba(255, 255, 255, 0.14); }
+        .node-box-accent { fill: #002244; stroke: #38bdf8; }
+        .node-text-title { fill: #f5f5f7; }
+        .node-text-sub { fill: #a1a1a6; }
+        .connector-line { stroke: rgba(255, 255, 255, 0.2); }
+        .connector-active { stroke: #38bdf8; }
+      }
+    </style>
+    <marker id="arrow-ndr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0071e3" />
+    </marker>
+    <marker id="arrow-gray-ndr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#86868b" />
+    </marker>
+  </defs>
+
+  <!-- Connectors -->
+  <path class="connector-line svg-draw-path" d="M 140 130 L 175 130" marker-end="url(#arrow-gray-ndr)" />
+  
+  <!-- Fan-out to 3 Detection Engines -->
+  <path class="connector-line svg-draw-path" d="M 315 110 L 350 65" marker-end="url(#arrow-gray-ndr)" />
+  <path class="connector-active svg-draw-path" d="M 315 130 L 350 130" marker-end="url(#arrow-ndr)" />
+  <path class="connector-line svg-draw-path" d="M 315 150 L 350 195" marker-end="url(#arrow-gray-ndr)" />
+
+  <!-- Fan-in to Decision Engine -->
+  <path class="connector-line svg-draw-path" d="M 490 65 L 530 110" marker-end="url(#arrow-gray-ndr)" />
+  <path class="connector-active svg-draw-path" d="M 490 130 L 530 130" marker-end="url(#arrow-ndr)" />
+  <path class="connector-line svg-draw-path" d="M 490 195 L 530 150" marker-end="url(#arrow-gray-ndr)" />
+
+  <!-- Decision to Quarantine -->
+  <path class="connector-active svg-draw-path" d="M 670 130 L 705 130" marker-end="url(#arrow-ndr)" />
+
+  <!-- Node 1: Ingestion -->
+  <g transform="translate(20, 95)">
+    <rect class="node-box" width="120" height="70" />
+    <text class="node-text-title" x="60" y="32" text-anchor="middle">Raw Packet Feed</text>
+    <text class="node-text-sub" x="60" y="50" text-anchor="middle">100k+ Real Flows</text>
+  </g>
+
+  <!-- Node 2: Dual-Path Ingestion -->
+  <g transform="translate(175, 95)">
+    <rect class="node-box" width="140" height="70" />
+    <text class="node-text-title" x="70" y="32" text-anchor="middle">Dual-Path Ingestion</text>
+    <text class="node-text-sub" x="70" y="50" text-anchor="middle">Signature &amp; Behavior</text>
+  </g>
+
+  <!-- Engine 1: Suricata ET Signatures -->
+  <g transform="translate(350, 35)">
+    <rect class="node-box" width="140" height="55" />
+    <text class="node-text-title" x="70" y="26" text-anchor="middle">Suricata ET Rules</text>
+    <text class="node-text-sub" x="70" y="42" text-anchor="middle">T1046 Discovery SID</text>
+  </g>
+
+  <!-- Engine 2: XGBoost Classifier -->
+  <g transform="translate(350, 102)">
+    <rect class="node-box-accent" width="140" height="55" />
+    <text class="node-text-title" x="70" y="26" text-anchor="middle" fill="#0071e3">XGBoost Classifier</text>
+    <text class="node-text-sub" x="70" y="42" text-anchor="middle">99.98% Precision</text>
+  </g>
+
+  <!-- Engine 3: PyTorch Autoencoder -->
+  <g transform="translate(350, 170)">
+    <rect class="node-box" width="140" height="55" />
+    <text class="node-text-title" x="70" y="26" text-anchor="middle">PyTorch Autoencoder</text>
+    <text class="node-text-sub" x="70" y="42" text-anchor="middle">T1572 Zero-Day Tunnel</text>
+  </g>
+
+  <!-- Node 4: Decision Engine -->
+  <g transform="translate(530, 95)">
+    <rect class="node-box-accent" width="140" height="70" />
+    <text class="node-text-title" x="70" y="32" text-anchor="middle">Decision Engine</text>
+    <text class="node-text-sub" x="70" y="50" text-anchor="middle">Fail-Secure Logic</text>
+  </g>
+
+  <!-- Node 5: Automated Quarantine -->
+  <g transform="translate(705, 95)">
+    <rect class="node-box-accent" width="135" height="70" />
+    <text class="node-text-title" x="67" y="32" text-anchor="middle">Firewall Isolation</text>
+    <text class="node-text-sub" x="67" y="50" text-anchor="middle">OPNsense &amp; iptables</text>
+  </g>
+</svg>
