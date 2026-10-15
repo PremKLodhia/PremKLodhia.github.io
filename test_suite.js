@@ -80,6 +80,7 @@ const path = require('path');
     { id: 'principles', name: '05-principles' },
     { id: 'experience', name: '06-experience' },
     { id: 'skills', name: '07-skills' },
+    { id: 'competitions', name: '07b-competitions' },
     { id: 'credentials', name: '08-credentials' },
     { id: 'endorsements', name: '09-endorsements' },
     { selector: '.cyber-band', name: '10-cyber-band' },

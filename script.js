@@ -514,4 +514,19 @@
     }
   }
 
+  // --------------------------------------------------------------------------
+  // More Skills Drawer Toggle
+  // --------------------------------------------------------------------------
+  const toggleSkillsBtn = document.getElementById('toggle-more-skills');
+  const skillsDrawer = document.getElementById('more-skills-drawer');
+  if (toggleSkillsBtn && skillsDrawer) {
+    toggleSkillsBtn.addEventListener('click', function () {
+      const isOpen = skillsDrawer.classList.toggle('open');
+      toggleSkillsBtn.setAttribute('aria-expanded', isOpen);
+      toggleSkillsBtn.innerHTML = isOpen
+        ? 'Hide specialized competencies <span class="chevron">‹</span>'
+        : 'View specialized competencies &amp; tooling <span class="chevron">›</span>';
+    });
+  }
+
 })();

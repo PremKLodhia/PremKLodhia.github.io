@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -72,6 +72,7 @@
         <li><a href="#work">Work</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
+        <li><a href="#competitions">Competitions</a></li>
         <li><a href="#credentials">Credentials</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -93,6 +94,7 @@
       <li><a href="#work">Work</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#competitions">Competitions</a></li>
       <li><a href="#credentials">Credentials</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="assets/Prem_Lodhia_CV.pdf" target="_blank" rel="noopener noreferrer">Download CV</a></li>
@@ -575,27 +577,27 @@
           <!-- Tile 1 -->
           <div class="principle-tile reveal-on-scroll">
             <span class="principle-num">01</span>
-            <h3 class="principle-title">First principles design</h3>
+            <h3 class="principle-title">Correctness and invariants</h3>
             <p class="principle-desc">
-              Clear domain boundaries, strict typing and schema validation, separation of concerns.
+              Strong domain boundaries, strict typing and defensive pre/post-conditions over loose runtime assumptions.
             </p>
           </div>
 
           <!-- Tile 2 -->
           <div class="principle-tile reveal-on-scroll">
             <span class="principle-num">02</span>
-            <h3 class="principle-title">Measure what matters</h3>
+            <h3 class="principle-title">Predictable latency and scale</h3>
             <p class="principle-desc">
-              P99 latency, memory profiles and throughput are deliverables.
+              Thread-safe concurrency, memory discipline, cache locality and P99 latency SLA as first-class deliverables.
             </p>
           </div>
 
           <!-- Tile 3 -->
           <div class="principle-tile reveal-on-scroll">
             <span class="principle-num">03</span>
-            <h3 class="principle-title">Secure by default</h3>
+            <h3 class="principle-title">Fault-tolerant by design</h3>
             <p class="principle-desc">
-              Input sanitation, fail safe logic and zero trust authentication from day one.
+              Idempotent APIs under retries, distributed synchronization and structured telemetry from day one.
             </p>
           </div>
 
@@ -930,70 +932,120 @@
           
           <!-- Card 1: Languages & Core Systems -->
           <div class="skill-card reveal-on-scroll">
-            <h3 class="skill-card-title">Languages and core systems</h3>
+            <h3 class="skill-card-title">Languages &amp; core systems</h3>
             <div class="skill-chips-wrap">
-              <span class="chip">Python</span>
+              <span class="chip chip-accent">Java (Core SE 17/21)</span>
+              <span class="chip">Python (FastAPI, NumPy)</span>
+              <span class="chip">C / C++ (RAII, Memory)</span>
               <span class="chip">TypeScript</span>
               <span class="chip">JavaScript</span>
-              <span class="chip">Bash</span>
+              <span class="chip">SQL (PostgreSQL)</span>
+              <span class="chip">Bash Shell</span>
+              <span class="chip">C#</span>
               <span class="chip">PowerShell</span>
-              <span class="chip">SQL</span>
               <span class="chip">Swift</span>
-              <span class="chip">Git</span>
-              <span class="chip">REST APIs</span>
-              <span class="chip">Secure Coding</span>
             </div>
           </div>
 
           <!-- Card 2: Backend & Distributed Systems -->
           <div class="skill-card reveal-on-scroll">
-            <h3 class="skill-card-title">Backend and distributed systems</h3>
+            <h3 class="skill-card-title">Backend &amp; distributed systems</h3>
             <div class="skill-chips-wrap">
+              <span class="chip chip-accent">Spring Boot</span>
               <span class="chip">FastAPI</span>
-              <span class="chip">Node.js</span>
-              <span class="chip">Express</span>
-              <span class="chip">Flask</span>
-              <span class="chip">PostgreSQL</span>
-              <span class="chip">SQLite</span>
-              <span class="chip">MongoDB</span>
-              <span class="chip">HashiCorp Vault</span>
-              <span class="chip">Open Policy Agent (OPA)</span>
-              <span class="chip">WebAuthn / FIDO2</span>
-              <span class="chip">JSON-RPC</span>
+              <span class="chip">Redis (Distributed Locks)</span>
+              <span class="chip">Node.js &amp; Express</span>
+              <span class="chip">PostgreSQL &amp; Schemas</span>
+              <span class="chip">Microservices Architecture</span>
+              <span class="chip">Idempotent API Design</span>
+              <span class="chip">Sliding-Window Ingestion</span>
+              <span class="chip">Concurrency (Atomics &amp; Mutexes)</span>
+              <span class="chip">WebSockets Streaming</span>
             </div>
           </div>
 
-          <!-- Card 3: Frontend & Full Stack -->
+          <!-- Card 3: Cloud, Systems & Testing -->
           <div class="skill-card reveal-on-scroll">
-            <h3 class="skill-card-title">Frontend and full stack</h3>
+            <h3 class="skill-card-title">Cloud, systems &amp; testing</h3>
             <div class="skill-chips-wrap">
-              <span class="chip">React</span>
-              <span class="chip">React Native</span>
-              <span class="chip">Expo</span>
-              <span class="chip">HTML5 / CSS3</span>
-              <span class="chip">Design Systems</span>
-              <span class="chip">UI/UX Primitives</span>
-              <span class="chip">Tkinter GUI</span>
-              <span class="chip">Responsive Web</span>
-              <span class="chip">Accessible Components</span>
-            </div>
-          </div>
-
-          <!-- Card 4: DevOps, Cloud & AI -->
-          <div class="skill-card reveal-on-scroll">
-            <h3 class="skill-card-title">DevOps, cloud and AI</h3>
-            <div class="skill-chips-wrap">
+              <span class="chip chip-accent">Operating Systems &amp; Linux</span>
+              <span class="chip">Docker Containerization</span>
+              <span class="chip">Kubernetes Foundations</span>
               <span class="chip">AWS (EC2, S3, IAM, VPC)</span>
-              <span class="chip">Docker</span>
-              <span class="chip">Linux (Ubuntu, Kali)</span>
+              <span class="chip">TDD (JUnit 5, Mockito, PyTest)</span>
+              <span class="chip">CI/CD (GitHub Actions)</span>
+              <span class="chip">Cisco CCNA (IP &amp; Routing)</span>
+              <span class="chip">IBM DevOps Certified</span>
+              <span class="chip">Git Version Control</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Engineering Practices & Soft Skills -->
+          <div class="skill-card reveal-on-scroll">
+            <h3 class="skill-card-title">Practices &amp; soft skills</h3>
+            <div class="skill-chips-wrap">
+              <span class="chip chip-accent">Agile &amp; Scrum Delivery</span>
+              <span class="chip">Technical Mentorship (60+ Students)</span>
+              <span class="chip">Peer Code Review Clinics</span>
+              <span class="chip">Clean Architecture &amp; Runbooks</span>
+              <span class="chip">Test-Driven Development (TDD)</span>
+              <span class="chip">Cross-Functional Collaboration</span>
+              <span class="chip">Problem Solving &amp; Algorithmic Analysis</span>
+              <span class="chip">Continuous Learning &amp; Growth Mindset</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Toggle for Additional Specialized Competencies -->
+        <div style="text-align: center; margin-top: 32px;">
+          <button class="btn-secondary" id="toggle-more-skills" aria-expanded="false" style="font-size: 16px;">
+            View specialized competencies &amp; tooling <span class="chevron">›</span>
+          </button>
+        </div>
+
+        <!-- Collapsible Specialized Skills Drawer -->
+        <div id="more-skills-drawer" class="more-skills-drawer" style="margin-top: 24px;">
+          
+          <!-- Sub-Card 1: AI & Applied Machine Learning -->
+          <div class="skill-card" style="background: var(--bg-alt);">
+            <h4 style="font-size: 17px; font-weight: 600; margin-bottom: 12px; color: var(--text);">Applied AI &amp; Machine Learning</h4>
+            <div class="skill-chips-wrap">
               <span class="chip">PyTorch</span>
               <span class="chip">scikit-learn</span>
               <span class="chip">LangChain</span>
-              <span class="chip">Suricata IDS</span>
-              <span class="chip">Splunk SIEM</span>
-              <span class="chip">Wireshark</span>
-              <span class="chip">Burp Suite</span>
+              <span class="chip">AI-Native Tooling</span>
+              <span class="chip">NumPy &amp; Pandas</span>
+              <span class="chip">Embedding Pipelines</span>
+              <span class="chip">Model Evaluation</span>
+            </div>
+          </div>
+
+          <!-- Sub-Card 2: Systems Hardening & Security -->
+          <div class="skill-card" style="background: var(--bg-alt);">
+            <h4 style="font-size: 17px; font-weight: 600; margin-bottom: 12px; color: var(--text);">Systems Hardening &amp; Security</h4>
+            <div class="skill-chips-wrap">
+              <span class="chip">Google Cybersecurity Certified</span>
+              <span class="chip">HashiCorp Vault</span>
+              <span class="chip">Zero Trust Architecture</span>
+              <span class="chip">Open Policy Agent (OPA)</span>
+              <span class="chip">WebAuthn / FIDO2</span>
               <span class="chip">CIS Benchmarks</span>
+              <span class="chip">Wireshark &amp; Suricata</span>
+            </div>
+          </div>
+
+          <!-- Sub-Card 3: Frontend & UI Engineering -->
+          <div class="skill-card" style="background: var(--bg-alt);">
+            <h4 style="font-size: 17px; font-weight: 600; margin-bottom: 12px; color: var(--text);">Frontend &amp; UI Engineering</h4>
+            <div class="skill-chips-wrap">
+              <span class="chip">React</span>
+              <span class="chip">React Native &amp; Expo</span>
+              <span class="chip">HTML5 / CSS3</span>
+              <span class="chip">Design Systems</span>
+              <span class="chip">UI/UX Primitives</span>
+              <span class="chip">Accessibility (WCAG AA)</span>
+              <span class="chip">Responsive Web</span>
             </div>
           </div>
 
@@ -1001,8 +1053,107 @@
       </div>
     </section>
 
+    <!-- COMPETITIONS & HACKATHONS SECTION -->
+    <section id="competitions" class="section section-alt">
+      <div class="container">
+        <div class="section-header" style="text-align: center;">
+          <span class="eyebrow">Hackathons &amp; Contests</span>
+          <h2 class="h2-title">Competitions and hackathons</h2>
+          <p class="lead-text" style="max-width: 680px; margin: 12px auto 0;">
+            Building under pressure &mdash; selected competitor and award winner in engineering hackathons across the UK and Switzerland.
+          </p>
+        </div>
+
+        <div class="competitions-grid">
+
+          <!-- Competition 1: Innovation Fest 2026 1st Place -->
+          <article class="competition-card reveal-on-scroll">
+            <div class="competition-media">
+              <picture>
+                <source srcset="assets/award-innovation-fest.webp" type="image/webp">
+                <img src="assets/award-innovation-fest.jpg" alt="Prem Lodhia receiving the 1st Place Dean's Award at Innovation Fest" class="competition-img" loading="lazy" width="600" height="400">
+              </picture>
+            </div>
+            <div class="competition-body">
+              <div class="chip chip-accent" style="align-self: flex-start; margin-bottom: 8px;">1st Place Winner</div>
+              <h3 class="competition-title">Innovation Fest 2026</h3>
+              <div class="competition-subtitle">Dean&rsquo;s Award for Outstanding Engineering &bull; Birmingham City University</div>
+              <p class="competition-desc">
+                Awarded 1st Place by the Dean of Computing and Engineering for designing and defending an enterprise architectural solution, evaluated on technical depth, scalability, and live defense.
+              </p>
+              <div style="margin-bottom: 16px;">
+                <a href="assets/award-innovation-fest.webp" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="min-height: auto; font-size: 13.5px;">
+                  View award presentation photo &amp; certificate <span class="chevron">&rsaquo;</span>
+                </a>
+              </div>
+              <div class="competition-chips">
+                <span class="chip">1st Place</span>
+                <span class="chip">Dean&rsquo;s Award</span>
+                <span class="chip">System Architecture</span>
+                <span class="chip">Enterprise Defense</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Competition 2: Unihack Hackathon Winner -->
+          <article class="competition-card reveal-on-scroll">
+            <div class="competition-media">
+              <picture>
+                <source srcset="assets/award-unihack-team.webp" type="image/webp">
+                <img src="assets/award-unihack-team.jpg" alt="Prem Lodhia and engineering team winning Unihack Hackathon" class="competition-img" loading="lazy" width="600" height="400">
+              </picture>
+            </div>
+            <div class="competition-body">
+              <div class="chip chip-accent" style="align-self: flex-start; margin-bottom: 8px;">Hackathon Winner</div>
+              <h3 class="competition-title">Unihack &times; Innovation Fest</h3>
+              <div class="competition-subtitle">48-Hour Competitive Hackathon &bull; Birmingham City University</div>
+              <p class="competition-desc">
+                Engineered and pitched an end-to-end full-stack software prototype under a 48-hour continuous sprint, securing 1st place against cross-university engineering teams.
+              </p>
+              <div style="margin-bottom: 16px;">
+                <a href="assets/award-unihack-cert.webp" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="min-height: auto; font-size: 13.5px;">
+                  View winner certificate <span class="chevron">&rsaquo;</span>
+                </a>
+              </div>
+              <div class="competition-chips">
+                <span class="chip">Hackathon Winner</span>
+                <span class="chip">Rapid Prototyping</span>
+                <span class="chip">Full-Stack Sprint</span>
+                <span class="chip">Team Lead</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Competition 3: LauzHack 2026 EPFL Switzerland -->
+          <article class="competition-card reveal-on-scroll">
+            <div class="competition-media contain-bg">
+              <picture>
+                <source srcset="assets/award-lauzhack.webp" type="image/webp">
+                <img src="assets/award-lauzhack.jpg" alt="LauzHack EPFL Switzerland Participant Banner" class="competition-img" loading="lazy" width="600" height="400">
+              </picture>
+            </div>
+            <div class="competition-body">
+              <div class="chip" style="align-self: flex-start; margin-bottom: 8px; background: rgba(0,113,227,0.12); color: var(--accent); border-color: rgba(0,113,227,0.25);">International Selection</div>
+              <h3 class="competition-title">LauzHack 2026</h3>
+              <div class="competition-subtitle">&Eacute;cole Polytechnique F&eacute;d&eacute;rale de Lausanne (EPFL) &bull; Switzerland</div>
+              <p class="competition-desc">
+                Selected among competitive international applicants to attend and build at EPFL in Lausanne, Switzerland, tackling systems engineering and AI challenge tracks with European engineers.
+              </p>
+              <div class="competition-chips">
+                <span class="chip">Selected Competitor</span>
+                <span class="chip">EPFL Switzerland</span>
+                <span class="chip">Distributed Systems</span>
+                <span class="chip">AI Track</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
     <!-- CREDENTIALS & AWARDS SECTION (Segmented Control Tabs) -->
-    <section id="credentials" class="section section-alt">
+    <section id="credentials" class="section section-light">
       <div class="container">
         <div class="section-header" style="text-align: center;">
           <span class="eyebrow">Recognitions</span>
@@ -1255,7 +1406,7 @@
     </section>
 
     <!-- ENDORSEMENTS SECTION (Large Quote Cards & Carousel) -->
-    <section id="endorsements" class="section section-light">
+    <section id="endorsements" class="section section-alt">
       <div class="container">
         <div class="section-header">
           <span class="eyebrow">Recommendations</span>
@@ -1338,7 +1489,7 @@
               Let's build<br><span style="color: var(--accent);">something resilient.</span>
             </h2>
             <p class="lead-text" style="color: var(--text-2-on-dark); margin-bottom: 24px;">
-              Open to placement for 2027 and internship for 2027 in cybersecurity, cloud security, detection engineering and AI-adjacent security tooling &mdash; UK or remote.
+              Open to placement for 2027/2028 and summer internships for 2027 across Software Engineering, Backend Development, Distributed Systems, Cloud Infrastructure and Systems Engineering &mdash; UK or remote.
             </p>
 
             <!-- Availability Pill (2nd and final appearance) -->
@@ -1802,19 +1953,19 @@
       </div>
       <div class="modal-scroll-area">
         <div>
-          <h2 class="display-title" id="modal-philosophy-title" style="font-size: clamp(32px, 4.5vw, 48px); margin-bottom: 12px;">Engineering Signals, Not Noise.</h2>
-          <p class="lead-text">Detection philosophy and operational architecture.</p>
+          <h2 class="display-title" id="modal-philosophy-title" style="font-size: clamp(32px, 4.5vw, 48px); margin-bottom: 12px;">Engineering Invariants, Not Assumptions.</h2>
+          <p class="lead-text">Software engineering philosophy and distributed systems architecture.</p>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 20px; font-size: 17px; line-height: 1.7; color: var(--text-2);">
           <p>
-            Traditional security relies heavily on static, perimeter-focused telemetry that creates alert fatigue. My approach to operations is centered on <strong>behavioral detection engineering</strong> &mdash; modeling the actual techniques adversaries use at every phase of the lifecycle, as mapped by the MITRE ATT&amp;CK framework.
+            True software reliability begins by defining and enforcing system invariants from day one. In high-throughput distributed backends and low-latency engines, relying on loose runtime assumptions leads to silent state corruption, unhandled race conditions, and cascading service outages. By codifying strict schema boundaries, static and runtime invariants, and defensive validation, software stays provably correct even under degraded network states.
           </p>
           <p>
-            By mapping telemetry pipelines in cloud control planes (AWS CloudTrail), build workflows (CI pipelines), and host processes directly to known behaviors, I write precise detection rules designed to identify post-exploitation activity while minimizing false-positive signals.
+            Modern backends handle thousands of concurrent transactions across multi-core processors. Fast code is useless if it is not thread-safe. Through disciplined memory management, cache locality, and atomic concurrency primitives (in Java Virtual Threads, Spring Boot, C++ RAII, and Redis distributed locks), systems can process high-volume workloads with deterministic memory bounds and predictable sub-10ms P99 latency.
           </p>
           <p>
-            Through automation and structured alert runbooks, I help build systems that move security teams directly from detection to verified remediation outcomes in real time.
+            Network boundaries and external microservices are inherently volatile. Retries, transient timeouts, and packet jitter are standard operational reality, not edge cases. Every critical endpoint must be designed idempotently, accompanied by structured metrics, distributed tracing, and clear runbooks so systems can be understood, operated, and recovered with zero data loss.
           </p>
         </div>
 
