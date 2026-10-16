@@ -254,14 +254,18 @@ h1, h2, h3, h4 {
   transform: scale(0.98);
 }
 
+button.btn-secondary,
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   padding: 4px 0;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 400;
+  font-family: inherit;
   color: var(--link);
+  background: transparent;
+  border: none;
   text-decoration: none;
   cursor: pointer;
   gap: 4px;
@@ -522,7 +526,7 @@ h1, h2, h3, h4 {
   padding-top: 60px;
   padding-bottom: 60px;
   background-color: var(--bg);
-  overflow: hidden;
+  overflow: clip;
 }
 
 /* Pure CSS Soft Drifting Gradient Orb (No canvas, 60s animation) */
@@ -831,6 +835,13 @@ h1, h2, h3, h4 {
   gap: 20px;
   flex-wrap: wrap;
   margin-top: 8px;
+}
+
+.chapter-action-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .chapter-visual {
@@ -1320,7 +1331,12 @@ h1, h2, h3, h4 {
   justify-content: center;
   margin-bottom: 28px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
   padding: 4px;
+}
+.segmented-control-wrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .segmented-control {
@@ -1330,6 +1346,7 @@ h1, h2, h3, h4 {
   border-radius: var(--radius-chip);
   border: 1px solid var(--line);
   gap: 4px;
+  flex-shrink: 0;
 }
 
 .seg-tab-btn {
@@ -1337,12 +1354,13 @@ h1, h2, h3, h4 {
   border: none;
   padding: 8px 18px;
   border-radius: var(--radius-chip);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 500;
   color: var(--text-2);
   cursor: pointer;
   transition: all var(--duration-hover) var(--ease-ui);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .seg-tab-btn.active {
@@ -1801,6 +1819,180 @@ h1, h2, h3, h4 {
 }
 
 /* --------------------------------------------------------------------------
+   19b. Tap-to-Inspect Image Lightbox (Native High-Resolution Inspection)
+   -------------------------------------------------------------------------- */
+.modal-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2200;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.88);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  opacity: 0;
+  padding: clamp(12px, 3vw, 24px);
+  transition: opacity var(--duration-ui) var(--ease-ui);
+}
+
+.modal-lightbox.open {
+  display: flex;
+  opacity: 1;
+}
+
+.lightbox-dialog {
+  width: 100%;
+  max-width: 1100px;
+  max-height: 94svh;
+  display: flex;
+  flex-direction: column;
+  background: #141416;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  transform: scale(0.96);
+  transition: transform var(--duration-ui) var(--ease-out);
+}
+
+.modal-lightbox.open .lightbox-dialog {
+  transform: scale(1);
+}
+
+.lightbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(20, 20, 22, 0.85);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.lightbox-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lightbox-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f5f5f7;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.lightbox-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #f5f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color var(--duration-hover) var(--ease-ui), transform 150ms var(--ease-ui);
+}
+
+.lightbox-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.lightbox-close-btn:active {
+  transform: scale(0.95);
+}
+
+.lightbox-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #09090b;
+  padding: clamp(12px, 3vw, 24px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: calc(94svh - 120px);
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 74svh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-footer {
+  padding: 12px 22px;
+  background: rgba(20, 20, 22, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12.5px;
+  color: #a1a1a6;
+}
+
+.lightbox-caption {
+  font-size: 12.5px;
+  color: #a1a1a6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lightbox-hint {
+  font-size: 11.5px;
+  color: #6e6e73;
+  flex-shrink: 0;
+}
+
+/* Zoom badge on interactive visuals */
+.chapter-visual,
+.rail-card-media,
+.competition-media {
+  position: relative;
+  cursor: pointer;
+}
+
+.zoom-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-chip);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #ffffff;
+  pointer-events: none;
+  z-index: 5;
+  transition: all var(--duration-hover) var(--ease-ui);
+}
+
+.chapter-visual:hover .zoom-badge,
+.rail-card-media:hover .zoom-badge,
+.competition-media:hover .zoom-badge {
+  background: rgba(0, 113, 227, 0.9);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: scale(1.03);
+}
+
+/* --------------------------------------------------------------------------
    20. Motion System & Progressive Disclosure
    -------------------------------------------------------------------------- */
 /* Standard reveal: applies ONLY after JS adds the 'js' class to <html> */
@@ -1906,16 +2098,28 @@ html.js .reveal-on-scroll.no-blur {
 }
 
 @media (max-width: 767px) {
-  /* Performance & Animation on mobile: clean transforms, no heavy blur */
+  /* Performance & 60fps/120fps Silkiness on mobile: instant visibility, zero pop-in/lag */
   html.js .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
     filter: none !important;
-    transform: translateY(16px);
-    transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+    transition: none !important;
+    will-change: auto !important;
   }
   html.js .reveal-on-scroll.revealed {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1 !important;
+    transform: none !important;
     filter: none !important;
+  }
+
+  /* Typography & Button Safeguards against truncation */
+  h1, h2, h3, h4, .chapter-title, .rail-card-title, .competition-title, .cred-title {
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+    hyphens: auto !important;
+  }
+  button, .btn-primary, .btn-secondary {
+    white-space: normal;
   }
 
   /* Navigation */
@@ -1927,7 +2131,7 @@ html.js .reveal-on-scroll.no-blur {
     display: block;
   }
 
-  /* Selected Work Chapters: High-Impact Visuals */
+  /* Selected Work Chapters: High-Impact Visuals & Touch Layout */
   .work-stack-container {
     gap: 28px;
   }
@@ -1948,13 +2152,15 @@ html.js .reveal-on-scroll.no-blur {
     width: 100%;
     height: auto;
     min-height: 220px;
+    max-height: 290px;
     aspect-ratio: 16 / 10;
-    padding: 10px;
-    background: var(--bg-alt);
+    padding: 8px;
+    background: #111113;
     border-bottom: 1px solid var(--line);
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
   .work-chapter:nth-child(even) .chapter-visual {
     background: #141416;
@@ -1966,11 +2172,11 @@ html.js .reveal-on-scroll.no-blur {
     display: block;
   }
   .chapter-img {
-    border-radius: 16px;
+    border-radius: 14px;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
+    object-fit: contain;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   }
   .chapter-content,
   .chapter-inner.reverse .chapter-content {
@@ -1997,6 +2203,31 @@ html.js .reveal-on-scroll.no-blur {
     font-size: 11px;
   }
 
+  /* Chapter Actions: full-width primary pill + secondary links */
+  .chapter-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+  }
+  .chapter-actions .btn-primary {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    font-size: 15px !important;
+    min-height: 46px !important;
+  }
+  .chapter-action-links {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 18px !important;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
   /* Horizontal Rail Cards (More Work) */
   .rail-card {
     flex: 0 0 86vw;
@@ -2005,6 +2236,7 @@ html.js .reveal-on-scroll.no-blur {
   }
   .rail-card-media {
     aspect-ratio: 16 / 10;
+    cursor: pointer;
   }
   .rail-card-body {
     padding: 20px 18px 22px;
@@ -2022,10 +2254,22 @@ html.js .reveal-on-scroll.no-blur {
     border-radius: 24px;
   }
   .competition-media {
-    height: 310px;
+    height: 260px !important;
+    background: #111113 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px !important;
+    cursor: pointer !important;
   }
   .competition-media.contain-bg {
-    height: 200px;
+    height: 220px !important;
+  }
+  .competition-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    border-radius: 14px !important;
   }
   .competition-body {
     padding: 22px 18px 22px;
@@ -2063,7 +2307,23 @@ html.js .reveal-on-scroll.no-blur {
     line-height: 1.35;
   }
 
-  /* Credentials */
+  /* Credentials & Segmented Control */
+  .segmented-control-wrapper {
+    justify-content: flex-start !important;
+    padding: 4px 16px !important;
+    margin: 0 -16px 24px -16px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .segmented-control {
+    flex-shrink: 0 !important;
+  }
+  .seg-tab-btn {
+    flex-shrink: 0 !important;
+    padding: 8px 14px !important;
+    font-size: 13px !important;
+  }
   .credentials-grid {
     grid-template-columns: 1fr;
     gap: 14px;

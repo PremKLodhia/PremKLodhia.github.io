@@ -116,6 +116,13 @@
 
   // Trigger reveals for elements already in or near viewport on initial load
   function triggerInitialReveals() {
+    if (window.innerWidth <= 767) {
+      revealElements.forEach(el => {
+        el.classList.add('revealed');
+        revealObserver.unobserve(el);
+      });
+      return;
+    }
     const vh = window.innerHeight;
     revealElements.forEach(el => {
       const rect = el.getBoundingClientRect();
@@ -470,10 +477,69 @@
   setTimeout(handleHash, 100);
 
   // --------------------------------------------------------------------------
-  // Keyboard Support (ESC to close modals and mobile menu)
+  // Tap-to-Inspect Image Lightbox (Native High-Resolution Preview)
+  // --------------------------------------------------------------------------
+  const lightbox = document.getElementById('modal-lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxCloseBtn = document.querySelector('.lightbox-close-btn');
+
+  function openLightbox(src, title, caption) {
+    if (!lightbox || !lightboxImg) return;
+    lightboxImg.src = src;
+    if (lightboxTitle) lightboxTitle.innerHTML = title || 'High Resolution View';
+    if (lightboxCaption) lightboxCaption.innerHTML = caption || 'Native architecture inspection.';
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if (lightboxCloseBtn) lightboxCloseBtn.focus();
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (lightbox) {
+    if (lightboxCloseBtn) {
+      lightboxCloseBtn.addEventListener('click', closeLightbox);
+    }
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target.classList.contains('lightbox-body')) {
+        closeLightbox();
+      }
+    });
+  }
+
+  // Bind all interactive visual cards and data-lightbox triggers
+  document.querySelectorAll('.chapter-visual, .competition-media, .rail-card-media, [data-lightbox-src]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      // Don't intercept if clicking an un-related link
+      if (e.target.closest('a') && !e.target.closest('[data-lightbox-src]')) return;
+      
+      const target = el.closest('[data-lightbox-src]') || el;
+      const src = target.getAttribute('data-lightbox-src') || el.querySelector('img')?.src;
+      if (!src) return;
+
+      const title = target.getAttribute('data-lightbox-title') || el.closest('article')?.querySelector('h3')?.innerText || 'High Resolution View';
+      const caption = target.getAttribute('data-lightbox-caption') || el.closest('article')?.querySelector('p')?.innerText || '';
+
+      openLightbox(src, title, caption);
+    });
+  });
+
+  // --------------------------------------------------------------------------
+  // Keyboard Support (ESC to close modals, lightbox, and mobile menu)
   // --------------------------------------------------------------------------
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      if (lightbox && lightbox.classList.contains('open')) {
+        closeLightbox();
+        return;
+      }
       if (activeModal) {
         closeModal(activeModal);
       }
