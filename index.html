@@ -40,6 +40,8 @@
       "Distributed Systems",
       "Low Latency Backends",
       "Financial Surveillance Systems",
+      "Spring Boot & Java Enterprise Systems",
+      "Document Extraction Pipelines",
       "Detection Engineering",
       "Zero Trust Architecture",
       "Cloud Security"
@@ -252,9 +254,65 @@
             </div>
           </article>
 
-          <!-- Chapter 2: Zero Trust Backend -->
-          <article class="work-chapter reveal-on-scroll" id="chapter-zero-trust">
+          <!-- Chapter 2: InvoiceOps -->
+          <article class="work-chapter reveal-on-scroll" id="chapter-invoiceops">
             <div class="chapter-inner reverse">
+              <div class="chapter-content">
+                <span class="eyebrow">Financial operations engine</span>
+                <h3 class="chapter-title">InvoiceOps</h3>
+                <p class="chapter-desc">
+                  Local-first, AI-assisted invoice operations platform with deterministic document extraction and an auditable approval state machine.
+                </p>
+
+                <div class="chapter-metrics">
+                  <div>
+                    <div class="metric-val">&lt;50 ms</div>
+                    <div class="metric-lbl">Extraction SLA</div>
+                  </div>
+                  <div>
+                    <div class="metric-val">100%</div>
+                    <div class="metric-lbl">Math Consistency</div>
+                  </div>
+                  <div>
+                    <div class="metric-val">&pound;0 / $0</div>
+                    <div class="metric-lbl">Zero-Cost Local-First</div>
+                  </div>
+                </div>
+
+                <div class="chapter-chips">
+                  <span class="chip chip-accent">Java 21 LTS</span>
+                  <span class="chip">Spring Boot 3.4</span>
+                  <span class="chip">Apache PDFBox</span>
+                  <span class="chip">PostgreSQL 16</span>
+                  <span class="chip">Docker</span>
+                  <span class="chip">React 19</span>
+                  <span class="chip">TypeScript</span>
+                </div>
+
+                <div class="chapter-actions">
+                  <button class="btn-primary" data-modal="modal-invoiceops">Case study</button>
+                  <div class="chapter-action-links">
+                    <a href="https://github.com/PremKLodhia/invoiceops" target="_blank" rel="noopener noreferrer" class="btn-secondary">Code <span class="chevron">›</span></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chapter-visual" data-lightbox-title="InvoiceOps &mdash; Finance Workbench &amp; Document Review Interface" data-lightbox-src="assets/project-invoiceops.png" data-lightbox-caption="Side-by-side invoice document preview alongside extracted financial fields, confidence indicators, and two-way PO matching.">
+                <picture>
+                  <source srcset="assets/project-invoiceops.webp" type="image/webp">
+                  <img src="assets/project-invoiceops.png" alt="InvoiceOps Finance Review Workbench Interface" class="chapter-img" loading="lazy" width="800" height="450">
+                </picture>
+                <span class="zoom-badge" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                  Tap to inspect
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Chapter 3: Zero Trust Backend -->
+          <article class="work-chapter reveal-on-scroll" id="chapter-zero-trust">
+            <div class="chapter-inner">
               <div class="chapter-content">
                 <span class="eyebrow">Distributed backend</span>
                 <h3 class="chapter-title">Zero Trust Backend</h3>
@@ -306,9 +364,9 @@
             </div>
           </article>
 
-          <!-- Chapter 3: Enterprise NDR Platform -->
+          <!-- Chapter 4: Enterprise NDR Platform -->
           <article class="work-chapter reveal-on-scroll" id="chapter-ndr">
-            <div class="chapter-inner">
+            <div class="chapter-inner reverse">
               <div class="chapter-content">
                 <span class="eyebrow">Data pipeline</span>
                 <h3 class="chapter-title">Enterprise NDR Platform</h3>
@@ -361,9 +419,9 @@
             </div>
           </article>
 
-          <!-- Chapter 4: KINORA -->
+          <!-- Chapter 5: KINORA -->
           <article class="work-chapter reveal-on-scroll" id="chapter-kinora">
-            <div class="chapter-inner reverse">
+            <div class="chapter-inner">
               <div class="chapter-content">
                 <div class="chip chip-accent" style="margin-bottom: 8px;">Innovation Fest 2026, 1st place</div>
                 <h3 class="chapter-title">KINORA</h3>
@@ -980,6 +1038,7 @@
               <span class="chip">Redis (Distributed Locks)</span>
               <span class="chip">Node.js &amp; Express</span>
               <span class="chip">PostgreSQL &amp; Schemas</span>
+              <span class="chip">Apache PDFBox</span>
               <span class="chip">Microservices Architecture</span>
               <span class="chip">Idempotent API Design</span>
               <span class="chip">Sliding-Window Ingestion</span>
@@ -1697,6 +1756,141 @@
 
         <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 24px;">
           <a href="https://github.com/PremKLodhia" target="_blank" rel="noopener noreferrer" class="btn-primary">View GitHub Repository ›</a>
+          <button class="btn-secondary" data-modal="modal-invoiceops">Next project: InvoiceOps <span class="chevron">›</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: InvoiceOps Case Study Sheet -->
+  <div class="modal-sheet" id="modal-invoiceops" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-invoiceops-title">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <span class="eyebrow" style="margin-bottom: 0;">Case study</span>
+        <button class="modal-close-btn" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="modal-scroll-area">
+        <div>
+          <h2 class="display-title" id="modal-invoiceops-title" style="font-size: clamp(32px, 4.5vw, 48px); margin-bottom: 12px;">InvoiceOps &mdash; Local-First Financial Operations &amp; Deterministic Pipeline</h2>
+          <p class="lead-text">Modular Spring Boot 3 monolith with deterministic document extraction, 2-way PO matching, and an auditable approval workflow.</p>
+        </div>
+
+        <div class="chapter-metrics" style="border: 1px solid var(--line); border-radius: 16px; padding: 18px 24px;">
+          <div>
+            <div class="metric-val">&lt;50 ms</div>
+            <div class="metric-lbl">Extraction SLA</div>
+          </div>
+          <div>
+            <div class="metric-val">100%</div>
+            <div class="metric-lbl">Math Consistency</div>
+          </div>
+          <div>
+            <div class="metric-val">&pound;0 / $0</div>
+            <div class="metric-lbl">Zero-Cost Local-First</div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="h3-title" style="margin-bottom: 16px;">Overview &amp; Problem Statement</h3>
+          <p class="body-text" style="color: var(--text-2); line-height: 1.6;">
+            Small businesses, charities, and finance teams process hundreds of supplier invoices each month across PDFs, scans, and receipts. Traditional accounts payable suffers from manual data re-entry, silent duplicate payments, undetected PO discrepancies, and unverified math errors. High-cost cloud extraction SaaS introduces vendor lock-in and monthly token fees.
+          </p>
+          <p class="body-text" style="color: var(--text-2); line-height: 1.6; margin-top: 12px;">
+            InvoiceOps solves this with a 100% local-first, zero-cloud-cost platform. It pairs deterministic PDF text extraction with automated mathematical consistency checks, two-way purchase order verification, and a strictly auditable state machine ensuring human reviewers retain final financial authority.
+          </p>
+        </div>
+
+        <!-- Workbench Interface Visual -->
+        <div>
+          <h3 class="h3-title" style="margin-bottom: 16px;">Interactive Review Workbench</h3>
+          <div style="background: #111113; padding: 16px; border-radius: var(--radius-media); border: 1px solid var(--line); text-align: center;">
+            <picture>
+              <source srcset="assets/project-invoiceops.webp" type="image/webp">
+              <img src="assets/project-invoiceops.png" alt="InvoiceOps Review Workbench Interface" style="width: 100%; border-radius: 12px; display: block;" loading="lazy">
+            </picture>
+            <div style="font-size: 13px; color: #a1a1a6; margin-top: 12px;">Side-by-side document preview alongside editable extracted fields with field-level confidence ratings.</div>
+          </div>
+        </div>
+
+        <!-- Core Architectural Invariants -->
+        <div>
+          <h3 class="h3-title" style="margin-bottom: 16px;">Core Architectural Invariants</h3>
+          <table class="hairline-table">
+            <thead>
+              <tr>
+                <th>Subsystem</th>
+                <th>Implementation</th>
+                <th>Metric / Invariant</th>
+                <th>Security Guarantee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Modular Monolith</td>
+                <td>Spring Boot 3.4.2 &bull; Java 21 LTS</td>
+                <td>7 Decoupled Modules</td>
+                <td>Domain-level boundary enforcement</td>
+              </tr>
+              <tr>
+                <td>Document Extraction</td>
+                <td>Apache PDFBox 3.0.4 + Tess4J OCR</td>
+                <td>&lt;50 ms digital PDF SLA</td>
+                <td>Cryptographic SHA-256 duplicate rejection</td>
+              </tr>
+              <tr>
+                <td>Consistency Engine</td>
+                <td>Deterministic Arithmetic Rules</td>
+                <td>Net + Tax == Gross (0.01 tolerance)</td>
+                <td>Non-blocking variance flagging</td>
+              </tr>
+              <tr>
+                <td>PO Reconciliation</td>
+                <td>Two-Way Commitment Matching</td>
+                <td>Line item &amp; total PO verification</td>
+                <td>Prevents unauthorized budget overruns</td>
+              </tr>
+              <tr>
+                <td>Approval Workflow</td>
+                <td>Enforced State Machine</td>
+                <td>4 Strict Lifecycle States</td>
+                <td>Append-only audit trail with actor metadata</td>
+              </tr>
+              <tr>
+                <td>Data &amp; Export</td>
+                <td>PostgreSQL 16 &bull; Flyway Migrations</td>
+                <td>CWE-1236 Formula Sanitization</td>
+                <td>Multi-tenant org isolation on all queries</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Walkthrough & Design Decisions -->
+        <div>
+          <h3 class="h3-title" style="margin-bottom: 16px;">Key Engineering Decisions</h3>
+          <ul class="exp-bullet-list" style="color: var(--text-2); line-height: 1.6;">
+            <li><strong>Assistive Automation, Not Black-Box Decisions:</strong> An invoice is never auto-approved by OCR or AI alone. Every field is annotated with confidence scores (HIGH, MEDIUM, LOW, UNVERIFIED) and human reviewers verify discrepancies.</li>
+            <li><strong>Formula Injection Mitigation (CWE-1236):</strong> CSV exports sanitize spreadsheet formula triggers (=, +, -, @) to prevent remote formula execution attacks when finance teams open export sheets in Excel.</li>
+            <li><strong>Strict Multi-Currency Separation:</strong> Invoices in GBP, USD, and EUR are aggregated strictly within their ISO currency codes without arbitrary currency blending.</li>
+            <li><strong>Zero-Cost Local Architecture:</strong> Full operational capacity with zero external API fees, runs entirely on local Docker containers or local JVM with H2 database support.</li>
+          </ul>
+        </div>
+
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span class="chip chip-accent">Java 21 LTS</span>
+          <span class="chip">Spring Boot 3.4.2</span>
+          <span class="chip">Apache PDFBox</span>
+          <span class="chip">PostgreSQL 16</span>
+          <span class="chip">Flyway</span>
+          <span class="chip">React 19</span>
+          <span class="chip">TypeScript 6</span>
+          <span class="chip">Vite 8</span>
+          <span class="chip">Docker</span>
+          <span class="chip">CWE-1236 Mitigation</span>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 24px;">
+          <a href="https://github.com/PremKLodhia/invoiceops" target="_blank" rel="noopener noreferrer" class="btn-primary">View GitHub Repository ›</a>
           <button class="btn-secondary" data-modal="modal-zero-trust">Next project: Zero Trust Backend <span class="chevron">›</span></button>
         </div>
       </div>

@@ -454,6 +454,10 @@
       openModal('modal-sentinel');
       return;
     }
+    if (hash === '#invoiceops' || hash === '#invoice-ops') {
+      openModal('modal-invoiceops');
+      return;
+    }
     if (hash === '#zero-trust' || hash === '#c001' || hash === '#project-vault') {
       openModal('modal-zero-trust');
       return;
