@@ -159,13 +159,16 @@ export function sentinelViz() {
           ctx.stroke();
         }
         ctx.globalAlpha = 1;
+        // Soft halo drawn as a translucent disc; canvas shadowBlur is costly per frame.
         ctx.fillStyle = tier.color;
-        ctx.shadowColor = tier.color;
-        ctx.shadowBlur = 12;
+        ctx.globalAlpha = 0.22;
+        ctx.beginPath();
+        ctx.arc(px, py, 8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
         ctx.beginPath();
         ctx.arc(px, py, 3.5, 0, Math.PI * 2);
         ctx.fill();
-        ctx.shadowBlur = 0;
         ctx.fillText(tier.label, px, py - 8);
       });
 

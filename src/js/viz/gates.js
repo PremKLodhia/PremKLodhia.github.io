@@ -123,14 +123,11 @@ export function gatesViz() {
         ctx.fill();
         ctx.stroke();
         if (glow) {
-          ctx.shadowColor = f.color;
-          ctx.shadowBlur = 18 * glow;
           ctx.globalAlpha = glow;
           ctx.fillStyle = f.color;
           ctx.beginPath();
           ctx.roundRect(gx - 2, top + 4, 4, bottom - top - 8, 2);
           ctx.fill();
-          ctx.shadowBlur = 0;
           ctx.globalAlpha = 1;
         }
         ctx.textAlign = 'center';
@@ -195,12 +192,14 @@ export function gatesViz() {
           ctx.stroke();
         }
         ctx.fillStyle = color;
-        ctx.shadowColor = color;
-        ctx.shadowBlur = 10;
+        ctx.globalAlpha = alpha * 0.25;
+        ctx.beginPath();
+        ctx.arc(px, py, 7, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = alpha;
         ctx.beginPath();
         ctx.arc(px, py, 3.2, 0, Math.PI * 2);
         ctx.fill();
-        ctx.shadowBlur = 0;
         if (q.sealed) {
           ctx.strokeStyle = 'rgba(127, 231, 255, 0.7)';
           ctx.lineWidth = 1;

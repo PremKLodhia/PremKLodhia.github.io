@@ -38,6 +38,7 @@ whenIdle(() => {
   const VIZ = { sentinel: sentinelViz, gates: gatesViz, network: networkViz };
   document.querySelectorAll('[data-viz]').forEach((canvas) => {
     const factory = VIZ[canvas.dataset.viz];
-    if (factory) mountViz(canvas, factory, { motion });
+    // The full-bleed network backdrop is large; render it at a lower resolution.
+    if (factory) mountViz(canvas, factory, { motion, maxDpr: canvas.dataset.viz === 'network' ? 1 : 1.5 });
   });
 }, 800);

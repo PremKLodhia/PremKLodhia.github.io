@@ -437,7 +437,7 @@ function studioEnvironment(renderer) {
  *           onFirstFrame?: () => void, onTooSlow?: () => void }} options
  * Throws if WebGL2 is missing or only available as a software rasteriser.
  */
-export function createCore(canvas, { width, height, dpr = 1, tier = 'high', reducedMotion = false, onFirstFrame, onTooSlow } = {}) {
+export function createCore(canvas, { width, height, dpr = 1, tier = 'high', reducedMotion = false, onFirstFrame, onTooSlow, onStats } = {}) {
   const high = tier === 'high';
   const renderer = new WebGLRenderer({
     canvas,
@@ -451,7 +451,13 @@ export function createCore(canvas, { width, height, dpr = 1, tier = 'high', redu
     renderer.dispose();
     throw new Error('Software WebGL renderer');
   }
-  let pixelRatio = Math.min(dpr || 1, high ? 1.75 : 1.5);
+  // Budget the drawing buffer by pixel count rather than DPR alone: a large
+  // high-DPI screen otherwise multiplies the fill cost of MSAA, transmission
+  // and bloom on integrated GPUs.
+  const pixelBudget = high ? 2.2e6 : 1.4e6;
+  let dprCeiling = Math.min(dpr || 1, 1.5);
+  const fitPixelRatio = (w, h) => Math.max(0.75, Math.min(dprCeiling, Math.sqrt(pixelBudget / Math.max(1, w * h))));
+  let pixelRatio = fitPixelRatio(width || 1, height || 1);
   renderer.setPixelRatio(pixelRatio);
   renderer.outputColorSpace = SRGBColorSpace;
   renderer.toneMapping = ACESFilmicToneMapping;
@@ -675,6 +681,8 @@ export function createCore(canvas, { width, height, dpr = 1, tier = 'high', redu
     const h = Math.max(1, nextHeight);
     state.width = w;
     state.height = h;
+    pixelRatio = fitPixelRatio(w, h);
+    renderer.setPixelRatio(pixelRatio);
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
@@ -709,12 +717,12 @@ export function createCore(canvas, { width, height, dpr = 1, tier = 'high', redu
 
     // Pointer smoothing; the tilt and each ring lag at different rates for depth.
     const p = state.pointer;
-    state.pointerSmooth.x = damp(state.pointerSmooth.x, p.x * motion, 4, dt);
-    state.pointerSmooth.y = damp(state.pointerSmooth.y, p.y * motion, 4, dt);
-    state.tilt.x = damp(state.tilt.x, p.y * motion, 2.2, dt);
-    state.tilt.y = damp(state.tilt.y, p.x * motion, 2.2, dt);
+    state.pointerSmooth.x = damp(state.pointerSmooth.x, p.x * motion, 7, dt);
+    state.pointerSmooth.y = damp(state.pointerSmooth.y, p.y * motion, 7, dt);
+    state.tilt.x = damp(state.tilt.x, p.y * motion, 4.5, dt);
+    state.tilt.y = damp(state.tilt.y, p.x * motion, 4.5, dt);
     state.ringLag.forEach((v, i) => {
-      const k = 1.2 + i * 0.9;
+      const k = 2.5 + i * 1.5;
       v.x = damp(v.x, p.y * motion, k, dt);
       v.y = damp(v.y, p.x * motion, k, dt);
     });
@@ -835,8 +843,7 @@ export function createCore(canvas, { width, height, dpr = 1, tier = 'high', redu
       composer = null;
       bloom = null;
     }
-    pixelRatio = Math.min(pixelRatio, 1.25);
-    renderer.setPixelRatio(pixelRatio);
+    dprCeiling = Math.min(dprCeiling, pixelRatio * 0.8);
     resize();
   }
 
@@ -850,9 +857,19 @@ export function createCore(canvas, { width, height, dpr = 1, tier = 'high', redu
     state.last = now;
     state.time += dt;
     update(dt);
+    const t0 = performance.now();
     draw();
     adapt(dt);
+    if (onStats) {
+      stats.frames++;
+      stats.cpu += performance.now() - t0;
+      if (now - stats.since > 1000) {
+        onStats({ fps: Math.round((stats.frames * 1000) / (now - stats.since)), drawMs: +(stats.cpu / stats.frames).toFixed(1), dpr: pixelRatio, bloom: !!composer, tier });
+        Object.assign(stats, { frames: 0, cpu: 0, since: now });
+      }
+    }
   }
+  const stats = { frames: 0, cpu: 0, since: performance.now() };
 
   const api = {
     setProgress(p) {

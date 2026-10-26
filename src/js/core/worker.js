@@ -15,6 +15,7 @@ self.onmessage = ({ data }) => {
         ...data.options,
         onFirstFrame: () => self.postMessage({ type: 'firstframe' }),
         onTooSlow: () => self.postMessage({ type: 'tooslow' }),
+        onStats: data.options.stats ? (s) => self.postMessage({ type: 'stats', ...s }) : undefined,
       });
     } catch (err) {
       self.postMessage({ type: 'error', message: String(err && err.message) });

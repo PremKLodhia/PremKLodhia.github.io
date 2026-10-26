@@ -11,7 +11,10 @@ export async function startCore(canvas, { tier, reducedMotion, onFirstFrame, onT
     dpr: window.devicePixelRatio || 1,
     tier,
     reducedMotion,
+    stats: new URLSearchParams(location.search).has('perf'),
   };
+  // Append ?perf to the URL to log the scene's frame rate to the console.
+  const logStats = (s) => console.info(`[core] ${s.fps} fps, ${s.drawMs} ms submit, dpr ${s.dpr}, ${s.tier}${s.bloom ? ' + bloom' : ''}`);
 
   if (canvas.transferControlToOffscreen && 'Worker' in window) {
     const worker = new Worker(new URL('./core-worker.js', import.meta.url), { type: 'module' });
@@ -22,6 +25,7 @@ export async function startCore(canvas, { tier, reducedMotion, onFirstFrame, onT
           onFirstFrame();
           resolve();
         } else if (data.type === 'tooslow') onTooSlow();
+        else if (data.type === 'stats') logStats(data);
         else if (data.type === 'error') reject(new Error(data.message));
       };
       worker.onerror = (e) => reject(new Error(e.message || 'Core worker failed'));
@@ -42,6 +46,6 @@ export async function startCore(canvas, { tier, reducedMotion, onFirstFrame, onT
 
   // Fallback for browsers without OffscreenCanvas: same scene, main thread.
   const { createCore } = await import('./scene.js');
-  const core = createCore(canvas, { ...options, onFirstFrame, onTooSlow });
+  const core = createCore(canvas, { ...options, onFirstFrame, onTooSlow, onStats: options.stats ? logStats : undefined });
   return { ...core, resize: () => core.resize(canvas.clientWidth, canvas.clientHeight) };
 }

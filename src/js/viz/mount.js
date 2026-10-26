@@ -4,7 +4,7 @@
  * frame when motion is reduced.
  */
 
-export function mountViz(canvas, factory, { motion }) {
+export function mountViz(canvas, factory, { motion, maxDpr = 1.5 }) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
   const viz = factory(ctx);
@@ -20,7 +20,7 @@ export function mountViz(canvas, factory, { motion }) {
   const size = () => {
     const rect = canvas.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
     width = rect.width;
     height = rect.height;
     canvas.width = Math.round(width * dpr);

@@ -41,7 +41,7 @@ export function initReveal({ motion }) {
       if (prev.hasAttribute('data-reveal')) i++;
       prev = prev.previousElementSibling;
     }
-    if (i) el.style.setProperty('--d', Math.min(i, 5) * 90);
+    if (i) el.style.setProperty('--d', Math.min(i, 4) * 70);
   });
 
   document.querySelectorAll('.budget__rows li').forEach((li, i) => li.style.setProperty('--i', i));
@@ -54,7 +54,7 @@ export function initReveal({ motion }) {
         io.unobserve(entry.target);
       });
     },
-    { rootMargin: '0px 0px -12% 0px', threshold: 0.01 }
+    { rootMargin: '0px 0px -6% 0px', threshold: 0.01 }
   );
 
   [...splits, ...reveals].forEach((el) => io.observe(el));

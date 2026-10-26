@@ -8,8 +8,8 @@
   opacity: 0;
   transform: translate3d(0, 32px, 0);
   transition:
-    opacity 900ms var(--ease-out),
-    transform 1200ms var(--ease-out);
+    opacity 600ms var(--ease-out),
+    transform 800ms var(--ease-out);
   transition-delay: calc(var(--d, 0) * 1ms);
 }
 
@@ -31,8 +31,8 @@
 
 .motion [data-split] .split-word > span {
   transform: translate3d(0, 110%, 0);
-  transition: transform 1100ms var(--ease-out);
-  transition-delay: calc(var(--i, 0) * 70ms);
+  transition: transform 800ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 45ms);
 }
 
 .motion [data-split].is-in .split-word > span { transform: none; }

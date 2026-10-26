@@ -8,7 +8,7 @@
  * falls back to a pre-rendered still when WebGL is unavailable.
  */
 import { addFrameTask } from '../lib/frame.js';
-import { clamp, finePointer, smoothstep, webglAvailable, whenIdle } from '../lib/env.js';
+import { clamp, finePointer, smoothstep, webglAvailable } from '../lib/env.js';
 import { countUp } from './counters.js';
 import { startCore } from '../core/client.js';
 
@@ -97,7 +97,7 @@ export function initHero({ motion }) {
   const saveData = navigator.connection && navigator.connection.saveData;
   if (!canvas || saveData || !webglAvailable()) return;
 
-  const boot = () => whenIdle(async () => {
+  const boot = async () => {
     try {
       const coarse = window.matchMedia('(pointer: coarse)').matches;
       const lowMemory = navigator.deviceMemory && navigator.deviceMemory <= 4;
@@ -128,7 +128,7 @@ export function initHero({ motion }) {
       stage.classList.remove('is-live');
       console.info('Core scene unavailable, showing the still:', err.message);
     }
-  });
+  };
 
   // Let the page finish loading before spending time on the 3D scene.
   if (document.readyState === 'complete') boot();

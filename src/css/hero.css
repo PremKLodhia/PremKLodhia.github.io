@@ -197,7 +197,7 @@
 .hero__gauge { display: none; }
 
 /* --- Sequenced hero (JS + motion allowed) --------------------------------- */
-.motion .hero__track { height: 250svh; }
+.motion .hero__track { height: 210svh; }
 
 .motion .hero__stage {
   position: sticky;
