@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Dialogs: case-study sheets and the image lightbox (native <dialog>).
+   ========================================================================== */
+
+.sheet,
+.lightbox {
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--frost);
+  overflow: hidden;
+}
+
+.sheet::backdrop,
+.lightbox::backdrop {
+  background: rgba(3, 4, 6, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.sheet[open].is-open::backdrop,
+.lightbox[open].is-open::backdrop { opacity: 1; }
+
+.sheet[open] {
+  display: grid;
+  place-items: center;
+  padding: clamp(0px, 3vw, 40px);
+}
+
+.sheet__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(960px, 100%);
+  max-height: min(92vh, 100%);
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, #0f141a, #0a0d11);
+  box-shadow: inset 0 0 0 1px var(--line-strong), 0 80px 160px -40px rgba(0, 0, 0, 0.95);
+  opacity: 0;
+  transform: translateY(32px) scale(0.985);
+  transition: opacity 360ms var(--ease-out), transform 600ms var(--ease-out);
+}
+
+.sheet.is-open .sheet__panel { opacity: 1; transform: none; }
+
+.sheet__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px 14px 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sheet__kind { color: var(--alloy); font-size: var(--text-xs); }
+
+.sheet__close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  transition: background-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
+}
+
+.sheet__close svg { width: 16px; height: 16px; stroke: var(--frost); stroke-width: 1.6; fill: none; }
+.sheet__close:hover { background: var(--ion-wash); box-shadow: inset 0 0 0 1px var(--ion-line); }
+
+.sheet__body {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: clamp(24px, 4vw, 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.sheet__title {
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3.1rem);
+  font-weight: 620;
+  font-stretch: 110%;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  max-width: 22ch;
+}
+
+.sheet__lead { color: var(--frost-2); font-size: var(--text-lg); max-width: 56ch; margin-top: -6px; }
+
+.sheet__body h3 { margin-top: 18px; font-size: var(--text-lg); font-weight: 600; letter-spacing: -0.01em; }
+.sheet__body > p { color: var(--alloy); max-width: 72ch; line-height: 1.7; }
+.sheet__body--prose > p:not(.sheet__lead) { font-size: var(--text-lg); color: var(--frost-2); line-height: 1.7; }
+
+.sheet__figure { display: grid; gap: 10px; }
+.sheet__figure img { border-radius: var(--r-sm); box-shadow: 0 0 0 1px var(--line); }
+.sheet__figure figcaption { color: var(--dim); font-size: var(--text-xs); }
+
+.sheet__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-top: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.sheet__foot-group { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+
+.diagram {
+  overflow-x: auto;
+  padding: 20px;
+  border-radius: var(--r-md);
+  background: #0b0f14;
+  box-shadow: inset 0 0 0 1px var(--line);
+  color-scheme: dark;
+}
+
+.diagram object { display: block; width: 100%; min-width: 600px; }
+
+.table-wrap { overflow-x: auto; margin-inline: -4px; padding-inline: 4px; }
+
+.table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: var(--text-xs);
+}
+
+.table th {
+  padding: 10px 14px 10px 0;
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--alloy);
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 12px 14px 12px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--frost-2);
+  vertical-align: top;
+}
+
+.table td:first-child { color: var(--frost); }
+.table tr.is-total td { color: var(--frost); font-weight: 600; }
+.table tr.is-total td:nth-child(3) { color: var(--ion-strong); }
+
+.state {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--r-xs);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.state--ok { color: var(--ok); box-shadow: inset 0 0 0 1px rgba(127, 240, 184, 0.35); }
+.state--warn { color: var(--amber); box-shadow: inset 0 0 0 1px rgba(242, 183, 102, 0.4); }
+.state--deny { color: var(--danger); box-shadow: inset 0 0 0 1px rgba(255, 122, 122, 0.4); }
+
+@media (max-width: 720px) {
+  .sheet[open] { place-items: end stretch; padding: 0; }
+  .sheet__panel {
+    width: 100%;
+    max-height: 94svh;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    transform: translateY(60px);
+  }
+  .sheet__body { padding-bottom: calc(32px + env(safe-area-inset-bottom)); }
+}
+
+/* --- Lightbox ---------------------------------------------------------------- */
+.lightbox[open] {
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vw, 40px);
+}
+
+.lightbox__frame {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  width: min(1400px, 100%);
+  height: 100%;
+  max-height: 100%;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 360ms var(--ease-out), transform 600ms var(--ease-out);
+}
+
+.lightbox.is-open .lightbox__frame { opacity: 1; transform: none; }
+
+.lightbox__bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.lightbox__title { font-size: var(--text-md); font-weight: 560; }
+
+.lightbox__body {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  overflow: auto;
+}
+
+.lightbox__body img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--r-sm);
+  box-shadow: 0 0 0 1px var(--line-strong), 0 60px 120px -40px rgba(0, 0, 0, 0.95);
+}
+
+.lightbox__caption { color: var(--alloy); font-size: var(--text-xs); max-width: 80ch; }

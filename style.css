@@ -2368,3 +2368,42 @@ html.js .reveal-on-scroll.no-blur {
     padding: 12px 14px;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Dark theme (opt-in via body.theme-dark) — matches the homepage palette
+   so secondary pages read as part of the same product.
+   -------------------------------------------------------------------------- */
+.theme-dark {
+  --bg: #06080b;
+  --bg-alt: #0c1015;
+  --text: #e9eff4;
+  --text-2: #93a1ae;
+  --line: rgba(233, 239, 244, 0.1);
+  --line-subtle: rgba(233, 239, 244, 0.06);
+  --accent: #7fe7ff;
+  --accent-hover: #b5f2ff;
+  --link: #7fe7ff;
+  --nav-bg: rgba(6, 8, 11, 0.72);
+  --nav-bg-scrolled: rgba(6, 8, 11, 0.82);
+  --sheet-bg: rgba(12, 16, 21, 0.96);
+  --chip-bg: rgba(233, 239, 244, 0.05);
+  --chip-bg-hover: rgba(233, 239, 244, 0.09);
+  --shadow-card: 0 20px 48px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.theme-dark .btn-primary,
+.theme-dark .nav-pill-btn {
+  background: #e9eff4;
+  color: #06080b;
+}
+
+.theme-dark .btn-primary:hover,
+.theme-dark .nav-pill-btn:hover {
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(127, 231, 255, 0.32), 0 10px 40px -12px rgba(127, 231, 255, 0.5);
+}
+
+.theme-dark .nav-hamburger span { background: var(--text); }

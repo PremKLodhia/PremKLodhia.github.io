@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "skills": {
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "computedHash": "106acf230014cbb43ca34e6410371321b56ca742f9ee0442e8ec05bf02eb0384"
+    },
+    "threejs-lighting": {
+      "source": "cesartevisual/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-lighting/SKILL.md",
+      "computedHash": "4a4b74699c0c8e25d65b6a8591ad98240e68f7d68bb92606c1d4d3342fe6bafe"
+    },
+    "threejs-materials": {
+      "source": "cesartevisual/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-materials/SKILL.md",
+      "computedHash": "85644169f4565a3aaff2a5e9a4eb3b070c67e92bbd002f544fad6898cb7c2f64"
+    },
+    "threejs-performance": {
+      "source": "cesartevisual/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-performance/SKILL.md",
+      "computedHash": "dc201e2c85d85a36fe322011db4eaf25257747c2bb641e161c085b1e03862be2"
+    },
+    "threejs-shaders": {
+      "source": "cesartevisual/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-shaders/SKILL.md",
+      "computedHash": "720109441290a4abacb3b4f729b6e11a7f5c163c00627214d74aba11de2548c2"
+    },
+    "threejs-web": {
+      "source": "cesartevisual/threejs-skills",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-web/SKILL.md",
+      "computedHash": "de3c726eb3c46042dea5212688e3414ab925d15e107286a772a015a97bc5c7a5"
+    }
+  }
+}

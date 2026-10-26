@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Motion states. Hidden-until-revealed styles apply only under `.motion`,
+   which JS sets when scripting works and reduced motion is not requested,
+   so content is always visible without JS or with motion turned off.
+   ========================================================================== */
+
+.motion [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition:
+    opacity 900ms var(--ease-out),
+    transform 1200ms var(--ease-out);
+  transition-delay: calc(var(--d, 0) * 1ms);
+}
+
+.motion [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Split headings: words rise out of a mask, one after another. */
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.split-word > span { display: inline-block; }
+
+.motion [data-split] .split-word > span {
+  transform: translate3d(0, 110%, 0);
+  transition: transform 1100ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.motion [data-split].is-in .split-word > span { transform: none; }
+
+/* Case-study stages settle from a slight depth as they arrive. */
+.motion .case__stage[data-reveal] {
+  transform: perspective(1400px) translate3d(0, 48px, -60px) rotateX(6deg);
+  transform-origin: 50% 100%;
+}
+
+.motion .case__stage[data-reveal].is-in { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
