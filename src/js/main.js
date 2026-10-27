@@ -18,6 +18,7 @@ import { sentinelViz } from './viz/sentinel.js';
 import { gatesViz } from './viz/gates.js';
 import { networkViz } from './viz/network.js';
 import { kinoraViz } from './viz/kinora.js';
+import { bridgeViz } from './viz/bridge.js';
 
 const motion = !prefersReducedMotion();
 document.documentElement.classList.toggle('motion', motion);
@@ -50,7 +51,7 @@ whenIdle(() => {
   initForm();
   if (motion && finePointer()) initPointer();
 
-  const VIZ = { sentinel: sentinelViz, gates: gatesViz, network: networkViz, kinora: kinoraViz };
+  const VIZ = { sentinel: sentinelViz, gates: gatesViz, network: networkViz, kinora: kinoraViz, bridge: bridgeViz };
   document.querySelectorAll('[data-viz]').forEach((canvas) => {
     const factory = VIZ[canvas.dataset.viz];
     // The full-bleed network backdrop is large; render it at a lower resolution.

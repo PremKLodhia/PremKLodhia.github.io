@@ -542,6 +542,140 @@
   box-shadow: 0 0 0 4px rgba(242, 183, 102, 0.18), 0 0 14px var(--amber);
 }
 
+/* --- Bridge: the hackathon winner, with a live 3D map --------------------- */
+@media (min-width: 1000px) {
+  .case--bridge .case__grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+  .case--bridge .case__stage { order: 2; }
+  .case--bridge .viz--bridge,
+  .case--bridge .kn-foot { margin-left: auto; }
+}
+
+.viz--bridge {
+  aspect-ratio: 1;
+  max-width: 600px;
+  background:
+    radial-gradient(80% 60% at 50% 58%, rgba(127, 231, 255, 0.09), transparent 70%),
+    linear-gradient(180deg, rgba(14, 19, 26, 0.94), rgba(8, 11, 15, 0.97));
+  box-shadow: inset 0 0 0 1px var(--line), 0 0 0 1px rgba(127, 231, 255, 0.12), var(--shadow-plate);
+}
+
+.br-live i { background: var(--ion); box-shadow: 0 0 8px var(--ion); }
+.kn-model[data-tone='ping'] { color: var(--ion); box-shadow: inset 0 0 0 1px rgba(127, 231, 255, 0.5); }
+.kn-model[data-tone='event'] { color: var(--amber); box-shadow: inset 0 0 0 1px rgba(242, 183, 102, 0.5), 0 0 20px -6px rgba(242, 183, 102, 0.6); }
+
+/* Winner badge: gold plate with a sheen that sweeps across it. */
+.br-award {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 12px 7px 7px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(140deg, rgba(70, 52, 22, 0.92), rgba(30, 25, 16, 0.94));
+  box-shadow: inset 0 0 0 1px rgba(242, 183, 102, 0.55), 0 0 28px -8px rgba(242, 183, 102, 0.55);
+  pointer-events: none;
+}
+
+.br-award::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 236, 200, 0.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+
+.br-award__cup {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(140deg, #ffe0a3, #d98a3a);
+  box-shadow: 0 0 14px rgba(242, 183, 102, 0.6);
+}
+
+.br-award__cup svg { width: 16px; height: 16px; fill: none; stroke: #2a1a06; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.br-award__text { display: grid; gap: 1px; line-height: 1.2; }
+.br-award__text b { color: #ffe2ad; font-size: 0.74rem; font-weight: 640; letter-spacing: 0.01em; }
+.br-award__text small { color: var(--alloy); font-size: 0.62rem; }
+
+.motion .br-award::after { animation: br-sheen 4.2s ease-in-out infinite; }
+.motion .br-award__cup { animation: br-bob 2.8s ease-in-out infinite; }
+
+@keyframes br-sheen {
+  0%, 55% { transform: translateX(-120%); }
+  85%, 100% { transform: translateX(120%); }
+}
+
+@keyframes br-bob { 50% { transform: translateY(-2px) rotate(-4deg); } }
+
+/* Phone notification that narrates the trip. */
+.br-card {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 3;
+  width: min(62%, 290px);
+  pointer-events: none;
+}
+
+.br-card.is-on[data-tone='match'] { box-shadow: inset 0 0 0 1px rgba(127, 231, 255, 0.45), 0 18px 40px -18px rgba(0, 0, 0, 0.9), 0 0 30px -10px rgba(127, 231, 255, 0.5); }
+.br-card.is-on[data-tone='met'] { box-shadow: inset 0 0 0 1px rgba(127, 240, 184, 0.4), 0 18px 40px -18px rgba(0, 0, 0, 0.9); }
+.br-card.is-on[data-tone='event'] { box-shadow: inset 0 0 0 1px rgba(242, 183, 102, 0.5), 0 18px 40px -18px rgba(0, 0, 0, 0.9), 0 0 30px -10px rgba(242, 183, 102, 0.5); }
+.br-card[data-tone='met'] .kn-card__foot { color: var(--ok); }
+.br-card[data-tone='event'] .kn-card__title { color: var(--amber); }
+.br-card__icon { background: linear-gradient(140deg, #9ff0ff, #3b6cff); color: #04122e; }
+
+.plate--bridge {
+  aspect-ratio: 16 / 10;
+  max-width: 200px;
+  --rx: 0deg;
+  --ry: 0deg;
+  box-shadow: var(--shadow-plate), 0 0 0 1px rgba(127, 231, 255, 0.25);
+}
+
+/* The steps light up in cyan as the simulation reaches them. */
+.case--bridge .signal::before { background: linear-gradient(180deg, var(--ion), rgba(127, 231, 255, 0.1)); }
+.case--bridge .signal li::before { box-shadow: inset 0 0 0 1.5px var(--ion); }
+
+.case--bridge[data-phase='request'] .signal li:nth-child(1),
+.case--bridge[data-phase='match'] .signal li:nth-child(2),
+.case--bridge[data-phase='route'] .signal li:nth-child(3),
+.case--bridge[data-phase='event'] .signal li:nth-child(4) {
+  color: var(--frost-2);
+  transform: translateX(6px);
+}
+
+.case--bridge[data-phase='request'] .signal li:nth-child(1) b,
+.case--bridge[data-phase='match'] .signal li:nth-child(2) b,
+.case--bridge[data-phase='route'] .signal li:nth-child(3) b { color: var(--ion); }
+.case--bridge[data-phase='event'] .signal li:nth-child(4) b { color: var(--amber); }
+
+.case--bridge[data-phase='request'] .signal li:nth-child(1)::before,
+.case--bridge[data-phase='match'] .signal li:nth-child(2)::before,
+.case--bridge[data-phase='route'] .signal li:nth-child(3)::before {
+  background: var(--ion);
+  box-shadow: 0 0 0 4px rgba(127, 231, 255, 0.18), 0 0 14px var(--ion);
+}
+
+.case--bridge[data-phase='event'] .signal li:nth-child(4)::before {
+  background: var(--amber);
+  box-shadow: 0 0 0 4px rgba(242, 183, 102, 0.18), 0 0 14px var(--amber);
+}
+
+@media (max-width: 520px) {
+  .viz--bridge { aspect-ratio: 3 / 4; }
+  .br-award { top: 12px; right: 12px; padding: 6px 10px 6px 6px; gap: 7px; }
+  .br-award__cup { width: 24px; height: 24px; }
+  .br-award__text small { display: none; }
+  .case--bridge .kn-hud { top: 56px; }
+  .br-card { left: 12px; right: 12px; bottom: 12px; width: auto; }
+}
+
 @media (max-width: 520px) {
   .viz--kinora { aspect-ratio: 3 / 4; }
   .kn-cards { width: calc(100% - 24px); top: 76px; right: 12px; }
