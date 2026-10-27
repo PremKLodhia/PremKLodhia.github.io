@@ -216,13 +216,13 @@ html_content = """<!DOCTYPE html>
     <div class="section-title">FEATURED SOFTWARE &amp; SYSTEMS PROJECTS</div>
 
     <div class="item-header">
-      <span class="item-title">Sentinel: Real-Time Telemetry &amp; Anomaly Detection Engine <span class="item-subtitle">| C++, Python, FastAPI, Docker, Linux</span></span>
+      <span class="item-title">Sentinel: Real-Time Financial Risk &amp; Anomaly Detection Engine <span class="item-subtitle">| Python, FastAPI, PyTorch, Docker</span></span>
       <span class="item-date"><a href="https://github.com/PremKLodhia" style="color:#000; text-decoration:none;">github.com/PremKLodhia/financial-risk-engine</a></span>
     </div>
     <ul>
-      <li>Architected a high-throughput event processing and observability engine in <strong>C++ and Python</strong>; engineered an in-memory sliding-window accumulator executing <strong>sub-1ms statistical metrics computation</strong> across continuous high-volume sensor streams (6.39ms P99, 198.5 tx/s).</li>
-      <li>Constructed an autonomous <strong>fail-secure state arbiter</strong> evaluating operational invariant conditions and executing programmatic mitigations in <strong>sub-10ms</strong>, preventing cascading outages while persisting tamper-resistant cryptographic audit logs.</li>
-      <li>Containerized services using <strong>Docker on Linux</strong>; engineered comprehensive verification test harnesses simulating out-of-order packet arrival, network jitter, and volume surges, ensuring 99.9%+ pipeline dependability and zero service disruption.</li>
+      <li>Built a real-time transaction risk scoring service in <strong>Python and FastAPI</strong>, combining a statistical rules engine, an <strong>Isolation Forest</strong> and a <strong>PyTorch autoencoder</strong> into an ensemble that returns ALLOW, REVIEW or BLOCK decisions with explainable risk factors.</li>
+      <li>Engineered thread-safe per-account sliding-window features (5-minute, 1-hour and 24-hour velocity, geo-distance) using <strong>lock striping</strong>, verified by a 16-thread concurrency regression test; benchmarked at up to <strong>198 tx/s</strong> with <strong>15.9 ms P99</strong> latency on a laptop CPU.</li>
+      <li>Containerized with <strong>Docker</strong>; wrote a <strong>PyTest</strong> suite and a reproducible evaluation script measuring detection on synthetic attack traffic (<strong>98.5% recall</strong>), with documented limitations.</li>
     </ul>
 
     <div class="item-header">
