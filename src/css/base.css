@@ -94,8 +94,10 @@ main {
 .section {
   position: relative;
   padding-block: var(--section-pad);
-  background: var(--void);
 }
+
+/* Sections are see-through to the ambient backdrop; without scripting they sit on void. */
+.no-js .section:not(.contact) { background: var(--void); }
 
 /* Section heads: a large title with its description set alongside. */
 .section-head {

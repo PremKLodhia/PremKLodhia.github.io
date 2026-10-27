@@ -7,7 +7,7 @@
 export function mountViz(canvas, factory, { motion, maxDpr = 1.5 }) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
-  const viz = factory(ctx);
+  const viz = factory(ctx, { motion });
   let width = 0;
   let height = 0;
   let raf = 0;

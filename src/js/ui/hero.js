@@ -12,7 +12,7 @@ import { clamp, finePointer, smoothstep, webglAvailable } from '../lib/env.js';
 import { countUp } from './counters.js';
 import { startCore } from '../core/client.js';
 
-export function initHero({ motion }) {
+export function initHero({ motion, onCover }) {
   const hero = document.querySelector('[data-hero]');
   const contact = document.querySelector('[data-contact]');
   const stage = document.querySelector('.core');
@@ -48,13 +48,18 @@ export function initHero({ motion }) {
       const vh = window.innerHeight;
       const h = hero.getBoundingClientRect();
       const c = contact ? contact.getBoundingClientRect() : null;
+      // The stage fades out as the hero leaves and back in as contact arrives,
+      // revealing the ambient backdrop behind every section in between.
+      const heroO = smoothstep(vh * 0.3, vh * 0.95, h.bottom);
+      const contactO = c && c.bottom > 0 ? 1 - smoothstep(vh * 0.35, vh * 0.95, c.top) : 0;
       return {
         p: clamp(-h.top / Math.max(1, h.height - vh)),
         heroOn: h.bottom > 0,
         contactOn: !!c && c.top < vh && c.bottom > 0,
+        coreO: Math.max(heroO, contactO),
       };
     },
-    write({ p, heroOn, contactOn }) {
+    write({ p, heroOn, contactOn, coreO }) {
       if (motion) {
         progress = p;
         const introOut = smoothstep(0.5, 0.68, p);
@@ -71,8 +76,10 @@ export function initHero({ motion }) {
         if (profileIn > 0.5) runCounters();
       }
 
-      const visible = heroOn || contactOn;
+      const visible = (heroOn || contactOn) && coreO > 0.001;
       stage.style.visibility = visible ? 'visible' : 'hidden';
+      stage.style.setProperty('--core-o', coreO.toFixed(3));
+      if (onCover) onCover(coreO > 0.999);
       if (core) {
         core.setMode(contactOn && !heroOn ? 'contact' : 'hero');
         core.setProgress(progress);

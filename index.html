@@ -55,7 +55,22 @@
   }
   </script>
 
-  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <script>
+    (function (d) {
+      d.classList.replace('no-js', 'js');
+      // The intro plays on every full load, shorter after the first in a session.
+      // Deep links, reduced motion and automated browsers go straight to content.
+      var q = location.search;
+      var skip = location.hash.length > 1 || /[?&]noloader/.test(q) ||
+        (navigator.webdriver && !/[?&]loader/.test(q)) ||
+        (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+      if (skip) { d.classList.add('loader-skip'); return; }
+      try {
+        if (sessionStorage.getItem('pl-intro')) d.classList.add('loader-quick');
+        sessionStorage.setItem('pl-intro', '1');
+      } catch (e) {}
+    })(document.documentElement);
+  </script>
   <link rel="preload" href="assets/fonts/mona-sans-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="dist/site.css">
@@ -63,7 +78,31 @@
 </head>
 <body>
 
+  <!-- Intro: gimbal rings spool up while the page loads, then lock into the mark -->
+  <div class="loader" aria-hidden="true" data-loader>
+    <div class="loader__frame"><i></i><i></i><i></i><i></i></div>
+    <div class="loader__center">
+      <div class="loader__gimbal">
+        <span class="loader__ring" data-ring="a"></span>
+        <span class="loader__ring" data-ring="b"></span>
+        <span class="loader__ring" data-ring="c"></span>
+        <span class="loader__core"></span>
+      </div>
+      <p class="loader__name"><span style="--i:0">P</span><span style="--i:1">r</span><span style="--i:2">e</span><span style="--i:3">m</span><span style="--i:4">&nbsp;</span><span style="--i:5">L</span><span style="--i:6">o</span><span style="--i:7">d</span><span style="--i:8">h</span><span style="--i:9">i</span><span style="--i:10">a</span></p>
+      <div class="loader__meter">
+        <span class="loader__label" data-loader-label>Initialising core</span>
+        <span class="loader__pct"><b data-loader-pct>000</b>%</span>
+      </div>
+      <div class="loader__bar"><i data-loader-bar></i></div>
+    </div>
+    <ol class="loader__log" data-loader-log><li>&rsaquo; boot <span>portfolio v2026.10</span></li></ol>
+    <p class="loader__coords">52.4862&deg; N &nbsp; 1.8904&deg; W<br>Birmingham, UK</p>
+  </div>
+
   <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Ambient backdrop seen behind every section between the hero and contact -->
+  <div class="ambient" aria-hidden="true"><canvas class="ambient__canvas"></canvas></div>
 
   <!-- The Core: fixed WebGL stage seen through the hero and contact sections -->
   <div class="core" aria-hidden="true">
@@ -174,7 +213,7 @@
     </section>
 
     <!-- SELECTED WORK -->
-    <section id="work" class="section work" aria-labelledby="work-title">
+    <section id="work" class="section work" data-ambient="ion" aria-labelledby="work-title">
       <div class="wrap">
         <header class="section-head">
           <h2 id="work-title" class="section-title" data-split>Selected work</h2>
@@ -330,7 +369,7 @@
       </article>
 
       <!-- Enterprise NDR Platform -->
-      <article class="case case--immersive" id="chapter-ndr" aria-labelledby="ndr-title">
+      <article class="case case--immersive" id="chapter-ndr" data-ambient="cobalt" aria-labelledby="ndr-title">
         <div class="case__backdrop" aria-hidden="true">
           <canvas class="viz__canvas" data-viz="network"></canvas>
         </div>
@@ -370,16 +409,45 @@
       </article>
 
       <!-- KINORA -->
-      <article class="case case--award" id="chapter-kinora" aria-labelledby="kinora-title">
+      <article class="case case--award" id="chapter-kinora" aria-labelledby="kinora-title" data-ambient="amber">
         <div class="wrap case__grid">
           <figure class="case__stage" data-reveal>
-            <button class="plate plate--portrait" type="button" data-tilt data-cursor="Inspect" data-lightbox-src="assets/project-kinora.jpg" data-lightbox-title="KINORA: AI Powered Elderly Care Hardware and Dashboard" data-lightbox-caption="Full stack IoT and ML ecosystem: real-time fall detection, Bluetooth beacon hardware, and clinical dashboard." aria-label="Inspect the KINORA project image">
-              <picture>
-                <source srcset="assets/project-kinora.webp" type="image/webp">
-                <img src="assets/project-kinora.jpg" alt="KINORA AI Elderly Care Ecosystem" loading="lazy" width="800" height="800">
-              </picture>
-              <span class="plate__sheen" aria-hidden="true"></span>
-            </button>
+            <div class="viz viz--kinora" data-kinora>
+              <canvas class="viz__canvas" data-viz="kinora" aria-hidden="true"></canvas>
+              <div class="kn-hud" aria-hidden="true">
+                <span class="kn-live"><i></i>Pendant KN-04 &middot; live</span>
+                <span class="kn-model" data-kn-model data-tone="idle">Activity &middot; walking</span>
+              </div>
+              <div class="kn-cards" aria-hidden="true">
+                <div class="kn-card kn-card--alert" data-kn-card="alert">
+                  <span class="kn-card__icon">K</span>
+                  <div class="kn-card__text">
+                    <p class="kn-card__meta"><b>KINORA family</b><span>now</span></p>
+                    <p class="kn-card__title">Fall detected &middot; Mum</p>
+                    <p class="kn-card__body" data-kn-alert-body>Living room &middot; 3.7 g impact &middot; 0.97</p>
+                    <p class="kn-card__foot" data-kn-alert-meta>GPS fix &middot; battery 82%</p>
+                  </div>
+                </div>
+                <div class="kn-card kn-card--clinic" data-kn-card="clinic">
+                  <span class="kn-card__icon kn-card__icon--clinic">+</span>
+                  <div class="kn-card__text">
+                    <p class="kn-card__meta"><b>Clinician dashboard</b><span>triage</span></p>
+                    <p class="kn-card__title">Urgent &middot; patient KN-04</p>
+                    <p class="kn-card__body">Escalated 1.4 s after impact</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="kn-foot">
+              <button class="plate plate--thumb plate--kinora" type="button" data-tilt data-cursor="Inspect" data-lightbox-src="assets/project-kinora.jpg" data-lightbox-title="KINORA: AI Powered Elderly Care Hardware and Dashboard" data-lightbox-caption="Full stack IoT and ML ecosystem: real-time fall detection, Bluetooth beacon hardware, and clinical dashboard." aria-label="Inspect the KINORA pendant render">
+                <picture>
+                  <source srcset="assets/project-kinora.webp" type="image/webp">
+                  <img src="assets/project-kinora.jpg" alt="KINORA AI Elderly Care Ecosystem" loading="lazy" width="800" height="800">
+                </picture>
+                <span class="plate__sheen" aria-hidden="true"></span>
+              </button>
+              <figcaption class="case__caption">Stylised simulation of the pendant at work: a quick sit-down is classified as benign, a fall crosses the impact threshold and alerts family and clinicians. The figure and signal are synthetic.</figcaption>
+            </div>
           </figure>
           <div class="case__body">
             <p class="award-tag">Innovation Fest 2026, 1st place</p>
@@ -403,10 +471,14 @@
     </section>
 
     <!-- MORE WORK -->
-    <section class="section archive" aria-labelledby="archive-title">
+    <section class="section archive" data-ambient="violet" aria-labelledby="archive-title">
       <div class="wrap">
-        <header class="section-head section-head--row">
+        <header class="section-head section-head--row archive__head">
           <h2 id="archive-title" class="section-title section-title--sm" data-split>More work</h2>
+          <div class="rail-meter" aria-hidden="true">
+            <span class="rail-meter__count"><b data-rail-current>01</b> / 06</span>
+            <span class="rail-meter__bar"><i data-rail-bar></i></span>
+          </div>
           <div class="rail-controls">
             <button class="rail-btn" type="button" data-rail="prev" aria-label="Previous project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
             <button class="rail-btn" type="button" data-rail="next" aria-label="Next project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
@@ -414,8 +486,9 @@
         </header>
       </div>
       <div class="rail" data-rail-track tabindex="0" aria-label="Additional projects, scrollable">
-        <article class="spec" data-tilt>
+        <article class="spec" data-tilt style="--n: 0">
           <div class="spec__media">
+            <span class="spec__index">01<small>/06</small></span>
             <picture>
               <source srcset="assets/project-toolkit.webp" type="image/webp">
               <img src="assets/project-toolkit.jpg" alt="Systems Diagnostics and Telemetry Toolkit" loading="lazy" width="360" height="225">
@@ -430,8 +503,9 @@
           <span class="plate__sheen" aria-hidden="true"></span>
         </article>
 
-        <article class="spec" data-tilt>
+        <article class="spec" data-tilt style="--n: 1">
           <div class="spec__media">
+            <span class="spec__index">02<small>/06</small></span>
             <picture>
               <source srcset="assets/project-hospital.webp" type="image/webp">
               <img src="assets/project-hospital.jpg" alt="Hospital Management System" loading="lazy" width="360" height="225">
@@ -446,8 +520,9 @@
           <span class="plate__sheen" aria-hidden="true"></span>
         </article>
 
-        <article class="spec" data-tilt>
+        <article class="spec" data-tilt style="--n: 2">
           <div class="spec__media">
+            <span class="spec__index">03<small>/06</small></span>
             <picture>
               <source srcset="assets/project-agent.webp" type="image/webp">
               <img src="assets/project-agent.jpg" alt="AI Technical Interview Simulation Engine" loading="lazy" width="360" height="225">
@@ -462,8 +537,9 @@
           <span class="plate__sheen" aria-hidden="true"></span>
         </article>
 
-        <article class="spec" data-tilt>
+        <article class="spec" data-tilt style="--n: 3">
           <div class="spec__media">
+            <span class="spec__index">04<small>/06</small></span>
             <picture>
               <source srcset="assets/project-bridge.webp" type="image/webp">
               <img src="assets/project-bridge.png" alt="Bridge Local Guide" loading="lazy" width="360" height="225">
@@ -481,8 +557,9 @@
           <span class="plate__sheen" aria-hidden="true"></span>
         </article>
 
-        <article class="spec" data-tilt>
+        <article class="spec" data-tilt style="--n: 4">
           <div class="spec__media">
+            <span class="spec__index">05<small>/06</small></span>
             <picture>
               <source srcset="assets/project-vault.webp" type="image/webp">
               <img src="assets/project-vault.jpg" alt="vulnshop-lab" loading="lazy" width="360" height="225">
@@ -497,8 +574,9 @@
           <span class="plate__sheen" aria-hidden="true"></span>
         </article>
 
-        <article class="spec" data-tilt>
+        <article class="spec" data-tilt style="--n: 5">
           <div class="spec__media">
+            <span class="spec__index">06<small>/06</small></span>
             <picture>
               <source srcset="assets/bluetrace-comparison-summary.webp" type="image/webp">
               <img src="assets/bluetrace-comparison-summary.png" alt="bluetrace-lab" loading="lazy" width="360" height="225">
@@ -516,7 +594,7 @@
     </section>
 
     <!-- PRINCIPLES -->
-    <section id="principles" class="section principles" aria-labelledby="principles-title">
+    <section id="principles" class="section principles" data-ambient="ion" aria-labelledby="principles-title">
       <div class="wrap">
         <header class="section-head">
           <h2 id="principles-title" class="section-title" data-split>Principles</h2>
@@ -555,17 +633,33 @@
     </section>
 
     <!-- EXPERIENCE -->
-    <section id="experience" class="section experience" aria-labelledby="experience-title">
+    <section id="experience" class="section experience" data-ambient="cobalt" aria-labelledby="experience-title">
       <div class="wrap">
         <header class="section-head">
           <h2 id="experience-title" class="section-title" data-split>Work experience</h2>
           <p class="section-intro" data-reveal>Security engineering across university infrastructure, leading two student divisions, and building the front end of a 24 page civic guidance platform.</p>
         </header>
 
-        <ol class="timeline" data-timeline>
-          <li class="timeline__rail" aria-hidden="true"><span class="timeline__fill"></span></li>
+        <div class="xp">
+        <!-- Chronograph: a month readout and Gantt chart that rewind as you scroll the roles -->
+        <aside class="chrono" data-chrono aria-hidden="true" hidden>
+          <div class="chrono__head">
+            <span class="chrono__label">Timeline</span>
+            <span class="chrono__hint"><i></i>Scroll to rewind</span>
+          </div>
+          <div class="chrono__readout">
+            <span class="chrono__month" data-chrono-month><span>Aug</span></span>
+            <span class="chrono__year">2026</span>
+          </div>
+          <p class="chrono__date"><span data-chrono-date>2026.08.31</span><span data-chrono-active>1 role active</span></p>
+          <div class="gantt" data-gantt></div>
+          <p class="chrono__stats"><span><b>4</b> roles</span><span><b>6</b> months</span><span><b>3</b> at once</span></p>
+        </aside>
 
-          <li class="role" data-reveal>
+        <ol class="timeline" data-timeline>
+          <li class="timeline__rail" aria-hidden="true"><span class="timeline__fill"></span><span class="timeline__head"></span></li>
+
+          <li class="role" data-reveal data-start="2026-07" data-end="2026-08" data-short="Security intern" data-org="BCU">
             <div class="role__when"><span>Jul – Aug 2026</span><span class="role__where">Birmingham, UK</span></div>
             <div class="role__card">
               <h3 class="role__heading"><button class="role__head" type="button" aria-expanded="false" aria-controls="role-1">
@@ -599,7 +693,7 @@
             </div>
           </li>
 
-          <li class="role" data-reveal>
+          <li class="role" data-reveal data-start="2026-03" data-end="2026-07" data-short="Head of Cyber" data-org="BCUSCA">
             <div class="role__when"><span>Mar – Jul 2026</span><span class="role__where">5 months</span></div>
             <div class="role__card">
               <h3 class="role__heading"><button class="role__head" type="button" aria-expanded="false" aria-controls="role-2">
@@ -641,7 +735,7 @@
             </div>
           </li>
 
-          <li class="role" data-reveal>
+          <li class="role" data-reveal data-start="2026-03" data-end="2026-07" data-short="SE coordinator" data-org="BCUSCA">
             <div class="role__when"><span>Mar – Jul 2026</span><span class="role__where">5 months</span></div>
             <div class="role__card">
               <h3 class="role__heading"><button class="role__head" type="button" aria-expanded="false" aria-controls="role-3">
@@ -683,7 +777,7 @@
             </div>
           </li>
 
-          <li class="role" data-reveal>
+          <li class="role" data-reveal data-start="2026-04" data-end="2026-07" data-short="Full stack intern" data-org="CivitasAccess">
             <div class="role__when"><span>Apr – Jul 2026</span><span class="role__where">Remote / UK</span></div>
             <div class="role__card">
               <h3 class="role__heading"><button class="role__head" type="button" aria-expanded="false" aria-controls="role-4">
@@ -742,11 +836,12 @@
             </div>
           </li>
         </ol>
+        </div>
       </div>
     </section>
 
     <!-- SKILLS -->
-    <section id="skills" class="section skills" aria-labelledby="skills-title">
+    <section id="skills" class="section skills" data-ambient="mint" aria-labelledby="skills-title">
       <div class="wrap">
         <header class="section-head">
           <h2 id="skills-title" class="section-title" data-split>Skills</h2>
@@ -755,25 +850,30 @@
 
         <div class="board" data-board>
           <svg class="board__bus" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 100 10"><path d="M0 5 H100"/></svg>
-          <section class="module" data-reveal aria-labelledby="sk-1">
+          <div class="board__packets" aria-hidden="true"><i></i><i></i><i></i></div>
+          <section class="module" data-spot data-reveal aria-labelledby="sk-1">
+              <div class="module__top" aria-hidden="true"><span class="module__index">01</span><span class="module__led"></span><span class="module__count">10 skills</span></div>
             <h3 id="sk-1" class="module__title">Languages &amp; core systems</h3>
             <ul class="stack">
               <li class="is-key">Java (Core SE 17/21)</li><li>Python (FastAPI, NumPy)</li><li>C / C++ (RAII, Memory)</li><li>TypeScript</li><li>JavaScript</li><li>SQL (PostgreSQL)</li><li>Bash Shell</li><li>C#</li><li>PowerShell</li><li>Swift</li>
             </ul>
           </section>
-          <section class="module" data-reveal aria-labelledby="sk-2">
+          <section class="module" data-spot data-reveal aria-labelledby="sk-2">
+              <div class="module__top" aria-hidden="true"><span class="module__index">02</span><span class="module__led"></span><span class="module__count">11 skills</span></div>
             <h3 id="sk-2" class="module__title">Backend &amp; distributed systems</h3>
             <ul class="stack">
               <li class="is-key">Spring Boot</li><li>FastAPI</li><li>Redis (Distributed Locks)</li><li>Node.js &amp; Express</li><li>PostgreSQL &amp; Schemas</li><li>Apache PDFBox</li><li>Microservices Architecture</li><li>Idempotent API Design</li><li>Sliding-Window Ingestion</li><li>Concurrency (Atomics &amp; Mutexes)</li><li>WebSockets Streaming</li>
             </ul>
           </section>
-          <section class="module" data-reveal aria-labelledby="sk-3">
+          <section class="module" data-spot data-reveal aria-labelledby="sk-3">
+              <div class="module__top" aria-hidden="true"><span class="module__index">03</span><span class="module__led"></span><span class="module__count">9 skills</span></div>
             <h3 id="sk-3" class="module__title">Cloud, systems &amp; testing</h3>
             <ul class="stack">
               <li class="is-key">Operating Systems &amp; Linux</li><li>Docker Containerization</li><li>Kubernetes Foundations</li><li>AWS (EC2, S3, IAM, VPC)</li><li>TDD (JUnit 5, Mockito, PyTest)</li><li>CI/CD (GitHub Actions)</li><li>Cisco CCNA (IP &amp; Routing)</li><li>IBM DevOps Certified</li><li>Git Version Control</li>
             </ul>
           </section>
-          <section class="module" data-reveal aria-labelledby="sk-4">
+          <section class="module" data-spot data-reveal aria-labelledby="sk-4">
+              <div class="module__top" aria-hidden="true"><span class="module__index">04</span><span class="module__led"></span><span class="module__count">8 skills</span></div>
             <h3 id="sk-4" class="module__title">Practices &amp; soft skills</h3>
             <ul class="stack">
               <li class="is-key">Agile &amp; Scrum Delivery</li><li>Technical Mentorship (60+ Students)</li><li>Peer Code Review Clinics</li><li>Clean Architecture &amp; Runbooks</li><li>Test-Driven Development (TDD)</li><li>Cross-Functional Collaboration</li><li>Problem Solving &amp; Algorithmic Analysis</li><li>Continuous Learning &amp; Growth Mindset</li>
@@ -782,18 +882,21 @@
         </div>
 
         <div class="drawer">
-          <button class="link link--btn drawer__toggle" type="button" aria-expanded="false" aria-controls="more-skills">Show specialized competencies and tooling</button>
+          <button class="drawer__toggle" type="button" aria-expanded="false" aria-controls="more-skills"><span class="drawer__icon" aria-hidden="true"></span><span class="drawer__label">Show specialized competencies and tooling</span></button>
           <div class="drawer__body" id="more-skills">
             <div class="drawer__inner">
-              <section class="module module--sub" aria-labelledby="sk-5">
+              <section class="module module--sub" data-spot aria-labelledby="sk-5">
+              <div class="module__top" aria-hidden="true"><span class="module__index">05</span><span class="module__led"></span><span class="module__count">7 skills</span></div>
                 <h3 id="sk-5" class="module__title">Applied AI &amp; Machine Learning</h3>
                 <ul class="stack stack--sm"><li>PyTorch</li><li>scikit-learn</li><li>LangChain</li><li>AI-Native Tooling</li><li>NumPy &amp; Pandas</li><li>Embedding Pipelines</li><li>Model Evaluation</li></ul>
               </section>
-              <section class="module module--sub" aria-labelledby="sk-6">
+              <section class="module module--sub" data-spot aria-labelledby="sk-6">
+              <div class="module__top" aria-hidden="true"><span class="module__index">06</span><span class="module__led"></span><span class="module__count">7 skills</span></div>
                 <h3 id="sk-6" class="module__title">Systems Hardening &amp; Security</h3>
                 <ul class="stack stack--sm"><li>Google Cybersecurity Certified</li><li>HashiCorp Vault</li><li>Zero Trust Architecture</li><li>Open Policy Agent (OPA)</li><li>WebAuthn / FIDO2</li><li>CIS Benchmarks</li><li>Wireshark &amp; Suricata</li></ul>
               </section>
-              <section class="module module--sub" aria-labelledby="sk-7">
+              <section class="module module--sub" data-spot aria-labelledby="sk-7">
+              <div class="module__top" aria-hidden="true"><span class="module__index">07</span><span class="module__led"></span><span class="module__count">7 skills</span></div>
                 <h3 id="sk-7" class="module__title">Frontend &amp; UI Engineering</h3>
                 <ul class="stack stack--sm"><li>React</li><li>React Native &amp; Expo</li><li>HTML5 / CSS3</li><li>Design Systems</li><li>UI/UX Primitives</li><li>Accessibility (WCAG AA)</li><li>Responsive Web</li></ul>
               </section>
@@ -804,7 +907,7 @@
     </section>
 
     <!-- COMPETITIONS -->
-    <section id="competitions" class="section competitions" aria-labelledby="competitions-title">
+    <section id="competitions" class="section competitions" data-ambient="amber" aria-labelledby="competitions-title">
       <div class="wrap">
         <header class="section-head">
           <h2 id="competitions-title" class="section-title" data-split>Competitions and hackathons</h2>
@@ -865,12 +968,19 @@
     </section>
 
     <!-- CREDENTIALS -->
-    <section id="credentials" class="section credentials" aria-labelledby="credentials-title">
+    <section id="credentials" class="section credentials" data-ambient="violet" aria-labelledby="credentials-title">
       <div class="wrap">
         <header class="section-head">
           <h2 id="credentials-title" class="section-title" data-split>Credentials and awards</h2>
           <p class="section-intro" data-reveal>Every certificate with a public record links straight to it.</p>
         </header>
+
+        <dl class="cred-stats" data-reveal>
+          <div><dt>Awards</dt><dd data-cred-stat="awards">3</dd></div>
+          <div><dt>Certifications</dt><dd data-cred-stat="certs">15</dd></div>
+          <div><dt>Publicly verifiable</dt><dd data-cred-stat="verify">11</dd></div>
+          <div><dt>In progress</dt><dd data-cred-stat="pending">2</dd></div>
+        </dl>
 
         <div class="filter" role="group" aria-label="Filter credentials">
           <button type="button" class="filter__btn" data-filter="all" aria-pressed="true">All</button>
@@ -883,139 +993,124 @@
         </div>
         <p class="sr-only" aria-live="polite" data-filter-status></p>
 
-        <ul class="ledger">
-          <li class="entry entry--award" data-category="awards">
-            <span class="entry__status">Winner</span>
-            <span class="entry__title">Innovation Fest — First Place</span>
-            <span class="entry__issuer">Birmingham City University</span>
-            <span class="entry__year">May 2026</span>
-            <span class="entry__link"></span>
+        <ul class="honours" data-cred-group>
+          <li class="entry honour honour--winner" data-category="awards">
+            <svg class="honour__medal" viewBox="0 0 48 48" aria-hidden="true"><path class="honour__ribbon" d="M15 3l7 13M33 3l-7 13"/><circle cx="24" cy="29" r="13"/><circle class="honour__inner" cx="24" cy="29" r="9"/><path class="honour__star" d="M24 23.2l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z"/></svg>
+            <span class="honour__status">Winner</span>
+            <p class="honour__title">Innovation Fest — First Place</p>
+            <p class="honour__meta"><span>Birmingham City University</span><span>May 2026</span></p>
           </li>
-          <li class="entry entry--award" data-category="awards">
-            <span class="entry__status">Winner</span>
-            <span class="entry__title">Unihack x Innovation Fest Hackathon</span>
-            <span class="entry__issuer">Unihack, BCU</span>
-            <span class="entry__year">May 2026</span>
-            <span class="entry__link"></span>
+          <li class="entry honour honour--winner" data-category="awards">
+            <svg class="honour__medal" viewBox="0 0 48 48" aria-hidden="true"><path class="honour__ribbon" d="M15 3l7 13M33 3l-7 13"/><circle cx="24" cy="29" r="13"/><circle class="honour__inner" cx="24" cy="29" r="9"/><path class="honour__star" d="M24 23.2l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z"/></svg>
+            <span class="honour__status">Winner</span>
+            <p class="honour__title">Unihack x Innovation Fest Hackathon</p>
+            <p class="honour__meta"><span>Unihack, BCU</span><span>May 2026</span></p>
           </li>
-          <li class="entry entry--award" data-category="awards">
-            <span class="entry__status">Nominee</span>
-            <span class="entry__title">Most Inspirational Student of the Year</span>
-            <span class="entry__issuer">IAMBCU Awards</span>
-            <span class="entry__year">April 2026</span>
-            <span class="entry__link"></span>
+          <li class="entry honour honour--nominee" data-category="awards">
+            <svg class="honour__medal" viewBox="0 0 48 48" aria-hidden="true"><path class="honour__ribbon" d="M15 3l7 13M33 3l-7 13"/><circle cx="24" cy="29" r="13"/><circle class="honour__inner" cx="24" cy="29" r="9"/><path class="honour__star" d="M24 23.2l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6z"/></svg>
+            <span class="honour__status">Nominee</span>
+            <p class="honour__title">Most Inspirational Student of the Year</p>
+            <p class="honour__meta"><span>IAMBCU Awards</span><span>April 2026</span></p>
           </li>
-          <li class="entry" data-category="security">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Google Cybersecurity Professional Certificate</span>
-            <span class="entry__issuer">Google, Coursera</span>
-            <span class="entry__year">2026</span>
-            <span class="entry__link"><a href="https://coursera.org/share/88984d34613b8c9282df3326cf8e435b" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify Google Cybersecurity Certificate">Verify</a></span>
+        </ul>
+
+        <ul class="certs" data-cred-group>
+          <li class="entry cert" data-category="security">
+            <div class="cert__top"><span class="cert__mark" data-issuer="google" aria-hidden="true">G</span><span class="cert__cat">Security</span></div>
+            <p class="cert__title">Google Cybersecurity Professional Certificate</p>
+            <p class="cert__issuer">Google, Coursera</p>
+            <div class="cert__foot"><span class="cert__year">2026</span><a href="https://coursera.org/share/88984d34613b8c9282df3326cf8e435b" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify Google Cybersecurity Certificate">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="security">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Ethical Hacking</span>
-            <span class="entry__issuer">Credly</span>
-            <span class="entry__year">2026</span>
-            <span class="entry__link"><a href="https://www.credly.com/badges/8542b4b4-ca78-4327-ac8d-3d1644c7802d/linked_in_profile" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify Ethical Hacking Badge">Verify</a></span>
+          <li class="entry cert" data-category="security">
+            <div class="cert__top"><span class="cert__mark" data-issuer="credly" aria-hidden="true">Cr</span><span class="cert__cat">Security</span></div>
+            <p class="cert__title">Ethical Hacking</p>
+            <p class="cert__issuer">Credly</p>
+            <div class="cert__foot"><span class="cert__year">2026</span><a href="https://www.credly.com/badges/8542b4b4-ca78-4327-ac8d-3d1644c7802d/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify Ethical Hacking Badge">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="security">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Cisco Cybersecurity Defense Analyst</span>
-            <span class="entry__issuer">Cisco, Credly</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"><a href="https://www.credly.com/badges/94ba0dae-4126-40e6-acdc-c4aa09301d0f/linked_in_profile" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify Cisco Defense Analyst Badge">Verify</a></span>
+          <li class="entry cert" data-category="security">
+            <div class="cert__top"><span class="cert__mark" data-issuer="cisco" aria-hidden="true">Ci</span><span class="cert__cat">Security</span></div>
+            <p class="cert__title">Cisco Cybersecurity Defense Analyst</p>
+            <p class="cert__issuer">Cisco, Credly</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><a href="https://www.credly.com/badges/94ba0dae-4126-40e6-acdc-c4aa09301d0f/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify Cisco Defense Analyst Badge">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="security">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Cisco Junior Cybersecurity Analyst</span>
-            <span class="entry__issuer">Cisco, Credly</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"><a href="https://www.credly.com/badges/c3cbe177-005c-4919-9457-5d5e707e975d/linked_in_profile" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify Cisco Junior Analyst Badge">Verify</a></span>
+          <li class="entry cert" data-category="security">
+            <div class="cert__top"><span class="cert__mark" data-issuer="cisco" aria-hidden="true">Ci</span><span class="cert__cat">Security</span></div>
+            <p class="cert__title">Cisco Junior Cybersecurity Analyst</p>
+            <p class="cert__issuer">Cisco, Credly</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><a href="https://www.credly.com/badges/c3cbe177-005c-4919-9457-5d5e707e975d/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify Cisco Junior Analyst Badge">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="security">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">IBM Cybersecurity Analyst</span>
-            <span class="entry__issuer">IBM</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"></span>
+          <li class="entry cert" data-category="security">
+            <div class="cert__top"><span class="cert__mark" data-issuer="ibm" aria-hidden="true">IBM</span><span class="cert__cat">Security</span></div>
+            <p class="cert__title">IBM Cybersecurity Analyst</p>
+            <p class="cert__issuer">IBM</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><span class="cert__note">No public link</span></div>
           </li>
-          <li class="entry" data-category="cloud">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Cisco Network Technician</span>
-            <span class="entry__issuer">Cisco, Credly</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"><a href="https://www.credly.com/badges/3628b21d-308a-4501-8e47-2a3b21ce8031/linked_in_profile" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify Cisco Network Technician Badge">Verify</a></span>
+          <li class="entry cert" data-category="cloud">
+            <div class="cert__top"><span class="cert__mark" data-issuer="cisco" aria-hidden="true">Ci</span><span class="cert__cat">Cloud</span></div>
+            <p class="cert__title">Cisco Network Technician</p>
+            <p class="cert__issuer">Cisco, Credly</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><a href="https://www.credly.com/badges/3628b21d-308a-4501-8e47-2a3b21ce8031/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify Cisco Network Technician Badge">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry entry--pending" data-category="cloud">
-            <span class="entry__status">In progress</span>
-            <span class="entry__title">AWS Certified Solutions Architect (SAA-C03)</span>
-            <span class="entry__issuer">Amazon Web Services</span>
-            <span class="entry__year">In progress</span>
-            <span class="entry__link"></span>
+          <li class="entry cert cert--pending" data-category="cloud">
+            <div class="cert__top"><span class="cert__mark" data-issuer="aws" aria-hidden="true">AWS</span><span class="cert__cat">Cloud</span></div>
+            <p class="cert__title">AWS Certified Solutions Architect (SAA-C03)</p>
+            <p class="cert__issuer">Amazon Web Services</p>
+            <div class="cert__foot"><span class="cert__year">In progress</span><span class="cert__progress"><i></i>In progress</span></div>
           </li>
-          <li class="entry entry--pending" data-category="cloud">
-            <span class="entry__status">In progress</span>
-            <span class="entry__title">AWS Certified Cloud Support Associate</span>
-            <span class="entry__issuer">Amazon Web Services</span>
-            <span class="entry__year">Expected 2025</span>
-            <span class="entry__link"></span>
+          <li class="entry cert cert--pending" data-category="cloud">
+            <div class="cert__top"><span class="cert__mark" data-issuer="aws" aria-hidden="true">AWS</span><span class="cert__cat">Cloud</span></div>
+            <p class="cert__title">AWS Certified Cloud Support Associate</p>
+            <p class="cert__issuer">Amazon Web Services</p>
+            <div class="cert__foot"><span class="cert__year">Expected 2025</span><span class="cert__progress"><i></i>In progress</span></div>
           </li>
-          <li class="entry" data-category="ai">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Google AI Essentials</span>
-            <span class="entry__issuer">Google, Coursera</span>
-            <span class="entry__year">2026</span>
-            <span class="entry__link"><a href="https://coursera.org/share/1b95a7552d708ce26ec70a936a4cfeda" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify Google AI Essentials">Verify</a></span>
+          <li class="entry cert" data-category="ai">
+            <div class="cert__top"><span class="cert__mark" data-issuer="google" aria-hidden="true">G</span><span class="cert__cat">AI</span></div>
+            <p class="cert__title">Google AI Essentials</p>
+            <p class="cert__issuer">Google, Coursera</p>
+            <div class="cert__foot"><span class="cert__year">2026</span><a href="https://coursera.org/share/1b95a7552d708ce26ec70a936a4cfeda" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify Google AI Essentials">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="ai">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Fundamentals of AI Agents Using RAG &amp; LangChain</span>
-            <span class="entry__issuer">Vanderbilt, Coursera</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"><a href="https://www.coursera.org/account/accomplishments/verify/8MKHMMLFFFA2" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify AI Agents Certificate">Verify</a></span>
+          <li class="entry cert" data-category="ai">
+            <div class="cert__top"><span class="cert__mark" data-issuer="uni" aria-hidden="true">V</span><span class="cert__cat">AI</span></div>
+            <p class="cert__title">Fundamentals of AI Agents Using RAG &amp; LangChain</p>
+            <p class="cert__issuer">Vanderbilt, Coursera</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><a href="https://www.coursera.org/account/accomplishments/verify/8MKHMMLFFFA2" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify AI Agents Certificate">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="ai">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Introduction to Cloud Computing</span>
-            <span class="entry__issuer">IBM, Coursera</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"><a href="https://www.coursera.org/account/accomplishments/verify/XP16NS40GQ93" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify Cloud Computing Certificate">Verify</a></span>
+          <li class="entry cert" data-category="ai">
+            <div class="cert__top"><span class="cert__mark" data-issuer="ibm" aria-hidden="true">IBM</span><span class="cert__cat">AI</span></div>
+            <p class="cert__title">Introduction to Cloud Computing</p>
+            <p class="cert__issuer">IBM, Coursera</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><a href="https://www.coursera.org/account/accomplishments/verify/XP16NS40GQ93" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify Cloud Computing Certificate">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="ai">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Enterprise Design Thinking Practitioner</span>
-            <span class="entry__issuer">IBM SkillsBuild, Credly</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"><a href="https://www.credly.com/badges/7d19233e-099a-4be5-aaa6-0049e4b72be1/linked_in_profile" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify Design Thinking Badge">Verify</a></span>
+          <li class="entry cert" data-category="ai">
+            <div class="cert__top"><span class="cert__mark" data-issuer="ibm" aria-hidden="true">IBM</span><span class="cert__cat">AI</span></div>
+            <p class="cert__title">Enterprise Design Thinking Practitioner</p>
+            <p class="cert__issuer">IBM SkillsBuild, Credly</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><a href="https://www.credly.com/badges/7d19233e-099a-4be5-aaa6-0049e4b72be1/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify Design Thinking Badge">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="engineering">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">JPMorgan Chase Software Engineering Experience</span>
-            <span class="entry__issuer">JPMorgan Chase, Forage</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"><a href="https://www.theforage.com/completion-certificates/Sj7temL583QAYpHXD/E6McHJDKsQYh79moz_Sj7temL583QAYpHXD_6911a3159c0596e22d01b7e9_1781182675750_completion_certificate.pdf" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify JPMorgan Certificate">Verify</a></span>
+          <li class="entry cert" data-category="engineering">
+            <div class="cert__top"><span class="cert__mark" data-issuer="bank" aria-hidden="true">JPM</span><span class="cert__cat">Engineering</span></div>
+            <p class="cert__title">JPMorgan Chase Software Engineering Experience</p>
+            <p class="cert__issuer">JPMorgan Chase, Forage</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><a href="https://www.theforage.com/completion-certificates/Sj7temL583QAYpHXD/E6McHJDKsQYh79moz_Sj7temL583QAYpHXD_6911a3159c0596e22d01b7e9_1781182675750_completion_certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify JPMorgan Certificate">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="engineering">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Commonwealth Bank Cybersecurity Simulation</span>
-            <span class="entry__issuer">Commonwealth Bank, Forage</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"><a href="https://www.theforage.com/completion-certificates/2sNmYuurxgpFYawco/xv8eSGu7nksKNiCQj_2sNmYuurxgpFYawco_6911a3159c0596e22d01b7e9_1781184061670_completion_certificate.pdf" target="_blank" rel="noopener noreferrer" class="link link--out" aria-label="Verify Commonwealth Certificate">Verify</a></span>
+          <li class="entry cert" data-category="engineering">
+            <div class="cert__top"><span class="cert__mark" data-issuer="bank" aria-hidden="true">CBA</span><span class="cert__cat">Engineering</span></div>
+            <p class="cert__title">Commonwealth Bank Cybersecurity Simulation</p>
+            <p class="cert__issuer">Commonwealth Bank, Forage</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><a href="https://www.theforage.com/completion-certificates/2sNmYuurxgpFYawco/xv8eSGu7nksKNiCQj_2sNmYuurxgpFYawco_6911a3159c0596e22d01b7e9_1781184061670_completion_certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert__verify" aria-label="Verify Commonwealth Certificate">Verify<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M4 3h5v5"/></svg></a></div>
           </li>
-          <li class="entry" data-category="engineering">
-            <span class="entry__status">Earned</span>
-            <span class="entry__title">Meta iOS Developer</span>
-            <span class="entry__issuer">Meta, Coursera</span>
-            <span class="entry__year">2025</span>
-            <span class="entry__link"></span>
+          <li class="entry cert" data-category="engineering">
+            <div class="cert__top"><span class="cert__mark" data-issuer="meta" aria-hidden="true">M</span><span class="cert__cat">Engineering</span></div>
+            <p class="cert__title">Meta iOS Developer</p>
+            <p class="cert__issuer">Meta, Coursera</p>
+            <div class="cert__foot"><span class="cert__year">2025</span><span class="cert__note">No public link</span></div>
           </li>
         </ul>
       </div>
     </section>
 
     <!-- ENDORSEMENTS -->
-    <section id="endorsements" class="section endorsements" aria-labelledby="endorsements-title">
+    <section id="endorsements" class="section endorsements" data-ambient="cobalt" aria-labelledby="endorsements-title">
       <div class="wrap">
         <header class="section-head">
           <h2 id="endorsements-title" class="section-title" data-split>Endorsements</h2>
@@ -1054,7 +1149,7 @@
     </section>
 
     <!-- CYBER INTERVIEW AI -->
-    <section class="section venture" id="business" aria-labelledby="venture-title">
+    <section class="section venture" id="business" data-ambient="ion" aria-labelledby="venture-title">
       <div class="wrap venture__inner" data-reveal>
         <div>
           <p class="venture__tag">Launching soon</p>

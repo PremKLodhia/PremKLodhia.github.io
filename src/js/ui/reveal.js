@@ -45,6 +45,7 @@ export function initReveal({ motion }) {
   });
 
   document.querySelectorAll('.budget__rows li').forEach((li, i) => li.style.setProperty('--i', i));
+  document.querySelectorAll('.module .stack').forEach((stack) => stack.querySelectorAll('li').forEach((li, i) => li.style.setProperty('--i', i)));
 
   const io = new IntersectionObserver(
     (entries) => {

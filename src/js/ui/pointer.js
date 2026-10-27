@@ -110,7 +110,33 @@ function initCursorLabel() {
   });
 }
 
+/** A soft light that follows the pointer across [data-spot] surfaces. */
+function initSpotlight() {
+  document.querySelectorAll('[data-spot]').forEach((el) => {
+    let raf = 0;
+    let e = null;
+    const apply = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--sx', `${(e.clientX - r.left).toFixed(0)}px`);
+      el.style.setProperty('--sy', `${(e.clientY - r.top).toFixed(0)}px`);
+    };
+    el.addEventListener('pointermove', (ev) => {
+      if (ev.pointerType !== 'mouse') return;
+      e = ev;
+      if (!raf) raf = requestAnimationFrame(apply);
+    });
+    el.addEventListener('pointerleave', () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      el.style.removeProperty('--sx');
+      el.style.removeProperty('--sy');
+    });
+  });
+}
+
 export function initPointer() {
+  initSpotlight();
   initTilt();
   initMagnetic();
   initCursorLabel();

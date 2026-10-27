@@ -1,0 +1,289 @@
+/* ==========================================================================
+   Intro loader and the ambient backdrop.
+
+   The loader only exists for scripted visits (`.js`) that have not opted out
+   (`.loader-skip`). If the script never runs, a CSS failsafe hides it.
+   ========================================================================== */
+
+@property --iris {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+.loader { display: none; }
+
+.js:not(.loader-skip) .loader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(40vmax 40vmax at 50% 46%, rgba(127, 231, 255, 0.07), transparent 70%),
+    var(--void);
+  color: var(--frost);
+  animation: loader-failsafe 0s linear 8s forwards;
+}
+
+@keyframes loader-failsafe { to { visibility: hidden; opacity: 0; } }
+
+/* Faint scanlines and a viewfinder frame. */
+.loader::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, rgba(233, 239, 244, 0.018) 0 1px, transparent 1px 4px);
+  pointer-events: none;
+}
+
+.loader__frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.loader__frame i {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: rgba(233, 239, 244, 0.28);
+  border-style: solid;
+  border-width: 0;
+  animation: frame-in 900ms var(--ease-out) both;
+}
+
+.loader__frame i:nth-child(1) { top: 24px; left: 24px; border-top-width: 1px; border-left-width: 1px; }
+.loader__frame i:nth-child(2) { top: 24px; right: 24px; border-top-width: 1px; border-right-width: 1px; --fx: -1; }
+.loader__frame i:nth-child(3) { bottom: 24px; left: 24px; border-bottom-width: 1px; border-left-width: 1px; --fy: -1; }
+.loader__frame i:nth-child(4) { bottom: 24px; right: 24px; border-bottom-width: 1px; border-right-width: 1px; --fx: -1; --fy: -1; }
+
+@keyframes frame-in {
+  from { opacity: 0; transform: translate(calc(var(--fx, 1) * 18px), calc(var(--fy, 1) * 18px)); }
+}
+
+.loader__center {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 28px;
+  width: min(280px, 76vw);
+}
+
+/* --- The gimbal: three rings in real 3D, driven from JS ------------------- */
+.loader__gimbal {
+  position: relative;
+  width: clamp(132px, 34vw, 176px);
+  aspect-ratio: 1;
+  perspective: 700px;
+  transform-style: preserve-3d;
+}
+
+.loader__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(127, 231, 255, 0.82);
+  box-shadow: 0 0 22px -2px rgba(127, 231, 255, 0.45), inset 0 0 22px -2px rgba(127, 231, 255, 0.3);
+  will-change: transform;
+  animation: ring-in 900ms var(--ease-out) both;
+}
+
+.loader__ring[data-ring='b'] { inset: 7%; border-color: rgba(181, 242, 255, 0.7); animation-delay: 90ms; }
+.loader__ring[data-ring='c'] { inset: 14%; border-color: rgba(127, 231, 255, 0.6); animation-delay: 180ms; }
+
+@keyframes ring-in { from { opacity: 0; } }
+
+.loader__core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--ion-strong);
+  box-shadow: 0 0 18px 4px rgba(127, 231, 255, 0.6), 0 0 60px 12px rgba(127, 231, 255, 0.18);
+  animation: core-pulse 1.4s var(--ease-in-out) infinite alternate;
+}
+
+@keyframes core-pulse { from { transform: scale(0.72); opacity: 0.75; } to { transform: scale(1); opacity: 1; } }
+
+/* --- Name, meter, bar ------------------------------------------------------ */
+.loader__name {
+  display: flex;
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem);
+  font-weight: 640;
+  font-stretch: 118%;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.loader__name span {
+  display: inline-block;
+  animation: letter-in 900ms var(--ease-out) both;
+  animation-delay: calc(240ms + var(--i) * 38ms);
+}
+
+@keyframes letter-in { from { transform: translateY(110%); } }
+
+.loader__meter {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: -18px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--alloy);
+  animation: ring-in 700ms ease 400ms both;
+}
+
+.loader__pct { color: var(--frost); font-variant-numeric: tabular-nums; }
+.loader__pct b { font-weight: 500; }
+
+.loader__bar {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: var(--line-strong);
+  animation: ring-in 700ms ease 400ms both;
+}
+
+.loader__bar i {
+  position: absolute;
+  inset: 0;
+  background: var(--ion);
+  box-shadow: 0 0 10px var(--ion);
+  transform-origin: left;
+  transform: scaleX(var(--load, 0));
+}
+
+/* --- Corners: boot log and coordinates ------------------------------------ */
+.loader__log,
+.loader__coords {
+  position: absolute;
+  bottom: 48px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  color: var(--dim);
+}
+
+.loader__log { left: 52px; }
+.loader__log li { animation: log-in 400ms var(--ease-out) both; }
+.loader__log span { color: var(--frost-2); }
+.loader__log .is-ok span { color: var(--ok); }
+@keyframes log-in { from { opacity: 0; transform: translateX(-8px); } }
+
+.loader__coords { right: 52px; text-align: right; animation: ring-in 900ms ease 500ms both; }
+
+@media (max-width: 600px) {
+  .loader__coords { display: none; }
+  .loader__log { left: 40px; bottom: 40px; }
+}
+
+/* --- Lock, then fly through the rings as an iris opens -------------------- */
+.loader.is-locked .loader__core {
+  animation: core-flash 700ms var(--ease-out) forwards;
+}
+
+@keyframes core-flash {
+  0% { transform: scale(1); }
+  40% { transform: scale(2.2); box-shadow: 0 0 40px 14px rgba(181, 242, 255, 0.9), 0 0 120px 40px rgba(127, 231, 255, 0.35); }
+  100% { transform: scale(1.2); }
+}
+
+.loader.is-locked .loader__ring { border-color: var(--ion-strong); }
+
+.loader.is-done {
+  --iris: 150vmax;
+  -webkit-mask: radial-gradient(circle at var(--ix, 50%) var(--iy, 50%), transparent var(--iris), #000 calc(var(--iris) + 2px));
+  mask: radial-gradient(circle at var(--ix, 50%) var(--iy, 50%), transparent var(--iris), #000 calc(var(--iris) + 2px));
+  transition: --iris 1000ms cubic-bezier(0.7, 0, 0.2, 1), opacity 500ms ease 700ms;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader.is-done .loader__gimbal {
+  transform: scale(7);
+  opacity: 0;
+  transition: transform 1100ms cubic-bezier(0.7, 0, 0.2, 1), opacity 700ms ease 300ms;
+}
+
+.loader.is-done .loader__name,
+.loader.is-done .loader__meter,
+.loader.is-done .loader__bar,
+.loader.is-done .loader__log,
+.loader.is-done .loader__coords,
+.loader.is-done .loader__frame {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 300ms ease, transform 500ms var(--ease-out);
+}
+
+/* --- Hero entrance once the loader opens --------------------------------- */
+.motion .hero__kicker,
+.motion .hero__word > span,
+.motion .hero__lead,
+.motion .hero__intro .status,
+.motion .hero__actions {
+  transition: opacity 900ms var(--ease-out), transform 1100ms var(--ease-out);
+  transition-delay: calc(var(--e, 0) * 1ms);
+}
+
+.motion .hero__kicker { --e: 0; }
+.motion .hero__word:nth-child(1) > span { --e: 80; }
+.motion .hero__word:nth-child(2) > span { --e: 160; }
+.motion .hero__word:nth-child(3) > span { --e: 240; }
+.motion .hero__lead { --e: 380; }
+.motion .hero__intro .status { --e: 460; }
+.motion .hero__actions { --e: 540; }
+
+.motion:not(.is-ready) .hero__kicker,
+.motion:not(.is-ready) .hero__lead,
+.motion:not(.is-ready) .hero__intro .status,
+.motion:not(.is-ready) .hero__actions {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+}
+
+.motion:not(.is-ready) .hero__word > span {
+  opacity: 0;
+  transform: translate3d(0, 0.45em, 0) rotateX(-40deg);
+  transform-origin: 50% 100%;
+}
+
+/* ==========================================================================
+   Ambient backdrop
+   ========================================================================== */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--void);
+}
+
+.ambient__canvas {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1200ms ease;
+}
+
+.ambient.is-live .ambient__canvas { opacity: 1; }
+
+.ambient--static {
+  background:
+    radial-gradient(60vmax 50vmax at 80% 20%, rgba(59, 108, 255, 0.08), transparent 70%),
+    radial-gradient(50vmax 40vmax at 15% 80%, rgba(127, 231, 255, 0.06), transparent 70%),
+    var(--void);
+}
+
+.ambient--static .ambient__canvas { display: none; }
