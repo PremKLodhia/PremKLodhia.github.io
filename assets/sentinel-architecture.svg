@@ -52,14 +52,14 @@
   <g transform="translate(175, 95)">
     <rect class="node-box" width="140" height="70" />
     <text class="node-text-title" x="70" y="32" text-anchor="middle">Feature Store</text>
-    <text class="node-text-sub" x="70" y="50" text-anchor="middle">Sliding Windows &lt;1ms</text>
+    <text class="node-text-sub" x="70" y="50" text-anchor="middle">Sliding Windows</text>
   </g>
 
   <!-- Node 3: Validation -->
   <g transform="translate(350, 95)">
     <rect class="node-box-accent" width="120" height="70" />
     <text class="node-text-title" x="60" y="32" text-anchor="middle" fill="#0071e3">3-Tier Ensemble</text>
-    <text class="node-text-sub" x="60" y="50" text-anchor="middle">Parallel Evaluation</text>
+    <text class="node-text-sub" x="60" y="50" text-anchor="middle">Tiered Evaluation</text>
   </g>
 
   <!-- Tier 1: Statistical Risk Engine -->
@@ -87,6 +87,6 @@
   <g transform="translate(690, 95)">
     <rect class="node-box-accent" width="120" height="70" />
     <text class="node-text-title" x="60" y="32" text-anchor="middle">Risk Engine</text>
-    <text class="node-text-sub" x="60" y="50" text-anchor="middle">P99 6.39ms Decision</text>
+    <text class="node-text-sub" x="60" y="50" text-anchor="middle">Sequential Scoring</text>
   </g>
 </svg>

@@ -191,9 +191,9 @@
                 <dd class="readout__note">96% Programming, 86% Algorithms</dd>
               </div>
               <div class="readout">
-                <dt class="readout__label">P99 latency SLA</dt>
-                <dd class="readout__value" data-count="&lt;10ms">&lt;10ms</dd>
-                <dd class="readout__note">6.39 ms benchmarked single core</dd>
+                <dt class="readout__label">Sentinel throughput</dt>
+                <dd class="readout__value" data-count="198tx/s">198tx/s</dd>
+                <dd class="readout__note">Best of 3 benchmark runs, laptop CPU</dd>
               </div>
               <div class="readout">
                 <dt class="readout__label">Shipped systems</dt>
@@ -234,7 +234,7 @@
               </div>
             </div>
             <figcaption class="case__caption">Stylised transaction stream scored by the three tier ensemble. Not live data; the benchmarks beside it are measured.</figcaption>
-            <button class="plate plate--sentinel" type="button" data-cursor="Inspect" data-lightbox-src="assets/project-sentinel.png" data-lightbox-title="Sentinel: Financial Risk and Anomaly Detection Dashboard" data-lightbox-caption="Real-time quantitative risk engine benchmarking sub-10ms P99 latency and 198.5 tx/s throughput." aria-label="Inspect the Sentinel dashboard screenshot">
+            <button class="plate plate--sentinel" type="button" data-cursor="Inspect" data-lightbox-src="assets/project-sentinel.png" data-lightbox-title="Sentinel: Financial Risk and Anomaly Detection Dashboard" data-lightbox-caption="Real-time risk engine dashboard. Measured on a laptop CPU: 81 to 198 tx/s, P99 latency 15.9 to 24.2 ms." aria-label="Inspect the Sentinel dashboard screenshot">
               <picture>
                 <source srcset="assets/project-sentinel.webp" type="image/webp">
                 <img src="assets/project-sentinel.png" alt="Sentinel Financial Risk Engine Dashboard" loading="lazy" width="800" height="450">
@@ -250,18 +250,17 @@
             </div>
             <div class="case__data">
               <dl class="metrics">
-                <div><dt>P99 latency</dt><dd>6.39 ms</dd></div>
-                <div><dt>Single core throughput</dt><dd>198.5 <small>tx/s</small></dd></div>
-                <div><dt>ROC-AUC</dt><dd>0.984</dd></div>
+                <div><dt>P99 latency</dt><dd>15.9 <small>ms</small></dd></div>
+                <div><dt>Throughput</dt><dd>198 <small>tx/s</small></dd></div>
+                <div><dt>Attack recall</dt><dd>98.5%</dd></div>
               </dl>
-              <div class="budget" data-reveal aria-label="P99 latency per pipeline stage against the 10 millisecond SLA">
-                <p class="budget__title">P99 per stage against the 10 ms SLA</p>
+              <div class="budget" data-reveal aria-label="End to end P99 latency across three benchmark runs against the 15 millisecond target">
+                <p class="budget__title">End to end P99 per benchmark run, laptop CPU</p>
                 <ul class="budget__rows">
-                  <li style="--v: 0.089"><span>Feature extraction</span><b>0.89 ms</b></li>
-                  <li style="--v: 0.031"><span>Tier 1 statistical</span><b>0.31 ms</b></li>
-                  <li style="--v: 0.345"><span>Tier 2 isolation forest</span><b>3.45 ms</b></li>
-                  <li style="--v: 0.412"><span>Tier 3 autoencoder</span><b>4.12 ms</b></li>
-                  <li class="is-total" style="--v: 0.639"><span>End to end ensemble</span><b>6.39 ms</b></li>
+                  <li style="--v: 0.966"><span>Run 1</span><b>24.16 ms</b></li>
+                  <li style="--v: 0.923"><span>Run 2</span><b>23.08 ms</b></li>
+                  <li style="--v: 0.635"><span>Run 3</span><b>15.88 ms</b></li>
+                  <li class="is-total" style="--v: 0.6"><span>Target</span><b>15 ms</b></li>
                 </ul>
               </div>
             </div>
@@ -1231,28 +1230,29 @@
         <h2 class="sheet__title" id="modal-sentinel-title">Sentinel Financial Risk &amp; Anomaly Detection Engine</h2>
         <p class="sheet__lead">Real time financial risk and anomaly detection with a three tier ensemble.</p>
         <dl class="metrics metrics--boxed">
-          <div><dt>P99 latency SLA</dt><dd>6.39 ms</dd></div>
-          <div><dt>Single core throughput</dt><dd>198.5 <small>tx/s</small></dd></div>
-          <div><dt>ROC-AUC detection</dt><dd>0.984</dd></div>
+          <div><dt>P99 latency (best run)</dt><dd>15.9 <small>ms</small></dd></div>
+          <div><dt>Throughput (best run)</dt><dd>198 <small>tx/s</small></dd></div>
+          <div><dt>Attack recall (synthetic)</dt><dd>98.5%</dd></div>
         </dl>
         <h3>Overview</h3>
-        <p>Sentinel is an ultra-low-latency, multi-model real-time risk scoring and financial surveillance engine designed for capital markets, payment processors, and investment banks. It processes real-time transaction streams, maintains stateful sliding window accumulators with sub-1ms feature extraction, and executes parallel inference across statistical models, tree-based isolation, and deep neural reconstruction.</p>
+        <p>Sentinel is a multi-model real-time risk scoring and financial surveillance engine designed for capital markets, payment processors, and investment banks. It processes real-time transaction streams, maintains stateful per-account sliding window accumulators, and scores each transaction sequentially through statistical models, tree-based isolation, and deep neural reconstruction.</p>
         <h3>Architecture &amp; Data Pipeline</h3>
         <div class="diagram"><object type="image/svg+xml" data="assets/sentinel-architecture.svg" aria-label="Sentinel architecture diagram"></object></div>
-        <h3>Empirical Benchmark Results</h3>
+        <h3>Measured Benchmark Results</h3>
+        <p>End to end pipeline, three runs of the repository's benchmark on an Intel i7-1360P laptop (Windows 11, Python 3.13, CPU-only PyTorch). Results vary between runs; the 15 ms P99 target was not met.</p>
         <div class="table-wrap">
           <table class="table">
-            <thead><tr><th>Execution Stage</th><th>P50 Latency</th><th>P99 Latency</th><th>Throughput</th></tr></thead>
+            <thead><tr><th>Run</th><th>P50 Latency</th><th>P95 Latency</th><th>P99 Latency</th><th>Throughput</th></tr></thead>
             <tbody>
-              <tr><td>Feature Extraction (Sliding Windows)</td><td>0.42 ms</td><td>0.89 ms</td><td>1,120 tx/s</td></tr>
-              <tr><td>Tier 1: Statistical Risk Engine (EWMA/IQR)</td><td>0.15 ms</td><td>0.31 ms</td><td>3,200 tx/s</td></tr>
-              <tr><td>Tier 2: Isolation Forest Outlier Scoring</td><td>1.82 ms</td><td>3.45 ms</td><td>280 tx/s</td></tr>
-              <tr><td>Tier 3: PyTorch Deep Autoencoder (MSE)</td><td>2.10 ms</td><td>4.12 ms</td><td>240 tx/s</td></tr>
-              <tr class="is-total"><td>End-to-End Ensemble Pipeline</td><td>3.18 ms</td><td>6.39 ms</td><td>198.5 tx/s</td></tr>
+              <tr><td>Run 1</td><td>11.56 ms</td><td>19.38 ms</td><td>24.16 ms</td><td>82.0 tx/s</td></tr>
+              <tr><td>Run 2</td><td>11.48 ms</td><td>17.86 ms</td><td>23.08 ms</td><td>81.2 tx/s</td></tr>
+              <tr><td>Run 3</td><td>3.33 ms</td><td>13.34 ms</td><td>15.88 ms</td><td>198.0 tx/s</td></tr>
             </tbody>
           </table>
         </div>
-        <ul class="stack stack--sm"><li>Python 3.11</li><li>FastAPI</li><li>PyTorch</li><li>scikit-learn</li><li>Docker</li><li>P99 &lt;10ms SLA</li></ul>
+        <h3>Detection Quality (synthetic data)</h3>
+        <p>Measured by <code>scripts/evaluate.py</code> on 5,000 simulated transactions (1,352 attacks): ROC-AUC 0.597, precision 0.273, recall 0.985. Recall is high, but precision is low because the simulator stamps transactions with wall-clock time, so normal traffic trips the transaction velocity rule.</p>
+        <ul class="stack stack--sm"><li>Python</li><li>FastAPI</li><li>PyTorch</li><li>scikit-learn</li><li>Docker</li><li>P99 &lt;15ms target</li></ul>
         <div class="sheet__foot">
           <a href="https://github.com/PremKLodhia" target="_blank" rel="noopener noreferrer" class="btn">View GitHub repository</a>
           <button class="link link--btn" type="button" data-modal="modal-invoiceops">Next project: InvoiceOps</button>
